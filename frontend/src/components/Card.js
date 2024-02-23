@@ -2,7 +2,7 @@ import {motion} from 'framer-motion';
 import {useState} from 'react';
 import React from 'react';
 import './Card.css'
-import triangle from './triangle.png';
+import triangle from '../assets/triangle.png';
 
 function Card({title, dueDate, category, timeEst, body}){
     const [isOpen, setIsOpen] = useState(false);
