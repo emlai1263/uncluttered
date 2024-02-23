@@ -13,14 +13,7 @@ function App() {
   return (
     <div className="App">
       {
-        currentForm === "login" ? <LoginPage onFormSwitch={toggleForm}/> : <RegisterPage onFormSwitch={toggleForm}/>
-        <Card
-      title = 'Task  vijiojgiojeroigj iojiojreioj jiovjrieo ijiojio'
-      dueDate = '--/--/----'
-      category = 'Category'
-      timeEst= '0'
-      body = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut et dolore magna aliqua. Sapien eget mi proin sed libero enim. Egestas erat imperdiet sed euismod nisi porta lorem. Ante in nibh mauris cursus'
-      />
+        currentForm === "login" ? <LoginPage onFormSwitch={toggleForm}/> : <RegisterPage onFormSwitch={toggleForm} />
       }
     </div>
   );

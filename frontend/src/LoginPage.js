@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Card from './components/Card';
 
 export const LoginPage = (props) => {
     const [username, setUsername] = useState('');
@@ -19,6 +20,13 @@ export const LoginPage = (props) => {
                 <p>Forgot my password. Click <button>here</button> to reset</p>
                 <button className="button" onClick={() => props.onFormSwitch('register  ')}>Register a new account</button>
             </form>
+            <Card
+                title = 'Task  vijiojgiojeroigj iojiojreioj jiovjrieo ijiojio'
+                dueDate = '--/--/----'
+                category = 'Category'
+                timeEst= '0'
+                body = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut et dolore magna aliqua. Sapien eget mi proin sed libero enim. Egestas erat imperdiet sed euismod nisi porta lorem. Ante in nibh mauris cursus'
+            />
         </div>
     )
 }
