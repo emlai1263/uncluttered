@@ -19,10 +19,11 @@ Code Style and Linter Installation Instructions:
 7. Click on "Extensions" in VSCode, and search for "ESLint." Select "install."
 8. Navigate to the "Project Settings" section of the Prettier ESLint installation instructions and follow steps 1-4. At this point, you should have a settings.json file in your to-do-list/.vscode folder, and you should have restarted VSCode.
 10. Test that the extensions are correctly installed through the following steps:
-   a. Navigate to any arbitrary file in the to-do-list folder. Inside the body of any function, offset the tabs such that the statements are not in line with each other.
-   b. Type CMD + S (for Mac), or CTRL + S (for Windows) to save the code. The statements in the body of your selected function should now be in line with each other. This means that Prettier is correctly installed.
-   c. In the same file, type the following inside any function: const unused = 5;
-   d. The variable unused should be underlined as an error. Hover over it to ensure that it is an error thrown by ESLint, saying "'unused' is assigned a value but never used." If this error appears, then ESLint is installed correctly.
+    
+   - Navigate to any arbitrary file in the to-do-list folder. Inside the body of any function, offset the tabs such that the statements are not in line with each other.
+   - Type CMD + S (for Mac), or CTRL + S (for Windows) to save the code. The statements in the body of your selected function should now be in line with each other. This means that Prettier is correctly installed.
+   - In the same file, type the following inside any function: const unused = 5;
+   - The variable unused should be underlined as an error. Hover over it to ensure that it is an error thrown by ESLint, saying "'unused' is assigned a value but never used." If this error appears, then ESLint is installed correctly.
 
 
 Figma Storyboard: https://www.figma.com/file/ywLnHZ6rao4ppC5qqaLCFQ/308-To-do-List?type=design&node-id=0%3A1&mode=design&t=8RKLbxvSnlpiEl7U-1
