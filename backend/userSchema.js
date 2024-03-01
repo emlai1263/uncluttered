@@ -1,26 +1,26 @@
 const mongoose = require('mongoose')
+const { Schema } = mongoose;
 
-const taskSchema = mongoose.Schema({
-  type: object,
+const taskSchema = new Schema({
+  type: Object,
   properties: {
-    id: { type: String },
-    name: { type: String },
+    task_id: { type: Schema.Types.ObjectId },
+    title: { type: String },
     dueDate: { type: String },
     category: { type: String },
-    password: { type: String },
-    timeEstimate: { type: float },
-    taskBody: { type: String }
+    timeEst: { type: Number }, // Assuming timeEst is supposed to be a floating-point number
+    body: { type: String }
   }
 })
 
 const userSchema = mongoose.Schema({
-  type: object,
+  type: Object,
   properties: {
     name: { type: String },
     username: { type: String },
     email: { type: String },
     password: { type: String },
-    task_list: {
+    tasks: {
       type: Array,
       properties: {
         task: [taskSchema]
@@ -28,3 +28,6 @@ const userSchema = mongoose.Schema({
     }
   }
 })
+
+module.exports = userSchema;
+module.exports = taskSchema;

@@ -15,9 +15,9 @@ app.get("/", (req, res) => {
 
 app.get("/users", async (req, res) => {
   const name = req.query["name"];
-  const username = req.query["username"];
+  const username = req.query["username"]; 
   try {
-    const result = await userServices.getUsers(name, username);
+    const result = await userServices.getUsers(name);
     res.send({ users_list: result });
   } catch (error) {
     console.log(error);
@@ -28,6 +28,17 @@ app.get("/users", async (req, res) => {
 app.get("/users/:id", async (req, res) => {
   const id = req.params["id"];
   const result = await userServices.findUserById(id);
+  if (result === undefined || result === null)
+    res.status(404).send("Resource not found.");
+  else {
+    res.send({ users_list: result });
+  }
+});
+
+// get tasks from a user
+app.get("/users/:user/tasks", async (req, res) => {
+  const user = req.params["user"];
+  const result = await userServices.findUserByUsername(user);
   if (result === undefined || result === null)
     res.status(404).send("Resource not found.");
   else {

@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
-const UserSchema = require("./user");
+const userSchema = require("./userSchema");
 const dotenv = require("dotenv");
+const taskSchema = require("./userSchema");
 dotenv.config();
 
 let dbConnection;
 
 function getDbConnection() {
+  console.log(process.env.MONGODB_URI);
   if (!dbConnection) {
     dbConnection = mongoose.createConnection(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -16,12 +18,24 @@ function getDbConnection() {
 }
 
 async function getUsers(name) {
-  const userModel = getDbConnection().model("User", UserSchema);
+  const userModel = getDbConnection().model("User", userSchema);
   let result;
   if (name === undefined) {
     result = await userModel.find();
   } else {
     result = await findUserByName(name);
+  }
+  return result;
+}
+
+async function getTasks(user) {
+  const userModel = getDbConnection().model("Task", taskSchema);
+  let result;
+  if (user === undefined) {
+    result = await userModel.find();
+  } else {
+    // result = await findUserByName(user);
+    result = await userModel({ user });
   }
   return result;
 }
