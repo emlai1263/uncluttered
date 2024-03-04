@@ -1,78 +1,66 @@
-const taskModel = require("./task");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const taskSchema = require("./userSchema");
+const userSchema = require("./userSchema");
+const taskSchema = require("./Task");
+const { ObjectId } = require('mongodb');
 dotenv.config();
 
-async function getTasksForUser(user) {
-  const userModel = getDbConnection().model("User", userSchema);
-  const user = await userModel.findOne({ name: user });
-  if (!user) {
-    throw new Error("User not found");
+let dbConnection;
+function getDbConnection() {
+  if (!dbConnection) {
+    dbConnection = mongoose.createConnection(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
   }
-  
-  const tasks = user.tasks; // Accessing the 'tasks' array from the 'pet' object
-  return tasks;
+  return dbConnection;
 }
 
-// async function findUserById(id) {
-//   // try {
-//   return await petModel.findById(id);
-//   // } catch (error) {
-//   //   console.log(error);
-//   //   return undefined;
-//   // }
-// }
-
-async function addTask(user, task) {
-  const userModel = getDbConnection().model("User", userSchema);
-  try {
-    // Find the user by ID
-    const existingUser = await userModel.findUserByName(user);
-    
-    if (!existingUser) {
-      throw new Error("User not found");
+// list all tasks from user with id
+async function getTasks(userId) {
+  const userModel = getDbConnection().model("User", userSchema);    
+  const taskModel = getDbConnection().model("Task", taskSchema);
+  // make sure the user is valid
+    try{
+        await userModel.findById(userId);
+    }catch(error) {
+        console.log("User not found");
+        return undefined;
     }
-    
-    // Add the task to the tasks array in the user object
-    existingUser.tasks.push(task);
-    
-    // Save the updated user object
-    const savedUser = await existingUser.save();
-    return savedUser;
-  } catch (error) {
-    console.log(error);
-    return false;
+
+    tasks = taskModel.find({userId : userId});
+    return tasks;
+}
+
+// delete a task by its ID
+async function deleteTask(taskID) {
+  const taskModel = getDbConnection().model("Task", userSchema);    
+  try{
+      console.log("task deleted");
+      return await taskModel.findByIdAndDelete(taskID);
+  }catch(error) {
+      console.log(error);
+      return undefined;
   }
 }
 
-async function findUserByName(name) {
-  const userModel = getDbConnection().model("User", userSchema);
-  return await userModel.find({ name: name });
+// add task
+async function addTask(task){
+  // userModel is a Model, a subclass of mongoose.Model
+  const taskModel = getDbConnection().model("Task", taskSchema);
+  try{
+      // passing the JSON content of the Document:
+      const taskToAdd = new taskModel(task);
+      const savedTask = await taskToAdd.save()
+      return savedTask;
+  }catch(error) {
+      console.log(error);
+      return false;
+  }   
 }
 
-async function findPetByType(type) {
-  return await petModel.find({ type: type });
-}
-
-async function findPetByNameAndType(name, type) {
-  return await petModel.find({ name: name, type: type });
-}
-
-async function deletePet(id) {
-  return await petModel.findByIdAndDelete(id);
-}
-
-// async function disconnectDB() {
-//   await mongoose.connection.close();
-//   await mongoose.disconnect();
-// }
-
-exports.getPets = getPets;
-exports.findPetById = findPetById;
-exports.findPetByName = findPetByName;
-exports.findPetByType = findPetByType;
-exports.findPetByNameAndType = findPetByNameAndType;
-exports.addPet = addPet;
-exports.deletePet = deletePet;
-// exports.disconnectDB = disconnectDB;
+module.exports = {
+  getTasks,
+  deleteTask,
+  addTask,
+};
