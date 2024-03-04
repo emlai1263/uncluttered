@@ -17,6 +17,11 @@ input {
   margin: 0.5rem 0;
 }
 
+.header {
+  align-items: center;
+  background-color: #D8E5E1;
+}
+
 .button {
   border: none;
   background-color: #496755;

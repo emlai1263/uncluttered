@@ -56,3 +56,13 @@ app.post("/users", async (req, res) => {
 app.listen(process.env.PORT || port, () => {
   console.log("REST API is listening.");
 });
+
+app.post("/register", registerUser);
+app.post("/login", loginUser);
+
+app.post("/users", authenticateUser, (req, res) => {
+  const userToAdd = req.body;
+  Users.addUser(userToAdd).then((result) =>
+    res.status(201).send(result)
+  );
+});

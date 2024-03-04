@@ -16,7 +16,7 @@ export const RegisterPage = (props) => {
                 <input value={username} onChange={(e) => setUsername(e.target.value)} type="username" placeholder="Username" id="username" name="username"/>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email"/>
                 <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" id="password" name="password"/>
-                <input value={confirmPass} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Confirm Password" id="password" name="password"/>
+                <input value={confirmPass} onChange={(e) => setConfirmPassword(e.target.value)} type="password" placeholder="Confirm Password" id="password" name="password"/>
                 <br></br>
                 <button className="button" onClick={() => props.onFormSwitch('login')} type="submit">Register</button>
             </form>
