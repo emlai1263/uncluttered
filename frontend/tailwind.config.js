@@ -5,7 +5,7 @@ module.exports = {
     colors: {
       forest: "#496755",
       blue: "#697F87",
-      "blue-dark": "5D7178",
+      "blue-dark": "#5D7178",
       beige: "#DCD3C9",
       "beige-dark": "#CDC5BC",
       sky: "#D8E5E1",
@@ -24,7 +24,14 @@ module.exports = {
         600: "#475569",
       },
     },
+    container: {
+      center: true,
+      padding: "2rem",
+    },
+    fontFamily: {
+      outfit: ["Outfit", "sans-serif"],
+      inter: ["Inter", "sans-serif"],
+    },
   },
-  fontFamily: {},
   plugins: [],
 };
