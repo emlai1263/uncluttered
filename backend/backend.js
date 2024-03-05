@@ -38,7 +38,15 @@ app.get("/users/:id", async (req, res) => {
   }
 });
 
-// get tasks from a user
+// add users
+app.post("/users", async (req, res) => {
+  const user = req.body;
+  const savedUser = await userServices.addUser(user);
+  if (savedUser) res.status(201).send(savedUser);
+  else res.status(500).end();
+});
+
+// get tasks from a user's id
 app.get("/tasks/:id", async (req, res) => {
   const userId = req.params["id"];
   const result = await taskServices.getTasks(userId);
@@ -49,26 +57,18 @@ app.get("/tasks/:id", async (req, res) => {
   }
 });
 
-// delete a task from user
+// delete a task via user id
 app.delete("/tasks/:id", async (req, res) => {
   const id = req.params["id"];
   if (taskServices.deleteTask(user, id)) res.status(204).end();
   else res.status(404).send("Resource not found.");
 });
 
-// task a task
+// add a task
 app.post("/tasks", async (req, res) => {
   const task = req.body;
   const savedTask = await taskServices.addTask(task);
   if (savedTask) res.status(201).send(savedTask);
-  else res.status(500).end();
-});
-
-// add users
-app.post("/users", async (req, res) => {
-  const user = req.body;
-  const savedUser = await userServices.addUser(user);
-  if (savedUser) res.status(201).send(savedUser);
   else res.status(500).end();
 });
 

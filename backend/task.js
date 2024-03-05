@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const taskSchema = new mongoose.Schema(
   {
     userId: {
-      // type: mongoose.Types.ObjectId,
       type: Object,
       required: true,
       trim: true,
