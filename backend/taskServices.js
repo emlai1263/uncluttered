@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userSchema = require("./userSchema");
 const taskSchema = require("./Task");
-const { ObjectId } = require('mongodb');
 dotenv.config();
 
 let dbConnection;
