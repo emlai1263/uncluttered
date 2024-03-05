@@ -58,8 +58,24 @@ async function addTask(task){
   }   
 }
 
+// edit tasks
+async function editTask(taskId, taskEdits){
+  const taskModel = getDbConnection().model("Task", taskSchema);
+  try{
+      const editedTask = await taskModel.findOneAndUpdate(
+        { _id: taskId },
+        taskEdits, {
+        returnOriginal: false});
+      return editedTask;
+  }catch(error) {
+      console.log("Failed to edit task");
+      return false;
+  }   
+}
+
 module.exports = {
   getTasks,
   deleteTask,
   addTask,
+  editTask,
 };

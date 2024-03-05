@@ -57,7 +57,7 @@ app.get("/tasks/:id", async (req, res) => {
   }
 });
 
-// delete a task its id
+// delete a task via its id
 app.delete("/tasks/:id", async (req, res) => {
   const id = req.params["id"];
   if (taskServices.deleteTask(id)) res.status(204).end();
@@ -72,11 +72,12 @@ app.post("/tasks", async (req, res) => {
   else res.status(500).end();
 });
 
-// edit a task (can edit parts if you want)
-app.post("/tasks", async (req, res) => {
-  const task = req.body;
-  const savedTask = await taskServices.addTask(task);
-  if (savedTask) res.status(201).send(savedTask);
+// edit a task via its id, add edits to body of request
+app.patch("/tasks/:id", async (req, res) => {
+  const id = req.params["id"];
+  const taskEdits = req.body;
+  const editedTask = await taskServices.editTask(id, taskEdits);
+  if (editedTask) res.status(201).send(editedTask);
   else res.status(500).end();
 });
 
@@ -86,12 +87,12 @@ app.listen(process.env.PORT || port, () => {
 });
 
 // authentification
-// app.post("/register", registerUser);
-// app.post("/login", loginUser);
+app.post("/register", registerUser);
+app.post("/login", loginUser);
 
-// app.post("/users", authenticateUser, (req, res) => {
-//   const userToAdd = req.body;
-//   Users.addUser(userToAdd).then((result) =>
-//     res.status(201).send(result)
-//   );
-// });
+app.post("/users", authenticateUser, (req, res) => {
+  const userToAdd = req.body;
+  Users.addUser(userToAdd).then((result) =>
+    res.status(201).send(result)
+  );
+});
