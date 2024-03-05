@@ -33,7 +33,7 @@ async function getTasks(userId) {
 
 // delete a task by its ID
 async function deleteTask(taskID) {
-  const taskModel = getDbConnection().model("Task", userSchema);    
+  const taskModel = getDbConnection().model("Task", taskSchema);    
   try{
       console.log("task deleted");
       return await taskModel.findByIdAndDelete(taskID);
@@ -44,8 +44,8 @@ async function deleteTask(taskID) {
 }
 
 // add task
+// as of now, it works by using postman to add a json of the task
 async function addTask(task){
-  // userModel is a Model, a subclass of mongoose.Model
   const taskModel = getDbConnection().model("Task", taskSchema);
   try{
       // passing the JSON content of the Document:
