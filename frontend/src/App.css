@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .App {
   text-align: center;
   display: flex;
@@ -17,6 +18,11 @@ input {
   margin: 0.5rem 0;
 }
 
+.header {
+  align-items: center;
+  background-color: #D8E5E1;
+}
+
 .button {
   border: none;
   background-color: #496755;
@@ -25,3 +31,5 @@ input {
   /*padding: 20px;*/
   border-radius: 10px;
 }
+=======
+>>>>>>> c89e5c8134c41091a0146aafefc34d8c83511633
