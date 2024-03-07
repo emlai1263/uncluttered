@@ -3,19 +3,14 @@
 
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-
-const navigation = [
-  { name: "Dashboard", href: "/", current: true },
-  { name: "Calendar", href: "/", current: false },
-];
+import { Menu, Transition } from "@headlessui/react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default function Navbar() {
   return (
-    <header class="fixed bg-white shadow-md z-50 w-full px-16 py-4 flex justify-between items-center">
+    <header class="fixed bg-white shadow-md z-50 h-20 w-full px-16 py-4 flex justify-between items-center">
       <Link to="/" class="text-2xl font-outfit font-semibold text-blue">
         U
       </Link>
