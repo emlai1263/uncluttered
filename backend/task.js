@@ -5,33 +5,33 @@ const taskSchema = new mongoose.Schema(
     userId: {
       type: Object,
       required: true,
-      trim: true,
+      trim: true
     },
     title: {
       type: String,
-      default: "title",
+      default: 'title'
     },
     dueDate: {
       type: Date,
-      trim: true,
+      trim: true
     },
     category: {
       type: String,
-      default: "category",
+      default: 'category'
     },
     timeEst: {
       type: Number,
-      trim: true,
+      trim: true
     },
     body: {
       type: String,
-      default: "body",
-    },
+      default: 'body'
+    }
   },
-  { collection: "tasks" }
-);
+  { collection: 'tasks' }
+)
 
 // const Task = mongoose.model("Task", taskSchema);
 // module.exports = Task;
 
-module.exports = taskSchema;
+module.exports = taskSchema
