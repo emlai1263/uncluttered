@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import CalendarDays from "./CalendarDays";
 import "./Calendar.css";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 
 export default class Calendar extends Component {
   constructor() {
@@ -53,31 +55,36 @@ export default class Calendar extends Component {
   render() {
     return (
       <div className="calendar">
-        <div className="calendar-header">
-          <button onClick={this.prevMonth}>←</button>
-          <h2>
-            {this.months[this.state.currentDay.getMonth()]}
-            {this.state.currentDay.getFullYear()}
-          </h2>
-          <button onClick={this.nextMonth}>→</button>
-        </div>
-
-        <div className="calendar-body">
-          <div className="table-header">
-            {this.weekdays.map((weekday) => {
-              return (
-                <div className="weekday">
-                  <p>{weekday}</p>
-                </div>
-              );
-            })}
+        <div className="fixed z-0 flex flex-wrap bg-white w-screen min-h-screen"></div>
+        <Navbar />
+        <Sidebar />
+        <div className="calendar-container mt-32 z-50">
+          <div className="calendar-header">
+            <button onClick={this.prevMonth}>←</button>
+            <h2>
+              {this.months[this.state.currentDay.getMonth()]}
+              {this.state.currentDay.getFullYear()}
+            </h2>
+            <button onClick={this.nextMonth}>→</button>
           </div>
-          {
-            <CalendarDays
-              day={this.state.currentDay}
-              changeCurrentDay={this.changeCurrentDay}
-            />
-          }
+
+          <div className="calendar-body">
+            <div className="table-header">
+              {this.weekdays.map((weekday) => {
+                return (
+                  <div className="weekday">
+                    <p>{weekday}</p>
+                  </div>
+                );
+              })}
+            </div>
+            {
+              <CalendarDays
+                day={this.state.currentDay}
+                changeCurrentDay={this.changeCurrentDay}
+              />
+            }
+          </div>
         </div>
       </div>
     );

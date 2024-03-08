@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const progress_states = ["To", "In Progress", "Complete"];
+const progress_states = ["To Do", "In Progress", "Complete"];
 
 const Dashboard = () => {
   return (
@@ -14,7 +14,7 @@ const Dashboard = () => {
         {progress_states.map((state, index) => (
           <div
             key={index}
-            className="bg-white rounded-[12px] h-screen mb-20 w-96 h-5/6 mx-5"
+            className="bg-white rounded-[12px] h-screen mb-20 w-1/4 h-5/6 mx-5"
           >
             <div className="flex flex-col">
               <p className="py-4 px-10 text-left mb-2 border-b text-black font-outfit">
