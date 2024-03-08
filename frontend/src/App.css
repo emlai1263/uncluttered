@@ -1,17 +1,18 @@
-<<<<<<< HEAD
 .App {
   text-align: center;
   display: flex;
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  background-color:#D8E5E1;
+  background-color: #d8e5e1;
 }
 
-.forms, .login-form, .register-form{
+.forms,
+.login-form,
+.register-form {
   display: flex;
   flex-direction: column;
-  background-color: #D8E5E1;
+  background-color: #d8e5e1;
 }
 
 input {
@@ -20,7 +21,7 @@ input {
 
 .header {
   align-items: center;
-  background-color: #D8E5E1;
+  background-color: #d8e5e1;
 }
 
 .button {
@@ -31,5 +32,3 @@ input {
   /*padding: 20px;*/
   border-radius: 10px;
 }
-=======
->>>>>>> c89e5c8134c41091a0146aafefc34d8c83511633
