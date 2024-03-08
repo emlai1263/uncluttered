@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
-import "./App.css";
+// import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RegisterPage } from "./RegisterPage";
 import { LoginPage } from "./LoginPage";
 import Welcome from "./components/Welcome";
 import Home from "./components/Home";
 import LoginSuccess from "./components/LoginSuccess";
+import Calendar from "./Calendar";
 
 function App() {
   const [currentForm, setCurrentForm] = useState("login");
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/login" element={<LoginPage />} />
         <Route exact path="/register" element={<RegisterPage />} />
         <Route exact path="/success" element={<LoginSuccess />} />
+        <Route exact path="/calendar" element={<Calendar />} />
       </Routes>
     </Router>
   );
