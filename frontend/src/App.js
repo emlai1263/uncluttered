@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
+import React, { useState, useEffect } from "react";
 // import "./App.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RegisterPage } from "./RegisterPage";
@@ -8,12 +7,46 @@ import Welcome from "./components/Welcome";
 import Home from "./components/Home";
 import LoginSuccess from "./components/LoginSuccess";
 import Calendar from "./Calendar";
+import axios from "axios";
 
 function App() {
+  // const [tasks, setTasks] = useState([]);
+  // useEffect(() => {
+  //   fetchAll().then((result) => {
+  //     if (result) setTasks(result);
+  //   });
+  // }, []);
+
   const [currentForm, setCurrentForm] = useState("login");
   const toggleForm = (formName) => {
     setCurrentForm(formName);
   };
+
+  async function fetchAll() {
+    console.log("in fetchall");
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/tasks/65e6328a68059ab797224e0f",
+      );
+      return response;
+    } catch (error) {
+      //We're not handling errors. Just logging into the console.
+      console.log(error);
+      return false;
+    }
+  }
+
+  // useEffect(() => {
+  //   console.log("in useEffect");
+  //   fetchAll().then((result) => {
+  //     if (result) {
+  //       setTasks(result);
+  //       console.log(JSON.stringify(tasks.data.users));
+  //     } else {
+  //       console.log("ERROR: " + JSON.stringify(result));
+  //     }
+  //   });
+  // }, []);
 
   return (
     <Router>
