@@ -1,9 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Card from './Card';
+// front/back end connection
+import axios from "axios";
+import {useState, useEffect} from 'react';
 
 const progress_states = ["To Do", "In Progress", "Complete"];
 
 const Dashboard = () => {
+  const [tasks, setTasks] = useState([]);
+
+  // functions to pull tasks from database
+  useEffect(() => {
+    fetchAll().then( result => {
+      if (result) {
+        // console.log("TESTINGgg: " + JSON.stringify(result));
+        setTasks(result.data.users);
+        // console.log("single task: " + JSON.stringify(tasks));
+        console.log("tasks: " + tasks);
+    } else {
+        // console.log("ERROR: " + JSON.stringify(result));
+    }
+     });
+  }, [] );
+
+  async function fetchAll(){
+    try {
+       const response = await axios.get('http://localhost:8000/tasks/65e6328a68059ab797224e0f');
+       return response;     
+    }
+    catch (error){
+       //We're not handling errors. Just logging into the console.
+       console.log(error); 
+       return false;         
+    }
+ }
+ 
+
   return (
     <div className="container ml-64 mt-36 h-screen w-screen">
       <h1 className="mb-6 ml-6 text-4xl text-blue font-semibold font-outfit">
@@ -38,6 +71,19 @@ const Dashboard = () => {
                     </svg>
                   </button>
                 )}
+              </div>
+              <div className="container">
+      {/* Map over tasks and render Card component for each task */}
+      {tasks.map((task) => (
+                <Card
+                  // key={taskIndex}
+                  title={JSON.stringify(task.title)}
+                  dueDate={JSON.stringify(task.dueDate)}
+                  category={task.category}
+                  timeEst={task.timeEst}
+                  body={task.body}
+                />
+              ))}
               </div>
             </div>
           </div>

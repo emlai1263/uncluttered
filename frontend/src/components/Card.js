@@ -1,11 +1,38 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import React from "react";
 import "./Card.css";
 import triangle from "../assets/triangle.png";
+// front/back end connection
+import axios from "axios";
+import {useState, useEffect} from 'react';
 
 function Card({ title, dueDate, category, timeEst, body }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    fetchAll().then( result => {
+      if (result) {
+        // console.log("TESTINGgg: " + JSON.stringify(result));
+        setTasks(result.data.users);
+        console.log("single task: " + JSON.stringify(tasks));
+    } else {
+        // console.log("ERROR: " + JSON.stringify(result));
+    }
+     });
+  }, [] );
+
+  async function fetchAll(){
+    try {
+       const response = await axios.get('http://localhost:8000/tasks/65e6328a68059ab797224e0f');
+       return response;     
+    }
+    catch (error){
+       //We're not handling errors. Just logging into the console.
+       console.log(error); 
+       return false;         
+    }
+ }
 
   return (
     <div className="App">
@@ -25,10 +52,10 @@ function Card({ title, dueDate, category, timeEst, body }) {
             transition={{ layout: { duration: 2, type: "spring" } }}
           ></motion.img>
           <motion.h2 layout="position" className="title">
-            {title}
+            {JSON.stringify(title)}
           </motion.h2>
           <motion.h2 layout="position" className="dueDate">
-            {dueDate}
+            {JSON.stringify(dueDate)}
           </motion.h2>
         </div>
         {isOpen && (
@@ -39,11 +66,11 @@ function Card({ title, dueDate, category, timeEst, body }) {
             className="card-body"
           >
             <div className="extra-header">
-              <h2 className="category">{category}</h2>
-              <h2 className="timeEst">{timeEst} hours</h2>
+              <h2 className="category">{JSON.stringify(category)}</h2>
+              <h2 className="timeEst">{JSON.stringify(timeEst)} hours</h2>
             </div>
             <motion.div className="body">
-              <p>{body}</p>
+              <p>{JSON.stringify(body)}</p>
             </motion.div>
           </motion.div>
         )}
@@ -51,5 +78,6 @@ function Card({ title, dueDate, category, timeEst, body }) {
     </div>
   );
 }
+
 
 export default Card;
