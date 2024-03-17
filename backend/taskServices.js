@@ -28,7 +28,8 @@ async function getTasks(userId) {
     return undefined
   }
 
-  const tasks = taskModel.find({ userId })
+  const tasks = taskModel.find({ userId }) // check what comes here
+  console.log(tasks)
   return tasks
 }
 
@@ -41,6 +42,14 @@ async function deleteTask(taskID) {
   } catch (error) {
     console.log(error)
     return undefined
+  }
+}
+
+// delete a task by userID, if the user deletes their account
+async function deleteTaskByUser(userId) {
+  const tasksToDelete = await getTasks(userId)
+  for (let i = 0; i < tasksToDelete.length; i++) {
+    await tasksToDelete[i].deleteOne()
   }
 }
 
@@ -79,5 +88,6 @@ module.exports = {
   getTasks,
   deleteTask,
   addTask,
-  editTask
+  editTask,
+  deleteTaskByUser
 }
