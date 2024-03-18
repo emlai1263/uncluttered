@@ -30,6 +30,10 @@
   /* text */
   text-align: left;
   color: #4A6554;
+
+  margin-top: 5%;
+
+  max-width: 105%;
 }
 
 .triangle{
