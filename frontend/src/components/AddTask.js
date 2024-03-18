@@ -50,14 +50,14 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
   const handleSubmit = async () => {
     try {
       // Hardcoded user ID for testing add task funtion
-      const userId = 'UserId1234';
-  
+      const userId = "UserId1234";
+
       // Include the userId with rest of the task data
       const taskData = {
         ...task,
-        userId: userId
+        userId: userId,
       };
-  
+
       // Make a POST request to submit the task data
       await axios.post("http://localhost:8000/tasks", taskData);
       console.log("Task submitted successfully:", taskData);
@@ -66,7 +66,6 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
       console.error("Error submitting task:", error);
     }
   };
-  
 
   return (
     <div
@@ -74,7 +73,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
         isOpen ? "block" : "hidden"
       }`}
     >
-      <div className="bg-white p-4 rounded-lg">
+      <div className="bg-white p-4 rounded-lg drop-shadow-md">
         <h2 className="text-lg font-semibold mb-4 bg-white">Add New Task</h2>
         <label htmlFor="taskName" className="text-lg font-semibold mb-2">
           Task Name:{" "}
@@ -177,13 +176,13 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
         </div>
         <div className="flex justify-end mt-4">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-gray-100 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
-            className="text-blue-500 hover:text-blue-700 font-semibold py-2 px-4 rounded"
+            className="text-blue-500 hover:bg-gray-100 font-semibold py-2 px-4 rounded"
             onClick={handleSubmit}
           >
             Submit

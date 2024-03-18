@@ -4,35 +4,36 @@ import "./Card.css";
 import triangle from "../assets/triangle.png";
 // front/back end connection
 import axios from "axios";
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from "react";
 
 function Card({ title, dueDate, category, timeEst, body }) {
   const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetchAll().then( result => {
+    fetchAll().then((result) => {
       if (result) {
         // console.log("TESTINGgg: " + JSON.stringify(result));
         setTasks(result.data.users);
         console.log("single task: " + JSON.stringify(tasks));
-    } else {
+      } else {
         // console.log("ERROR: " + JSON.stringify(result));
-    }
-     });
-  }, [] );
+      }
+    });
+  }, []);
 
-  async function fetchAll(){
+  async function fetchAll() {
     try {
-       const response = await axios.get('http://localhost:8000/tasks/65e6328a68059ab797224e0f');
-       return response;     
+      const response = await axios.get(
+        "http://localhost:8000/tasks/65e6328a68059ab797224e0f"
+      );
+      return response;
+    } catch (error) {
+      //We're not handling errors. Just logging into the console.
+      console.log(error);
+      return false;
     }
-    catch (error){
-       //We're not handling errors. Just logging into the console.
-       console.log(error); 
-       return false;         
-    }
- }
+  }
 
   return (
     <div className="App">
@@ -52,10 +53,10 @@ function Card({ title, dueDate, category, timeEst, body }) {
             transition={{ layout: { duration: 2, type: "spring" } }}
           ></motion.img>
           <motion.h2 layout="position" className="title">
-            {JSON.stringify(title)}
+            {title}
           </motion.h2>
           <motion.h2 layout="position" className="dueDate">
-            {JSON.stringify(dueDate)}
+            {dueDate}
           </motion.h2>
         </div>
         {isOpen && (
@@ -66,11 +67,11 @@ function Card({ title, dueDate, category, timeEst, body }) {
             className="card-body"
           >
             <div className="extra-header">
-              <h2 className="category">{JSON.stringify(category)}</h2>
-              <h2 className="timeEst">{JSON.stringify(timeEst)} hours</h2>
+              <h2 className="category">{category}</h2>
+              <h2 className="timeEst">{timeEst} hours</h2>
             </div>
             <motion.div className="body">
-              <p>{JSON.stringify(body)}</p>
+              <p>{body}</p>
             </motion.div>
           </motion.div>
         )}
@@ -78,6 +79,5 @@ function Card({ title, dueDate, category, timeEst, body }) {
     </div>
   );
 }
-
 
 export default Card;
