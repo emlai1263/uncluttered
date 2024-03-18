@@ -8,18 +8,18 @@ import axios from "axios";
 export default function Calendar() {
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "January ",
+    "February ",
+    "March ",
+    "April ",
+    "May ",
+    "June ",
+    "July ",
+    "August ",
+    "September ",
+    "October ",
+    "November ",
+    "December ",
   ];
 
   const [currentDay, setCurrentDay] = useState(new Date());
@@ -73,26 +73,31 @@ export default function Calendar() {
     }
   }
   return (
-    <div className="calendar">
+    <div className="calendar font-outfit">
       <div className="fixed z-0 flex flex-wrap bg-white w-screen min-h-screen"></div>
       <Navbar />
       <Sidebar />
       <div className="calendar-container mt-32 z-50">
-        <div className="calendar-header">
-          <button onClick={prevMonth}>←</button>
-          <h2>
+        <div className="calendar-header text-2xl font-bold text-teal-950">
+          <button className="text-left" onClick={prevMonth}>
+            ←{" "}
+          </button>
+          <h2 className="text-center text-2xl font-bold text-slate-200">
             {months[currentDay.getMonth()]}
             {currentDay.getFullYear()}
           </h2>
-          <button onClick={nextMonth}>→</button>
+          <button className="text-right" onClick={nextMonth}>
+            {" "}
+            →
+          </button>
         </div>
 
-        <div className="calendar-body">
-          <div className="table-header">
+        <div className="calendar-body border-2">
+          <div className="table-header border-2">
             {weekdays.map((weekday) => {
               return (
                 <div className="weekday">
-                  <p>{weekday}</p>
+                  <p className="mb-0">{weekday}</p>
                 </div>
               );
             })}

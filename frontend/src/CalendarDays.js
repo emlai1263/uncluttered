@@ -33,7 +33,7 @@ function CalendarDays(props) {
   }
 
   return (
-    <div className="table-content">
+    <div className="table-content rounded-2xl">
       {currentDays.map((day) => {
         const tasksForDay = props.tasks.filter((task) => {
           const taskDateStr = new Date(task.dueDate).toDateString();
@@ -47,18 +47,18 @@ function CalendarDays(props) {
           <div
             key={`${day.year}-${day.month}-${day.number}`}
             className={
-              "calendar-day" +
+              "calendar-day w-32 h-32 p-2 border-x-2 border-y-2" +
               (day.currentMonth ? " current" : "") +
               (day.selected ? " selected" : "")
             }
             onClick={() => props.changeCurrentDay(day)}
           >
-            <p>{day.number}</p>
+            <p className="text-right mr-2 mb-0">{day.number}</p>
             {tasksForDay.map((task) => (
               <div key={task._id}>
-                <p style={{ margin: "0rem 0" }}>
+                <p className="mt-0 text">
                   <small>
-                    <small>{task.title}</small>
+                    <small className="mt-0">{task.title}</small>
                   </small>
                 </p>
               </div>
