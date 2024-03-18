@@ -49,14 +49,24 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
 
   const handleSubmit = async () => {
     try {
+      // Hardcoded user ID for testing add task funtion
+      const userId = 'UserId1234';
+  
+      // Include the userId with rest of the task data
+      const taskData = {
+        ...task,
+        userId: userId
+      };
+  
       // Make a POST request to submit the task data
-      await axios.post("http://localhost:8000/tasks", task);
-      console.log("Task submitted successfully:", task);
+      await axios.post("http://localhost:8000/tasks", taskData);
+      console.log("Task submitted successfully:", taskData);
       onClose(); // Close the modal after submission
     } catch (error) {
       console.error("Error submitting task:", error);
     }
   };
+  
 
   return (
     <div
