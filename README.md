@@ -26,5 +26,6 @@ Code Style and Linter Installation Instructions:
    - The variable unused should be underlined as an error. Hover over it to ensure that it is an error thrown by ESLint, saying "'unused' is assigned a value but never used." If this error appears, then ESLint is installed correctly.
 
 
-Figma Storyboard: https://www.figma.com/file/ywLnHZ6rao4ppC5qqaLCFQ/308-To-do-List?type=design&node-id=0%3A1&mode=design&t=8RKLbxvSnlpiEl7U-1\n
+Figma Storyboard: https://www.figma.com/file/ywLnHZ6rao4ppC5qqaLCFQ/308-To-do-List?type=design&node-id=0%3A1&mode=design&t=8RKLbxvSnlpiEl7U-1
+
 Code Coverage File (as of 3/18/24): https://docs.google.com/document/d/1ffSGjk5LD-kGKwJWh5kmMCQo04Yg27QSFlvFoyPDPxg/edit?usp=sharing 
