@@ -68,7 +68,6 @@ async function findUserById(id) {
   try {
     return await userModel.findById(id)
   } catch (error) {
-    console.log(error)
     return null
   }
 }
@@ -78,7 +77,6 @@ async function findAndDelete(id) {
   try {
     return await userModel.findByIdAndDelete(id)
   } catch (error) {
-    console.log(error)
     return null
   }
 }
