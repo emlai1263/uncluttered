@@ -86,8 +86,8 @@ const Dashboard = () => {
                 {tasks.map((task) => (
                   <Card
                     // key={taskIndex}
-                    title={JSON.stringify(task.title)}
-                    dueDate={JSON.stringify(task.dueDate)}
+                    title={task.title}
+                    dueDate={task.dueDate}
                     category={task.category}
                     timeEst={task.timeEst}
                     body={task.body}
