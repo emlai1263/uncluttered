@@ -72,7 +72,7 @@ async function editTask(taskId, taskEdits) {
     )
     return editedTask
   } catch (error) {
-    console.log('Failed to edit task')
+    //console.log('Failed to edit task')
     return false
   }
 }
