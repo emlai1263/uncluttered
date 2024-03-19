@@ -59,24 +59,32 @@ test('test editTask', async () => {
   const userId = '65dab7ff2d0a3ecfa31ccc21'
   const userEdits = {
     username: 'crispycookie',
-    email: 'crispycookie@gmail.com',
+    email: 'cc@gmail.com',
     password: 'cookie',
     name: 'Chad'
   }
   const result = await userServices.editUser(userId, userEdits)
   expect(result).toBeDefined()
   if (result) {
-    expect(result.username).toBe('aryaramchander')
-    expect(result.name).toBe('AryaR')
-    expect(result.password).toBe('aryapswd')
-    expect(result.email).toBe('ar@gmail.com')
+    expect(result.username).toBe('crispycookie')
+    expect(result.name).toBe('Chad')
+    expect(result.password).toBe('cookie')
+    expect(result.email).toBe('cc@gmail.com')
   }
+})
+
+// tests findAndEditUser by the current user and updated user. updates their username.
+test('test editTask but invalid', async () => {
+  const userId = 'not valid'
+  const userEdits = {}
+  const result = await userServices.editUser(userId, userEdits)
+  expect(result).toBeNull()
 })
 
 // test findUserById(id) function.
 test('test findUserById Gary', async () => {
   const result = await userServices.findUserById('65e6328a68059ab797224e0f')
-  console.log('findUserById result: hi' + result)
+  console.log('findUserById result: ' + result)
 
   // expected = {
   //   _id: ObjectId("65e6328a68059ab797224e0f"),
@@ -85,7 +93,6 @@ test('test findUserById Gary', async () => {
   //   email: "gary@gmail.com",
   //   name: "Gary",
   // };
-  console.log(result)
   expect(result.name).toBe('Gary')
   expect(result.username).toBe('GaryIsCool')
   expect(result.email).toBe('gary@gmail.com')
@@ -95,8 +102,8 @@ test('test findUserById Gary', async () => {
 // testing findUserById function if the user with given id doesn't actually exist
 test('test findUserById notfound', async () => {
   const result = await userServices.findUserById('111111111111111111111111')
-  console.log('findUserById result: ' + result)
-  expect(result).toBe(null)
+  console.log('invalid result: ' + result)
+  expect(result).toBeNull()
 })
 
 // test addUser(user) function
@@ -126,11 +133,14 @@ test('test addUser  Stan', async () => {
 })
 
 test('test addUser null object', async () => {
-  const add = await userServices.addUser(null)
-  const result = await userServices.getUsers('Fake')
+  const user = {
+    username: 'obvinvalid'
+  }
+  const result = await userServices.addUser(user)
 
-  expect(result).toBeFalsy()
+  expect(result).toBe(null)
 })
+
 // tests the findAndDelete(id) function.
 test('test findAndDelete(id)  Arya', async () => {
   const result = await userServices.getUsers('Arya')
@@ -146,7 +156,6 @@ test('test findAndDelete(id)  Arya', async () => {
 // testing findAndDelete function if the user with given id doesn't actually exist
 test('test findAndDelete notfound', async () => {
   const result = await userServices.findAndDelete('111111111111111111111111')
-  console.log('findUserById result: ' + result)
 
   expect(result).toBe(null)
 })
