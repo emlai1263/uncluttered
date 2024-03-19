@@ -45,13 +45,6 @@ async function deleteTask(taskID) {
   }
 }
 
-// delete a task by userID, if the user deletes their account
-async function deleteTaskByUser(userId) {
-  const tasksToDelete = await getTasks(userId)
-  for (let i = 0; i < tasksToDelete.length; i++) {
-    await tasksToDelete[i].deleteOne()
-  }
-}
 
 // add task
 // as of now, it works by using postman to add a json of the task
@@ -88,6 +81,5 @@ module.exports = {
   getTasks,
   deleteTask,
   addTask,
-  editTask,
-  deleteTaskByUser
+  editTask
 }
