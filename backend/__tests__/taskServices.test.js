@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-const taskServices = require('../taskServices')
-describe('Task Services', () => {
-  test('Placeholder test', () => {
-    expect(true).toBe(true)
-  })
-})
-=======
 import taskServices from "../taskServices.js";
 
 jest.setTimeout(10000); // Increase timeout to 10 seconds
@@ -151,4 +141,4 @@ test("test editTask_recover", async () => {
       expect(result.title).toBe("Test Task");
     }
 });
->>>>>>> fe466c923f1ffdc4d67b7df32baebcbc0fbd5f58
+
