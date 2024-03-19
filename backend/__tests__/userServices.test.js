@@ -58,10 +58,10 @@ test('test getUsers by username  Emily test', async () => {
 test('test editTask', async () => {
   const userId = '65dab7ff2d0a3ecfa31ccc21'
   const userEdits = {
-    username: 'aryaramchander',
-    email: 'ar@gmail.com',
-    password: 'aryapswd',
-    name: 'AryaR'
+    username: 'crispycookie',
+    email: 'crispycookie@gmail.com',
+    password: 'cookie',
+    name: 'Chad'
   }
   const result = await userServices.editUser(userId, userEdits)
   expect(result).toBeDefined()
