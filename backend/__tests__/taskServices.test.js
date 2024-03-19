@@ -1,5 +1,38 @@
 import taskServices from "../taskServices.js";
 
+jest.setTimeout(10000); // Increase timeout to 10 seconds
+
+test("test getTasks", async () => {
+  const userId = "65e6328a68059ab797224e0f"; 
+  const result = await taskServices.getTasks(userId);
+  expect(result.length).toBeGreaterThan(0);
+
+  // Add your other assertions here
+});
+
+test("test deleteTask - task not found", async () => {
+    const taskId = "invalid_task_id"; // An invalid task ID that does not exist
+    const result = await taskServices.deleteTask(taskId);
+    expect(result).toBeUndefined(); // Expect the function to return undefined
+});
+  
+test("test addTask - invalid data", async () => {
+    const task = {
+      // Invalid task data, missing required fields, violating schema constraints, etc.
+      // Example: userId is missing
+      title: "unittest addtask_1",
+      dueDate: new Date(),
+      category: "Test",
+      timeEst: 60,
+      body: "Testing!"
+    };
+  
+    const result = await taskServices.addTask(task);
+    expect(result).toBe(false); // Expect the function to return false
+});
+
+
+
 test("test getTasks", async () => {
   const userId = "65e6328a68059ab797224e0f"; 
   const result = await taskServices.getTasks(userId);
