@@ -18,19 +18,16 @@ const Dashboard = () => {
     setIsAddTaskOpen(true);
   };
 
-  // functions to pull tasks from database
-  useEffect(() => {
-    fetchAll().then((result) => {
-      if (result) {
-        // console.log("TESTINGgg: " + JSON.stringify(result));
-        setTasks(result.data.users);
-        // console.log("single task: " + JSON.stringify(tasks));
-        console.log("tasks: " + tasks);
-      } else {
-        // console.log("ERROR: " + JSON.stringify(result));
-      }
+    // functions to pull tasks from database
+    useEffect(() => {
+      fetchAll().then((result) => {
+        if (result) {
+          setTasks(result.data.users);
+          console.log("tasks: " + tasks);
+        } else {
+        }
+      });
     });
-  }, []);
 
   async function fetchAll() {
     try {
