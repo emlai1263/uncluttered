@@ -4,7 +4,7 @@ function CalendarDays(props) {
   let firstDayOfMonth = new Date(
     props.day.getFullYear(),
     props.day.getMonth(),
-    1,
+    1
   );
   let weekdayOfFirstDay = firstDayOfMonth.getDay();
   let currentDays = [];
@@ -14,7 +14,7 @@ function CalendarDays(props) {
       firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
     } else if (day === 0) {
       firstDayOfMonth.setDate(
-        firstDayOfMonth.getDate() + (day - weekdayOfFirstDay),
+        firstDayOfMonth.getDate() + (day - weekdayOfFirstDay)
       );
     } else {
       firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);

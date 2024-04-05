@@ -32,10 +32,20 @@ async function findUserByUsername(username) {
   return await userModel.find({ username })
 }
 
-async function findAndEditUser(user, update) {
-  // find a user with the given username and edit their settings
-  const userModel = getDbConnection().model('User', userSchema)
-  return await userModel.findOneAndUpdate(user, update)
+// edit tasks
+async function editUser(userId, userEdits) {
+  const taskModel = getDbConnection().model('User', userSchema)
+  try {
+    const editedUser = await taskModel.findOneAndUpdate(
+      { _id: userId },
+      userEdits,
+      { returnOriginal: false }
+    )
+    return editedUser
+  } catch (error) {
+    console.log('Failed to edit task')
+    return false
+  }
 }
 
 async function addUser(user) {
@@ -58,8 +68,7 @@ async function findUserById(id) {
   try {
     return await userModel.findById(id)
   } catch (error) {
-    console.log(error)
-    return undefined
+    return null
   }
 }
 
@@ -68,8 +77,7 @@ async function findAndDelete(id) {
   try {
     return await userModel.findByIdAndDelete(id)
   } catch (error) {
-    console.log(error)
-    return undefined
+    return null
   }
 }
 
@@ -84,6 +92,6 @@ module.exports = {
   findUserByName,
   findUserById,
   findAndDelete,
-  findAndEditUser,
+  editUser,
   findUserByUsername
 }

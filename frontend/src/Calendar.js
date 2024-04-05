@@ -36,7 +36,7 @@ export default function Calendar() {
     const nextMonth = new Date(
       currentDay.getFullYear(),
       currentDay.getMonth() + 1,
-      1,
+      1
     );
     setCurrentDay(nextMonth);
   }
@@ -46,7 +46,7 @@ export default function Calendar() {
     const prevMonth = new Date(
       currentDay.getFullYear(),
       currentDay.getMonth() - 1,
-      1,
+      1
     );
     setCurrentDay(prevMonth);
   }
@@ -63,7 +63,7 @@ export default function Calendar() {
     console.log("in fetchall");
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/65e6328a68059ab797224e0f",
+        "http://localhost:8000/tasks/65e6328a68059ab797224e0f"
       );
       return response.data.users;
     } catch (error) {
@@ -75,9 +75,9 @@ export default function Calendar() {
   return (
     <div className="calendar font-outfit">
       <div className="fixed z-0 flex flex-wrap bg-white w-screen min-h-screen"></div>
-      <Navbar />
+      <Navbar className="z-0" />
       <Sidebar />
-      <div className="calendar-container mt-32 z-50">
+      <div className="calendar-container mt-32 z-20">
         <div className="calendar-header text-2xl font-bold text-teal-950">
           <button className="text-left" onClick={prevMonth}>
             ←{" "}
@@ -92,7 +92,7 @@ export default function Calendar() {
           </button>
         </div>
 
-        <div className="calendar-body border-2">
+        <div className="calendar-body border-2 mb-32">
           <div className="table-header border-2">
             {weekdays.map((weekday) => {
               return (

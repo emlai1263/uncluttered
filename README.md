@@ -27,3 +27,5 @@ Code Style and Linter Installation Instructions:
 
 
 Figma Storyboard: https://www.figma.com/file/ywLnHZ6rao4ppC5qqaLCFQ/308-To-do-List?type=design&node-id=0%3A1&mode=design&t=8RKLbxvSnlpiEl7U-1
+
+Code Coverage File (as of 3/18/24): https://docs.google.com/document/d/1ffSGjk5LD-kGKwJWh5kmMCQo04Yg27QSFlvFoyPDPxg/edit?usp=sharing 
