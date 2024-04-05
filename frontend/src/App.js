@@ -10,18 +10,9 @@ import Calendar from "./Calendar";
 import axios from "axios";
 
 function App() {
-  // const [tasks, setTasks] = useState([]);
-  // useEffect(() => {
-  //   fetchAll().then((result) => {
-  //     if (result) setTasks(result);
-  //   });
-  // }, []);
-
-  const [currentForm, setCurrentForm] = useState("login");
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
-  };
-
+  // const INVALID_TOKEN = "INVALID_TOKEN";
+  // const [token, setToken] = useState(INVALID_TOKEN);
+  // const [message, setMessage] = useState("");
   async function fetchAll() {
     console.log("in fetchall");
     try {
@@ -35,7 +26,6 @@ function App() {
       return false;
     }
   }
-
   // useEffect(() => {
   //   console.log("in useEffect");
   //   fetchAll().then((result) => {
@@ -60,6 +50,7 @@ function App() {
       </Routes>
     </Router>
   );
+
 }
 
 export default App;
