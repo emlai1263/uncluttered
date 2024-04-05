@@ -87,7 +87,7 @@ const Dashboard = () => {
                 {tasks.map((task) => (
                   <Card
                     title={task.title}
-                    dueDate={moment(task.dueDate).format('MM-DD-YY')}
+                    dueDate={moment(task.dueDate).format('MM/DD/YY')}
                     category={task.category}
                     timeEst={task.timeEst}
                     body={task.body}
