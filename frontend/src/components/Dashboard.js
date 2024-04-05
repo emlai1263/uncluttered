@@ -5,6 +5,7 @@ import AddTask from "./AddTask";
 // front/back end connection
 import axios from "axios";
 import { useState, useEffect } from "react";
+import moment from"moment";
 
 const progress_states = ["To Do", "In Progress", "Complete"];
 
@@ -85,9 +86,8 @@ const Dashboard = () => {
                 {/* Map over tasks and render Card component for each task */}
                 {tasks.map((task) => (
                   <Card
-                    // key={taskIndex}
                     title={task.title}
-                    dueDate={task.dueDate}
+                    dueDate={moment(task.dueDate).format('MM-DD-YY')}
                     category={task.category}
                     timeEst={task.timeEst}
                     body={task.body}
