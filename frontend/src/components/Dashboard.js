@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import Card from './Card';
 // front/back end connection
 import axios from "axios";
@@ -9,6 +9,7 @@ const progress_states = ["To Do", "In Progress", "Complete"];
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
+  const location = useLocation();
 
   // functions to pull tasks from database
   useEffect(() => {
@@ -34,13 +35,14 @@ const Dashboard = () => {
        console.log(error); 
        return false;         
     }
- }
- 
+  }
+
+  //const name = 
 
   return (
     <div className="container ml-64 mt-36 h-screen w-screen">
       <h1 className="mb-6 ml-6 text-4xl text-blue font-semibold font-outfit">
-        Good morning, John
+        Good morning, {location.state.name}
       </h1>
 
       <div className="col-container flex flex-wrap">
