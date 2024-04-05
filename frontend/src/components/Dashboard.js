@@ -5,7 +5,7 @@ import AddTask from "./AddTask";
 // front/back end connection
 import axios from "axios";
 import { useState, useEffect } from "react";
-import moment from"moment";
+import moment from "moment";
 
 const progress_states = ["To Do", "In Progress", "Complete"];
 
@@ -18,16 +18,16 @@ const Dashboard = () => {
     setIsAddTaskOpen(true);
   };
 
-    // functions to pull tasks from database
-    useEffect(() => {
-      fetchAll().then((result) => {
-        if (result) {
-          setTasks(result.data.users);
-          console.log("tasks: " + tasks);
-        } else {
-        }
-      });
+  // functions to pull tasks from database
+  useEffect(() => {
+    fetchAll().then((result) => {
+      if (result) {
+        setTasks(result.data.users);
+        console.log("tasks: " + tasks);
+      } else {
+      }
     });
+  });
 
   async function fetchAll() {
     try {
@@ -52,7 +52,7 @@ const Dashboard = () => {
         {progress_states.map((state, index) => (
           <div
             key={index}
-            className="bg-white rounded-[12px] h-screen mb-20 w-1/4 h-5/6 mx-5"
+            className="bg-white rounded-[12px] min-h-screen pb-20 mb-20 w-1/4 h-5/6 mx-5"
           >
             <div className="flex flex-col">
               <div className="flex items-center justify-between py-4 px-10 mb-2 border-b text-black font-outfit">
@@ -84,7 +84,7 @@ const Dashboard = () => {
                 {tasks.map((task) => (
                   <Card
                     title={task.title}
-                    dueDate={moment(task.dueDate).format('MM/DD/YY')}
+                    dueDate={moment(task.dueDate).format("MM/DD/YY")}
                     category={task.category}
                     timeEst={task.timeEst}
                     body={task.body}
