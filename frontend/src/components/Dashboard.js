@@ -33,8 +33,10 @@ const Dashboard = () => {
   async function fetchAll() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/65e6328a68059ab797224e0f"
+        // CHANGE USER HERE
+        "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
       );
+      console.log("TASKS HERE: " + response);
       return response;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
