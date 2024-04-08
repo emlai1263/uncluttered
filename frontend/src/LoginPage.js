@@ -25,13 +25,12 @@ export const LoginPage = (props) => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    props.
     console.log(email, password);
     
     setEmail("");
     setPassword("");
     setSuccess(true);
-    //navigate("/dashboard", {state:{email: email}})
+    navigate("/dashboard", {state:{email: email}})
   };
 
   return (
@@ -79,7 +78,7 @@ export const LoginPage = (props) => {
                   className="button w-full max-w-md bg-blue hover:bg-blue-dark mb-2 px-6 py-2 text-white rounded-md font-inter font-regular"
                   disabled={email === "" || password === "" ? true : false}
                   type="submit"
-                  onClick={submitForm}
+                  onClick={handleSubmit}
                 >
                   Login
                 </button>
@@ -99,7 +98,7 @@ export const LoginPage = (props) => {
   );
   
   function submitForm() {
-    props.handleSubmit(email, password);
+    handleSubmit(email, password);
     setEmail("")
     setPassword("")
   }
