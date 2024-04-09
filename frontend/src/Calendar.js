@@ -6,7 +6,15 @@ import Sidebar from "./components/Sidebar";
 import axios from "axios";
 
 export default function Calendar() {
-  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   const months = [
     "January ",
     "February ",
@@ -36,7 +44,7 @@ export default function Calendar() {
     const nextMonth = new Date(
       currentDay.getFullYear(),
       currentDay.getMonth() + 1,
-      1
+      1,
     );
     setCurrentDay(nextMonth);
   }
@@ -46,7 +54,7 @@ export default function Calendar() {
     const prevMonth = new Date(
       currentDay.getFullYear(),
       currentDay.getMonth() - 1,
-      1
+      1,
     );
     setCurrentDay(prevMonth);
   }
@@ -63,7 +71,7 @@ export default function Calendar() {
     console.log("in fetchall");
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/65e6328a68059ab797224e0f"
+        "http://localhost:8000/tasks/65e6328a68059ab797224e0f",
       );
       return response.data.users;
     } catch (error) {
@@ -74,41 +82,48 @@ export default function Calendar() {
   }
   return (
     <div className="calendar font-outfit">
-      <div className="fixed z-0 flex flex-wrap bg-white w-screen min-h-screen"></div>
+      <div className="fixed z-0 flex bg-white w-screen min-h-screen"></div>
       <Navbar className="z-0" />
       <Sidebar />
-      <div className="calendar-container mt-32 z-20">
-        <div className="calendar-header text-2xl font-bold text-teal-950">
-          <button className="text-left" onClick={prevMonth}>
-            ←{" "}
+      <div className="scale-75">
+        <div className="flex justify-between items-center">
+          <button
+            className="px-2 py-2 rounded-sm text-3xl text-left text-white bg-blue"
+            onClick={prevMonth}
+          >
+            ←
           </button>
-          <h2 className="text-center text-2xl font-bold text-slate-200">
-            {months[currentDay.getMonth()]}
-            {currentDay.getFullYear()}
-          </h2>
-          <button className="text-right" onClick={nextMonth}>
-            {" "}
+          <div className="px-4 py-4 mx-8 my-8">
+            <h2 className="flex text-6xl mx-auto mb-2 font-bold text-blue bg-white py-10 items-center">
+              {months[currentDay.getMonth()]}&nbsp;
+              {currentDay.getFullYear()}
+            </h2>
+          </div>
+          <button
+            className="px-2 py-2 rounded-sm text-3xl text-right text-white bg-blue"
+            onClick={nextMonth}
+          >
             →
           </button>
         </div>
-
         <div className="calendar-body border-2 mb-32">
           <div className="table-header border-2">
             {weekdays.map((weekday) => {
               return (
-                <div className="weekday">
+                <div
+                  className="weekday bg-lavender px-0 rounded-md"
+                  key={weekday}
+                >
                   <p className="mb-0">{weekday}</p>
                 </div>
               );
             })}
           </div>
-          {
-            <CalendarDays
-              day={currentDay}
-              changeCurrentDay={changeCurrentDay}
-              tasks={tasks}
-            />
-          }
+          <CalendarDays
+            day={currentDay}
+            changeCurrentDay={changeCurrentDay}
+            tasks={tasks}
+          />
         </div>
       </div>
     </div>

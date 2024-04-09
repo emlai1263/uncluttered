@@ -4,17 +4,17 @@ function CalendarDays(props) {
   let firstDayOfMonth = new Date(
     props.day.getFullYear(),
     props.day.getMonth(),
-    1
+    1,
   );
   let weekdayOfFirstDay = firstDayOfMonth.getDay();
   let currentDays = [];
 
-  for (let day = 0; day < 42; day++) {
+  for (let day = 0; day < 35; day++) {
     if (day === 0 && weekdayOfFirstDay === 0) {
       firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
     } else if (day === 0) {
       firstDayOfMonth.setDate(
-        firstDayOfMonth.getDate() + (day - weekdayOfFirstDay)
+        firstDayOfMonth.getDate() + (day - weekdayOfFirstDay),
       );
     } else {
       firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
@@ -33,7 +33,7 @@ function CalendarDays(props) {
   }
 
   return (
-    <div className="table-content rounded-2xl">
+    <div className="table-content">
       {currentDays.map((day) => {
         const tasksForDay = props.tasks.filter((task) => {
           const taskDateStr = new Date(task.dueDate).toDateString();
@@ -53,10 +53,10 @@ function CalendarDays(props) {
             }
             onClick={() => props.changeCurrentDay(day)}
           >
-            <p className="text-right mr-2 mb-0">{day.number}</p>
+            <p className="text-right mr-2">{day.number}</p>
             {tasksForDay.map((task) => (
               <div key={task._id}>
-                <p className="mt-0 text">
+                <p className="mt-0 mb-0 text bg-sky rounded-md">
                   <small>
                     <small className="mt-0">{task.title}</small>
                   </small>
