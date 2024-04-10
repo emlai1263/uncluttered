@@ -2,12 +2,12 @@ const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
       trim: true
     },
-    username: {
+    name: {
       type: String,
       required: true,
       trim: true
@@ -25,4 +25,6 @@ const userSchema = new mongoose.Schema(
   { collection: 'users' }
 )
 
+// const userCollection = mongoose.model("userCollection", userSchema)
+// module.exports = userCollection;
 module.exports = userSchema

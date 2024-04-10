@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Card from "./Card";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import Card from './Card';
 import AddTask from "./AddTask";
 // front/back end connection
 import axios from "axios";
@@ -11,6 +11,7 @@ const progress_states = ["To Do", "In Progress", "Complete"];
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
+  const location = useLocation();
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
 
   const handleAddTaskClick = () => {
@@ -32,8 +33,10 @@ const Dashboard = () => {
   async function fetchAll() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/65e6328a68059ab797224e0f"
+        // CHANGE USER HERE
+        "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
       );
+      console.log("TASKS HERE: " + response);
       return response;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
@@ -42,10 +45,12 @@ const Dashboard = () => {
     }
   }
 
+  //const name 
+
   return (
     <div className="container ml-64 mt-36 h-screen w-screen">
       <h1 className="mb-6 ml-6 text-4xl text-blue font-semibold font-outfit">
-        Good morning, John
+        Good morning, {/* location.state.name */}
       </h1>
 
       <div className="col-container flex flex-wrap">

@@ -1,8 +1,10 @@
 const express = require('express')
 const cors = require('cors')
 
+
 const userServices = require('./userServices')
 const taskServices = require('./taskServices')
+const userSchema = require('./userSchema')
 
 const app = express()
 const port = 8000
@@ -92,10 +94,13 @@ app.listen(process.env.PORT || port, () => {
 })
 
 // authentification
-// app.post('/register', registerUser)
-// app.post('/login', loginUser)
+//app.post('/register', registerUser)
+//app.post('/login', loginUser)
 
-// app.post('/users', authenticateUser, (req, res) => {
-//   const userToAdd = req.body
-//   Users.addUser(userToAdd).then((result) => res.status(201).send(result))
-// })
+/* app.post('/users', authenticateUser, (req, res) => {
+  const userToAdd = req.body
+  Users.addUser(userToAdd).then((result) => 
+    res.status(201).send(result)
+  )
+})
+ */

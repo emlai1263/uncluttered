@@ -5,19 +5,29 @@ const taskSchema = new mongoose.Schema(
     userId: {
       type: Object,
       required: true,
-      trim: true
+      trim: true,
     },
     title: {
       type: String,
-      default: 'title'
+      required: true,
+      default: 'title',
+      trim: true
     },
     dueDate: {
       type: Date,
+      required: true,
       trim: true
     },
     category: {
       type: String,
-      default: 'category'
+      required: true,
+      default: 'category',
+      trim: true
+    },
+    status: {
+      type: String,
+      default: 'status',
+      trim: true
     },
     timeEst: {
       type: Number,
@@ -25,13 +35,14 @@ const taskSchema = new mongoose.Schema(
     },
     body: {
       type: String,
-      default: 'body'
+      default: 'body',
+      trim: true
     }
   },
   { collection: 'tasks' }
 )
 
-// const Task = mongoose.model("Task", taskSchema);
-// module.exports = Task;
+//const Task = mongoose.model("Task", taskSchema);
+//module.exports = Task;
 
 module.exports = taskSchema
