@@ -87,6 +87,7 @@ const Dashboard = () => {
               <div className="container">
                 {/* Map over tasks and render Card component for each task */}
                 {tasks.map((task) => (
+                  (task.status === state) &&
                   <Card
                     title={task.title}
                     dueDate={moment(task.dueDate).format("MM/DD/YY")}
