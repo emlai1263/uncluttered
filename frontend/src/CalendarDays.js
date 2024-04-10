@@ -56,6 +56,13 @@ function CalendarDays(props) {
             <p className="text-right mr-2">{day.number}</p>
             {tasksForDay.map((task) => (
               <div key={task._id}>
+                {task.status === "Complete" && (
+                  <p className="mt-0 mb-0 text bg-sky">
+                    <small>
+                      <small className="mt-0 line-through">{task.title}</small>
+                    </small>
+                  </p>
+                )}
                 <p className="mt-0 mb-0 text bg-sky rounded-md">
                   <small>
                     <small className="mt-0">{task.title}</small>
