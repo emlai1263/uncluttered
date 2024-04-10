@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import Card from './Card';
+import Card from "./Card";
 import AddTask from "./AddTask";
 // front/back end connection
 import axios from "axios";
@@ -34,7 +34,7 @@ const Dashboard = () => {
     try {
       const response = await axios.get(
         // CHANGE USER HERE
-        "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
+        "http://localhost:8000/tasks/65e6328a68059ab797224e0f"
       );
       console.log("TASKS HERE: " + response);
       return response;
@@ -45,7 +45,7 @@ const Dashboard = () => {
     }
   }
 
-  //const name 
+  //const name
 
   return (
     <div className="container ml-64 mt-36 h-screen w-screen">
