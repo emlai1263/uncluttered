@@ -41,9 +41,9 @@ function Card({ title, dueDate, category, timeEst, body }) {
         transition={{ layout: { duration: 1, type: "spring" } }}
         layout
         onClick={() => setIsOpen(!isOpen)}
-        className="card"
+        className="card flex text-gray-600 flex-col p-4 pt-2 rounded-2xl drop-shadow-lg bg-white  font-inter w-80 text-left"
       >
-        <div className="card-header">
+        <div className="card-header flex justify-between items-center mb-2">
           <motion.img
             src={triangle}
             alt="triangle"
@@ -52,10 +52,16 @@ function Card({ title, dueDate, category, timeEst, body }) {
             className="triangle"
             transition={{ layout: { duration: 2, type: "spring" } }}
           ></motion.img>
-          <motion.h2 layout="position" className="title">
+          <motion.h2
+            layout="position"
+            className="title text-left font-semibold w-1/2 flex items-start text-ellipsis overflow-hidden"
+          >
             {title}
           </motion.h2>
-          <motion.h2 layout="position" className="dueDate">
+          <motion.h2
+            layout="position"
+            className="dueDate rounded-full p-2 bg-gray-100"
+          >
             {dueDate}
           </motion.h2>
         </div>
@@ -66,9 +72,13 @@ function Card({ title, dueDate, category, timeEst, body }) {
             transition={{ duration: 1 }}
             className="card-body"
           >
-            <div className="extra-header">
-              <h2 className="category">{category}</h2>
-              <h2 className="timeEst">{timeEst} hours</h2>
+            <div className="extra-header mb-2 text-center flex justify-between">
+              <h2 className="category p-2.5 rounded-full bg-gray-100">
+                {category}
+              </h2>
+              <h2 className="timeEst p-2.5 rounded-full bg-gray-100">
+                {timeEst} hours
+              </h2>
             </div>
             <motion.div className="body">
               <p>{body}</p>
