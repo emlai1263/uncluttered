@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
 
 const Sidebar = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    // Fetch user's categories from backend API
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/users/65e6328a68059ab797224e0f/categories"
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setCategories(data.categories);
+      } else {
+        console.error("Failed to fetch categories");
+      }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
   return (
     <div className="fixed drop-shadow-md left-0 top-20 w-1/7 h-full bg-white">
       <div className="flex flex-col">
@@ -20,16 +44,14 @@ const Sidebar = () => {
           <button>Calendar</button>
         </Link>
       </div>
-      <div className="flex flex-col">
-        <button className="py-5 px-14 border-b text-black hover:bg-gray-100 font-outfit">
-          School
-        </button>
-      </div>
-      <div className="flex flex-col">
-        <button className="py-5 px-14 border-b text-black hover:bg-gray-100 font-outfit">
-          Work
-        </button>
-      </div>
+      {/* Render categories */}
+      {categories.map((category, index) => (
+        <div className="flex flex-col" key={index}>
+          <button className="py-5 px-14 border-b text-black hover:bg-gray-100 font-outfit">
+            {category}
+          </button>
+        </div>
+      ))}
     </div>
   );
 };
