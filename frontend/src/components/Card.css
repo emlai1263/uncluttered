@@ -1,115 +1,12 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.App {
-  display: flex;
-  margin: 1%;
-  /* min-width: 100vh; */
-  justify-content: center;
-}
-
 .card {
-  display: flex;
-  flex-direction: column;
-
-  /* spacing */
-  padding: 1rem;
-  padding-top: 0.5rem;
-
-  /* looks */
-  border-radius: 15px;
-  box-shadow: 0px 0px 15px -5px;
-  background-color: #dad3c8;
-
-  /* sizing */
-  width: 300px;
-
-  /* text */
-  text-align: left;
-  color: #4a6554;
-
   margin-top: 5%;
-
   max-width: 105%;
-}
-
-.triangle {
-  width: 10%;
-}
-
-.title {
-  padding: 3%;
-  border-radius: 15px;
-  width: 55%;
-  display: flex;
-  align-items: flex-start;
-}
-
-.category {
-  padding: 3%;
-  border-radius: 15px;
-  width: 40%;
-  background-color: #e6e8e6;
-}
-
-.timeEst {
-  padding: 3%;
-  border-radius: 15px;
-  width: 40%;
-  /* font-weight: 0;  */
-  background-color: #e6e8e6;
-}
-
-.dueDate {
-  padding: 3%;
-  border-radius: 15px;
-  width: 35%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-h2 {
-  background-color: #e6e8e6;
-  text-overflow: ellipsis;
-  overflow-x: hidden;
-  text-align: left;
-  max-height: 2rem;
-  overflow-y: hidden;
-  font-size: 1rem;
-}
-
-.card .p {
-  padding-top: 1rem;
-  /* align-items: center; */
-  line-height: 150%;
 }
 
 .triangle {
   /* width: 30px; */
   /* scale: 1rem; */
   width: 5%;
-  /* object-fit: cover; */
-}
-
-.card-header {
-  margin: 2%;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 0;
-}
-
-.extra-header {
-  margin: 2%;
-  margin-top: 0%;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 0;
+  margin-top: 1px;
+  margin-right: 5px;
 }
