@@ -33,6 +33,14 @@ async function getTasks(userId) {
   return tasks
 }
 
+// get single task thru taskID
+async function getSingleTask(taskID) {
+  const taskModel = getDbConnection().model('Task', taskSchema)
+  const task = await taskModel.findOne({ _id: taskID })
+  console.log(task)
+  return task
+}
+
 // delete a task by its ID
 async function deleteTask(taskID) {
   const taskModel = getDbConnection().model('Task', taskSchema)
@@ -79,6 +87,7 @@ async function editTask(taskId, taskEdits) {
 
 module.exports = {
   getTasks,
+  getSingleTask, 
   deleteTask,
   addTask,
   editTask

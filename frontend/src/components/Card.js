@@ -6,7 +6,7 @@ import triangle from "../assets/triangle.png";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function Card({ title, dueDate, category, timeEst, body }) {
+function Card({ taskId, title, dueDate, category, timeEst, body, onDelete, onEdit }) {
   const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
 
@@ -34,6 +34,7 @@ function Card({ title, dueDate, category, timeEst, body }) {
       return false;
     }
   }
+  
 
   return (
     <div className="App">
@@ -83,6 +84,20 @@ function Card({ title, dueDate, category, timeEst, body }) {
             <motion.div className="body">
               <p>{body}</p>
             </motion.div>
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={() => onDelete(taskId)}
+                className="text-red-500 hover:bg-gray-100 font-semibold py-2 px-4 rounded"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => onEdit(taskId)}
+                className="text-blue-500 hover:bg-gray-100 font-semibold py-2 px-4 rounded"
+              >
+                Edit
+              </button>
+            </div>
           </motion.div>
         )}
       </motion.div>
