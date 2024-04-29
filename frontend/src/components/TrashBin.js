@@ -34,10 +34,13 @@ const TrashBin = ({ isOpen, onClose }) => {
     return (
         <div className={`fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center ${isOpen ? 'block' : 'hidden'}`}>
             <div className="relative w-5/12 bg-white p-5 rounded-lg shadow-lg">
-                <div className="flex justify-end space-x-2 mb-4">
-                    <button onClick={handleEmpty} className="bg-red-500 text-black py-2 px-4 rounded">Empty</button>
-                    <button onClick={handleSelect} className="bg-blue-500 text-black py-2 px-4 rounded">Select</button>
-                    <button onClick={onClose} className="bg-green-500 text-black py-2 px-4 rounded">Done</button>
+                <div className="flex justify-between items-center mb-4 w-full">
+                    <header className="bg-red-500 text-black py-2 pl-2 rounded">Trash Bin</header>
+                    <div className="flex space-x-2">
+                        <button onClick={handleEmpty} className="bg-red-500 text-black py-2 pr-4 rounded">Empty</button>
+                        <button onClick={handleSelect} className="bg-blue-500 text-black py-2 pr-4 rounded">Select</button>
+                        <button onClick={onClose} className="bg-green-500 text-black py-2 pr-4 rounded">Done</button>
+                    </div>
                 </div>
                 <ul className="max-h-96 overflow-y-auto">
                     {deletedTasks.map((task, index) => (
