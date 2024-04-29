@@ -159,4 +159,7 @@ module.exports = {
   findAndDelete,
   editUser,
   findUserByUsername,
+  addCategory,
+  editCategory,
+  deleteCategory
 };

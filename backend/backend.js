@@ -134,6 +134,45 @@ app.post('/users/:userId/categories', async (req, res) => {
   }
 });
 
+// backend.js
+app.delete('/users/:userId/categories/:categoryName', async (req, res) => {
+  const { userId, categoryName } = req.params;
+  try {
+      const user = await userServices.findUserById(userId);
+      if (!user) {
+          res.status(404).send('User not found');
+          return;
+      }
+      // Remove the category from the array
+      user.categories = user.categories.filter(category => category !== categoryName);
+      await user.save();
+      res.status(200).send(user.categories);
+  } catch (error) {
+      console.error('Error deleting category:', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+
+// Delete a category for a specific user
+// app.delete('/users/:userId/categories/:categoryId', async (req, res) => {
+//   const { userId, categoryId } = req.params;
+//   try {
+//       const user = await userServices.findUserById(userId);
+//       if (!user) {
+//           res.status(404).send("User not found.");
+//           return;
+//       }
+//       user.categories = user.categories.filter(category => category.id !== categoryId); // Assuming each category has a unique 'id'
+//       await user.save();
+//       res.status(200).send({ categories: user.categories });
+//   } catch (error) {
+//       console.error('Error deleting category:', error);
+//       res.status(500).send('Internal Server Error');
+//   }
+// });
+
+
 // Main Author: Angela Kim
 // Get a user's categories by user id
 app.get("/users/:id/categories", async (req, res) => {
