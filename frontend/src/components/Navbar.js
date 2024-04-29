@@ -4,11 +4,16 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
+import Categories from './Categories';
+import { useState } from 'react';
+import categoryIcon from "./categoryIcon.png";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default function Navbar() {
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+
   return (
     <header class="fixed bg-white shadow-md z-50 h-20 w-full px-16 py-4 flex justify-between items-center">
       <Link to="/" class="text-2xl font-outfit font-semibold text-blue">
@@ -16,6 +21,11 @@ export default function Navbar() {
       </Link>
       <div>
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          {/* Category Icon Button */}
+          <button onClick={() => setIsCategoriesOpen(true)} className="mr-4">
+            <img src={categoryIcon} alt="Categories" style={{ width: '32px', height: '32px' }} />
+          </button>
+
           {/* Profile dropdown */}
           {/* Search Bar */}
           <input
@@ -87,6 +97,7 @@ export default function Navbar() {
           </Menu>
         </div>
       </div>
+      <Categories isOpen={isCategoriesOpen} onClose={() => setIsCategoriesOpen(false)} />
     </header>
   );
 }

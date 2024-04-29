@@ -19,6 +19,19 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
 
   const [categories, setCategories] = useState(initialCategories);
 
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:8000/users/66105e818b0d26a8a1670626/categories");
+  //       setCategories(res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
+  //   fetchCategories();
+  // }, []);
+  
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -66,6 +79,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
       console.error("Error submitting task:", error);
     }
   };
+
 
   return (
     <div
@@ -121,6 +135,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
               className="p-2 border border-gray-300 rounded-md flex-1 mr-1 h-11"
             >
               <option value="">Select Category</option>
+              
               {categories.map((category) => (
                 <option key={category.id} value={category.name}>
                   {category.name}

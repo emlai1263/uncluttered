@@ -13,7 +13,7 @@ const Sidebar = () => {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/users/65e6328a68059ab797224e0f/categories"
+        "http://localhost:8000/users/66105e818b0d26a8a1670626/categories"
       );
       if (response.ok) {
         const data = await response.json();
