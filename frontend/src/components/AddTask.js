@@ -9,7 +9,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
     dueDate: new Date(),
     category: "",
     timeEst: "",
-    note: "",
+    body: "",
   });
 
   const initialCategories = [
@@ -182,9 +182,9 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
           <label className="text-sm block">Note: </label>
           <input
             type="text"
-            name="note"
+            name="body"
             placeholder="Note"
-            value={task.note}
+            value={task.body}
             onChange={handleChange}
             className="p-2 border border-gray-300 rounded-md w-full"
           />
