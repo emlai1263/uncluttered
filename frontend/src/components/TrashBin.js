@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const TrashBin = ({ isOpen, onClose }) => {
-    const [deletedTasks, setDeletedTasks] = useState([]);
+    const initialTrash = [
+        { id: 1, name: "School" },
+        { id: 2, name: "Work" }
+    ];
+    const [deletedTasks, setDeletedTasks] = useState(initialTrash);
 
     useEffect(() => {
         fetchDeletedTasks();
@@ -29,7 +33,7 @@ const TrashBin = ({ isOpen, onClose }) => {
 
     return (
         <div className={`fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center ${isOpen ? 'block' : 'hidden'}`}>
-            <div className="relative w-1/2 bg-white p-5 rounded-lg shadow-lg">
+            <div className="relative w-5/12 bg-white p-5 rounded-lg shadow-lg">
                 <div className="flex justify-end space-x-2 mb-4">
                     <button onClick={handleEmpty} className="bg-red-500 text-black py-2 px-4 rounded">Empty</button>
                     <button onClick={handleSelect} className="bg-blue-500 text-black py-2 px-4 rounded">Select</button>
