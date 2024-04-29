@@ -150,3 +150,4 @@ app.get("/users/:id/categories", async (req, res) => {
     res.status(404).send("Get categories: resource not found.");
   }
 });
+

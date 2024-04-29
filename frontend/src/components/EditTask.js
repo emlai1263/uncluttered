@@ -36,7 +36,7 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
     
         const fetchCategories = async () => {
           try {
-            const response = await axios.get("http://localhost:8000/users/66105e818b0d26a8a1670626/categories");
+            const response = await axios.get("http://localhost:8000/categories");
             setCategories(response.data);
           } catch (error) {
             console.error("Error fetching categories:", error);

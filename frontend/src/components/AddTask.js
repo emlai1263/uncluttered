@@ -19,10 +19,23 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
 
   const [categories, setCategories] = useState(initialCategories);
 
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:8000/users/66105e818b0d26a8a1670626/categories");
+  //       setCategories(res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
+  //   fetchCategories();
+  // }, []);
+  
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/users/66105e818b0d26a8a1670626/categories");
+        const res = await axios.get("http://localhost:8000/categories");
         setCategories(res.data);
       } catch (err) {
         console.log(err);
