@@ -5,7 +5,8 @@ import Category from './Category';
 const Categories = ({ isOpen, onClose }) => {
     const initialCategories = [
         { id: 1, name: "School" },
-        { id: 2, name: "Work" }
+        { id: 2, name: "Work" },
+        { id: 3, name: "Personal" }
     ];
     const [categories, setCategories] = useState(initialCategories);
     const [newCategory, setNewCategory] = useState('');
