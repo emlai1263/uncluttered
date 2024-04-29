@@ -7,6 +7,7 @@ import EditTask from "./EditTask";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import moment from "moment";
+import TrashBin from './TrashBin';
 
 const progress_states = ["To Do", "In Progress", "Complete"];
 
@@ -46,7 +47,8 @@ const Dashboard = () => {
     }
   };
   
-  
+  const [isTrashBinOpen, setIsTrashBinOpen] = useState(false);
+
 
   const handleEditTask = (taskId) => {
     setEditTaskId(taskId);
@@ -97,25 +99,22 @@ const Dashboard = () => {
               <div className="flex items-center justify-between py-4 px-10 mb-2 border-b text-black font-outfit">
                 <p>{state}</p>
                 {/* Conditional rendering of SVG */}
+                
                 {state === "To Do" && (
-                  <button onClick={handleAddTaskClick}>
-                    {" "}
-                    {/* Attach the click handler to the button */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                      />
-                    </svg>
-                  </button>
+                  <div className="flex space-x-4">
+                    <button onClick={() => setIsTrashBinOpen(true)}>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 9l-1.035 10.447A2 2 0 0116.472 21.5H7.528a2 2 0 01-1.993-1.947L4.5 9m13.5 0V6a2 2 0 00-2-2h-5a2 2 0 00-2 2v3m12 0H4.5m12 0a1.5 1.5 0 011.5 1.5v0a1.5 1.5 0 01-1.5 1.5h-9a1.5 1.5 0 01-1.5-1.5v0a1.5 1.5 0 011.5-1.5h9zM10.5 6v-.75a.75.75 0 00-.75-.75h-1.5a.75.75 0 00-.75.75V6" />
+                      </svg>
+                    </button>
+
+                    <button onClick={handleAddTaskClick}>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>
+                    </button>
+                    
+                  </div>
                 )}
               </div>
               <div className="container">
@@ -145,8 +144,7 @@ const Dashboard = () => {
         taskId={editTaskId}
         updateDashboard={updateDashboard}
       />
-
-      
+      <TrashBin isOpen={isTrashBinOpen} onClose={() => setIsTrashBinOpen(false)} />
     </div>
   );
 };
