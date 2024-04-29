@@ -1,6 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 
 function CalendarDays(props) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedTasks, setSelectedTasks] = useState([]);
+  const [mousePosition, setMousePosition] = useState(0);
+
+  const mouseClick = (e) => {
+    setMousePosition(e.clientX);
+  };
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const handleDayClick = (day) => {
+    const tasksForDay = props.tasks.filter((task) => {
+      const taskDateStr = new Date(task.dueDate).toDateString();
+      const dayDateStr = day.date.toDateString();
+      return taskDateStr === dayDateStr;
+    });
+
+    if (tasksForDay.length > 3) {
+      setSelectedTasks(tasksForDay);
+      toggleModal();
+    } else {
+      props.changeCurrentDay(day);
+    }
+  };
+
   let firstDayOfMonth = new Date(
     props.day.getFullYear(),
     props.day.getMonth(),
@@ -38,11 +65,9 @@ function CalendarDays(props) {
         const tasksForDay = props.tasks.filter((task) => {
           const taskDateStr = new Date(task.dueDate).toDateString();
           const dayDateStr = day.date.toDateString();
-          // console.log("Task Date:", taskDateStr);
-          // console.log("Day Date:", dayDateStr);
           return taskDateStr === dayDateStr;
         });
-        // console.log("Tasks for day", day.number, ":", tasksForDay);
+
         return (
           <div
             key={`${day.year}-${day.month}-${day.number}`}
@@ -51,18 +76,11 @@ function CalendarDays(props) {
               (day.currentMonth ? " current" : "") +
               (day.selected ? " selected" : "")
             }
-            onClick={() => props.changeCurrentDay(day)}
+            onClick={() => handleDayClick(day)}
           >
             <p className="text-right mr-2">{day.number}</p>
-            {tasksForDay.map((task) => (
+            {tasksForDay.slice(0, 3).map((task) => (
               <div key={task._id}>
-                {task.status === "Complete" && (
-                  <p className="mt-0 mb-0 text bg-sky">
-                    <small>
-                      <small className="mt-0 line-through">{task.title}</small>
-                    </small>
-                  </p>
-                )}
                 <p className="mt-0 mb-0 text bg-sky rounded-md">
                   <small>
                     <small className="mt-0">{task.title}</small>
@@ -70,11 +88,37 @@ function CalendarDays(props) {
                 </p>
               </div>
             ))}
+            {tasksForDay.length > 3 && (
+              <button
+                className="see-more-button text"
+                onClick={() => handleDayClick(day)}
+              >
+                See more
+              </button>
+            )}
           </div>
         );
       })}
+      {modalVisible && (
+        <div className="modal absolute left-100">
+          <div className="modal-content">
+            <span className="close" onClick={toggleModal}>
+              &times;
+            </span>
+            <div className="modal-body bg-white size-72 text-3xl border-2">
+              <h4>Tasks for the day:</h4>
+              {selectedTasks.map((task) => (
+                <div key={task._id}>
+                  <p className="mt-0 mb-0 text bg-sky rounded-md">
+                    {task.title}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
 export default CalendarDays;
