@@ -1,21 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import DeletedTaskCard from './DeletedTaskCard';
 
 const TrashBin = ({ isOpen, onClose }) => {
-    const initialTrash = [
-        { id: 1, name: "School" },
-        { id: 2, name: "Work" }
-    ];
-    const [deletedTasks, setDeletedTasks] = useState(initialTrash);
+    const [deletedTasks, setDeletedTasks] = useState([]);
+
+    // useEffect(() => {
+    //     fetchDeletedTasks();
+    // }, []);
 
     useEffect(() => {
-        fetchDeletedTasks();
-    }, []);
+        if (isOpen) {
+            fetchDeletedTasks();
+        }
+    }, [isOpen]);
 
+    // const fetchDeletedTasks = async () => {
+    //     try {
+    //         const response = await axios.get('http://localhost:8000/deletedTasks');
+    //         setDeletedTasks(response.data);
+    //     } catch (error) {
+    //         console.error('Error fetching deleted tasks:', error);
+    //     }
+    // };
     const fetchDeletedTasks = async () => {
+        const userId = "66105e818b0d26a8a1670626"; // Hardcoded user ID
         try {
-            const response = await axios.get('http://localhost:8000/deletedTasks');
-            setDeletedTasks(response.data);
+            const response = await axios.get(`http://localhost:8000/users/${userId}/tasks/deleted`);
+            if (Array.isArray(response.data)) {
+                setDeletedTasks(response.data);
+            } else {
+                console.log('Unexpected data structure:', response.data);
+                setDeletedTasks([]);
+            }
         } catch (error) {
             console.error('Error fetching deleted tasks:', error);
         }
@@ -31,6 +48,30 @@ const TrashBin = ({ isOpen, onClose }) => {
         console.log('Select tasks');
     };
 
+    const handlePermanentlyDeleteTask = async (taskId) => {
+        try {
+            const response = await axios.delete(`http://localhost:8000/tasks/${taskId}/permanent-delete`);
+            if (response.status === 204) {
+                const updatedDeletedTasks = deletedTasks.filter((task) => task.id !== taskId);
+                setDeletedTasks(updatedDeletedTasks);
+            }
+        } catch (error) {
+            console.error("Error permanently deleting task:", error);
+        }
+    };
+
+    const handleRecoverTask = async (taskId) => {
+        try {
+            const response = await axios.patch(`http://localhost:8000/tasks/${taskId}/recover`);
+            if (response.status === 200) {
+                const updatedDeletedTasks = deletedTasks.filter((task) => task.id !== taskId);
+                setDeletedTasks(updatedDeletedTasks);
+            }
+        } catch (error) {
+            console.error("Error recovering task:", error);
+        }
+    };
+
     return (
         <div className={`fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center ${isOpen ? 'block' : 'hidden'}`}>
             <div className="relative w-5/12 bg-white p-5 rounded-lg shadow-lg">
@@ -43,11 +84,18 @@ const TrashBin = ({ isOpen, onClose }) => {
                     </div>
                 </div>
                 <ul className="max-h-96 overflow-y-auto">
-                    {deletedTasks.map((task, index) => (
-                        <li key={index} className="p-2 border-b border-gray-300">
-                            <p className="text-gray-800">{task.title}</p>
-                            <p className="text-sm text-gray-600">Deleted on: {task.deletedDate}</p>
-                        </li>
+                    {deletedTasks.map((task) => (
+                        <DeletedTaskCard
+                            key={task.id}
+                            taskId={task.id}
+                            title={task.title}
+                            dueDate={task.dueDate}
+                            category={task.category}
+                            timeEst={task.timeEst}
+                            body={task.body}
+                            onRecover={handleRecoverTask}
+                            onPermanentDelete={handlePermanentlyDeleteTask}
+                        />
                     ))}
                 </ul>
             </div>

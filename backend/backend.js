@@ -77,17 +77,57 @@ app.get('/task/:taskID', async (req, res) => {
 //   else res.status(404).send('Resource not found.')
 // })
 
-app.delete('/tasks/:taskID', async (req, res) => {
+// app.delete('/tasks/:taskID', async (req, res) => {
+//   const taskID = req.params.taskID;
+//   try {
+//     const deletionResult = await taskServices.deleteTask(taskID);
+//     if (deletionResult) res.status(204).end();
+//     else res.status(404).send('Resource not found.');
+//   } catch (error) {
+//     console.error("Error in deleting task:", error);
+//     res.status(500).send('Server error.');
+//   }
+// });
+
+// Mark a task as deleted instead of removing it
+app.patch('/tasks/:taskID/mark-deleted', async (req, res) => {
   const taskID = req.params.taskID;
   try {
-    const deletionResult = await taskServices.deleteTask(taskID);
-    if (deletionResult) res.status(204).end();
-    else res.status(404).send('Resource not found.');
+    const updatedTask = await taskServices.markTaskAsDeleted(taskID);
+    if (updatedTask) res.status(200).send(updatedTask);
+    else res.status(404).send('Task not found.');
   } catch (error) {
-    console.error("Error in deleting task:", error);
+    console.error("Error marking task as deleted:", error);
     res.status(500).send('Server error.');
   }
 });
+
+// Get all deleted tasks for a specific user
+app.get('/users/:userId/tasks/deleted', async (req, res) => {
+  const userId = req.params.userId;
+  try {
+      const deletedTasks = await taskServices.getDeletedTasks(userId);
+      res.status(200).json(deletedTasks);
+  } catch (error) {
+      console.error("Error retrieving deleted tasks for user:", error);
+      res.status(500).send('Server error.');
+  }
+});
+
+
+// Permanently delete a task
+app.delete('/tasks/:taskID/permanent-delete', async (req, res) => {
+  const taskID = req.params.taskID;
+  try {
+    const result = await taskServices.permanentlyDeleteTask(taskID);
+    if (result) res.status(204).end();
+    else res.status(404).send('Task not found.');
+  } catch (error) {
+    console.error("Error permanently deleting task:", error);
+    res.status(500).send('Server error.');
+  }
+});
+
 
 
 // delete a user via its id + all tasks associated with that user

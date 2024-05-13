@@ -39,6 +39,10 @@ const taskSchema = new mongoose.Schema(
       type: String,
       default: 'body',
       trim: true
+    },
+    deleted: {
+      type: Boolean,
+      default: false
     }
   },
   { collection: 'tasks' }

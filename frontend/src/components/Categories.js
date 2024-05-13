@@ -4,9 +4,9 @@ import Category from './Category';
 
 const Categories = ({ isOpen, onClose }) => {
     const initialCategories = [
-        { id: 1, name: "School" },
-        { id: 2, name: "Work" },
-        { id: 3, name: "Personal" }
+        { id: 0, name: "School" },
+        { id: 1, name: "Work" },
+        { id: 2, name: "Personal" }
     ];
     const [categories, setCategories] = useState(initialCategories);
     const [newCategory, setNewCategory] = useState('');
@@ -69,9 +69,7 @@ const Categories = ({ isOpen, onClose }) => {
                     </div>
                 </div>
                 <ul className="max-h-96 overflow-y-auto">
-                    {categories.map((category, index) => (
-                        <Category key={index} categoryName={category.name} onDelete={handleDeleteCategory} />
-                    ))}
+                    
                 </ul>
             </div>
         </div>

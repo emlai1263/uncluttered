@@ -23,16 +23,48 @@ const Dashboard = () => {
     setIsAddTaskOpen(true);
   };
 
+  // const handleDeleteTask = async (taskId) => {
+  //   // Implement delete task functionality
+  //   try {
+  //     await axios.delete(`http://localhost:8000/tasks/${taskId}`);
+  //     const updatedTasks = tasks.filter((task) => task.id !== taskId);
+  //     setTasks(updatedTasks);
+  //   } catch (error) {
+  //     console.error("Error deleting task:", error);
+  //   }
+  // };
   const handleDeleteTask = async (taskId) => {
-    // Implement delete task functionality
     try {
-      await axios.delete(`http://localhost:8000/tasks/${taskId}`);
-      const updatedTasks = tasks.filter((task) => task.id !== taskId);
-      setTasks(updatedTasks);
+      // Change from DELETE to PATCH and update the endpoint
+      const response = await axios.patch(`http://localhost:8000/tasks/${taskId}/mark-deleted`);
+      if (response.status === 200) {
+        const updatedTasks = tasks.filter((task) => task.id !== taskId);
+        setTasks(updatedTasks);  
+      } else {
+        console.error("Failed to mark task as deleted");
+      }
     } catch (error) {
       console.error("Error deleting task:", error);
     }
   };
+  
+  const [deletedTasks, setDeletedTasks] = useState([]);
+
+  const fetchDeletedTasks = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/tasks/deleted');
+      if (response.data) {
+        setDeletedTasks(response.data); 
+      }
+    } catch (error) {
+      console.error('Error fetching deleted tasks:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDeletedTasks();
+  }, []); 
+
   const updateDashboard = async () => {
     try {
       const response = await axios.get("http://localhost:8000/tasks");
