@@ -55,7 +55,6 @@ function CalendarDays(props) {
       selected: firstDayOfMonth.toDateString() === props.day.toDateString(),
       year: firstDayOfMonth.getFullYear(),
     };
-
     currentDays.push(calendarDay);
   }
 
@@ -81,7 +80,7 @@ function CalendarDays(props) {
             <p className="text-right mr-2">{day.number}</p>
             {tasksForDay.slice(0, 3).map((task) => (
               <div key={task._id}>
-                <p className="mt-0 mb-0 text bg-sky rounded-md">
+                <p className="mt-0 mb-0 bg-sky rounded-md">
                   <small>
                     <small className="mt-0">{task.title}</small>
                   </small>
@@ -102,14 +101,14 @@ function CalendarDays(props) {
       {modalVisible && (
         <div className="modal absolute left-100">
           <div className="modal-content">
-            <span className="close" onClick={toggleModal}>
+            <span className="close text-2xl" onClick={toggleModal}>
               &times;
             </span>
-            <div className="modal-body bg-white size-72 text-3xl border-2">
-              <h4>Tasks for the day:</h4>
+            <div className="modal-body bg-white size-72 text-2xl border-2 py-6 rounded-lg">
+              <h4 className="text-2xl">Tasks for the day:</h4>
               {selectedTasks.map((task) => (
                 <div key={task._id}>
-                  <p className="mt-0 mb-0 text bg-sky rounded-md">
+                  <p className="mb-1 text bg-sky rounded-md py-2">
                     {task.title}
                   </p>
                 </div>
