@@ -114,6 +114,38 @@ app.get('/users/:userId/tasks/deleted', async (req, res) => {
   }
 });
 
+// Delete all deleted tasks for a specific user - Empty Trash
+app.delete('/users/:userId/tasks/delete-all', async (req, res) => {
+  const { userId } = req.params;
+  try {
+      const result = await taskServices.deleteAllTasks(userId);
+      if (result.deletedCount > 0) {
+          res.status(204).send(); // No content to send back
+      } else {
+          res.status(404).send('No tasks found to delete.');
+      }
+  } catch (error) {
+      console.error("Error deleting all tasks:", error);
+      res.status(500).send('Server error');
+  }
+});
+
+
+// Recover a deleted task
+app.patch('/tasks/:taskID/recover', async (req, res) => {
+  const taskID = req.params.taskID;
+  try {
+    const recoveredTask = await taskServices.recoverTask(taskID);
+    if (recoveredTask) {
+      res.status(200).send(recoveredTask);
+    } else {
+      res.status(404).send('Task not found');
+    }
+  } catch (error) {
+    console.error("Error recovering task:", error);
+    res.status(500).send('Server error');
+  }
+});
 
 // Permanently delete a task
 app.delete('/tasks/:taskID/permanent-delete', async (req, res) => {

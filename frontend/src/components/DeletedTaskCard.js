@@ -1,5 +1,5 @@
 import React from "react";
-import "./Card.css";  // Assuming this CSS is suitable for the card
+import "./Card.css";
 
 function DeletedTaskCard({ taskId, title, dueDate, category, timeEst, body, onRecover, onPermanentDelete }) {
     return (
@@ -12,9 +12,19 @@ function DeletedTaskCard({ taskId, title, dueDate, category, timeEst, body, onRe
                 <h2 className="category p-2.5 bg-gray-100 rounded-full">{category}</h2>
                 <h2 className="timeEst p-2.5 bg-gray-100 rounded-full">{timeEst} hours</h2>
                 <p>{body}</p>
-                <div className="flex justify-end space-x-2 mt-4">
-                    <button onClick={() => onRecover(taskId)} className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">Recover</button>
-                    <button onClick={() => onPermanentDelete(taskId)} className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Delete Permanently</button>
+                <div className="flex justify-between mt-4">
+                    <button
+                        onClick={() => onRecover(taskId)}
+                        className="bg-green-500 hover:bg-green-700 text-black py-2 px-4 rounded"
+                    >
+                        Recover
+                    </button>
+                    <button
+                        onClick={() => onPermanentDelete(taskId)}
+                        className="bg-red-500 hover:bg-red-700 text-black py-2 px-4 rounded"
+                    >
+                        Delete Permanently
+                    </button>
                 </div>
             </div>
         </div>

@@ -61,14 +61,20 @@ async function getDeletedTasks(userId) {
 async function permanentlyDeleteTask(taskID) {
   const taskModel = getDbConnection().model('Task', taskSchema);
   try {
+    const task = await taskModel.findById(taskID);
+    if (!task) {
+      console.log('No task found with ID:', taskID);
+      return null;
+    }
     const result = await taskModel.findByIdAndDelete(taskID);
-    console.log('Task permanently deleted');
+    console.log('Task permanently deleted:', result);
     return result;
   } catch (error) {
     console.log('Error permanently deleting task:', error);
     return undefined;
   }
 }
+
 
 // get single task thru taskID
 async function getSingleTask(taskID) {
@@ -135,13 +141,30 @@ async function editTask(taskId, taskEdits) {
   }
 }
 
-// module.exports = {
-//   getTasks,
-//   getSingleTask, 
-//   deleteTask,
-//   addTask,
-//   editTask
-// }
+async function recoverTask(taskID) {
+  const taskModel = getDbConnection().model('Task', taskSchema);
+  try {
+    const updatedTask = await taskModel.findByIdAndUpdate(taskID, { deleted: false }, { new: true });
+    console.log('Task recovered:', updatedTask);
+    return updatedTask;
+  } catch (error) {
+    console.log('Error recovering task:', error);
+    return null;
+  }
+}
+
+// Function to delete all tasks for a user
+async function deleteAllTasks(userId) {
+  const taskModel = getDbConnection().model('Task', taskSchema);
+  try {
+      const result = await taskModel.deleteMany({ userId: userId, deleted: true });
+      console.log('Deleted tasks count:', result.deletedCount);
+      return result;
+  } catch (error) {
+      console.error('Error deleting all tasks for user:', error);
+      throw error;
+  }
+}
 
 module.exports = {
   getTasks,
@@ -150,8 +173,8 @@ module.exports = {
   getDeletedTasks,
   permanentlyDeleteTask,
   addTask,
-  editTask
+  editTask,
+  recoverTask,
+  deleteAllTasks
 }
-
-
 
