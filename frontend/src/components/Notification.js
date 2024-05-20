@@ -17,7 +17,7 @@ const Notification = ({ tasks }) => {
         <img
           src="bell_icon.png"
           alt="Notification Bell"
-          style={{ width: "32px", height: "32px" }}
+          style={{ width: "22px", height: "22px" }}
         />
       </div>
       {
