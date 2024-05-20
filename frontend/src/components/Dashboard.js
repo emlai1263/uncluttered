@@ -104,7 +104,7 @@ const Dashboard = () => {
           <div
             key={index}
             className="bg-white rounded-[12px] min-h-screen pb-20 mb-20 w-1/4 h-5/6 mx-5"
-            // boarder for hovering over while dragging
+            // border for hovering over while dragging
             onDragOver={(event) => {
               event.preventDefault();
               const newShowDrop = [...showDrop];
@@ -180,7 +180,6 @@ const Dashboard = () => {
         updateDashboard={updateDashboard}
       />
       <TrashBin isOpen={isTrashBinOpen} onClose={() => setIsTrashBinOpen(false)} />
-      <h1>active card: {activeCard}</h1>
     </div>
   );
 };

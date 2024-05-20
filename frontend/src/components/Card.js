@@ -44,7 +44,6 @@ function Card({ setActiveCard, taskId, title, dueDate, category, timeEst, body, 
         style={{ userSelect: 'none' }}
         onDragStart={() => setActiveCard(taskId)}
         onDragEnd={() => setActiveCard(null)}
-        // onDragEnd={() => setTimeout(() => setActiveCard(null), 5000)}
         className="card flex text-gray-600 flex-col p-4 pt-2 rounded-2xl drop-shadow-lg bg-white  font-inter w-80 text-left"
       >
         <div className="card-header flex justify-between items-center mb-2">
