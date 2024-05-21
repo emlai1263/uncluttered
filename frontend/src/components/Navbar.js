@@ -9,6 +9,7 @@ import { useState } from "react";
 import categoryIcon from "./categoryIcon.png";
 import bellIcon from "./bell_icon.svg";
 import Notification from "./Notification";
+import Tooltip from './Tooltip';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -24,26 +25,31 @@ export default function Navbar() {
       </Link>
       <div>
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          {/* Category Icon Button */}
-          <button onClick={() => setIsCategoriesOpen(true)} className="mr-4">
-            <img
-              src={categoryIcon}
-              alt="Categories"
-              style={{ width: "32px", height: "32px" }}
-            />
-          </button>
+          <Tooltip message="View Categories" position="below">
+            {/* Category Icon Button */}
+            <button onClick={() => setIsCategoriesOpen(true)} className="mr-4">
+              <img
+                src={categoryIcon}
+                alt="Categories"
+                style={{ width: "32px", height: "32px" }}
+              />
+            </button>
+          </Tooltip>
+
+          <Tooltip message="View Notifications" position="below">
           {/* Notifications Icon */}
-          <button
-            onClick={() => setShowNotifications(!showNotifications)}
-            className="mr-4"
-          >
-            <img
-              className="size-4"
-              src={bellIcon}
-              alt="Notifications"
-              style={{ width: "24px", height: "24px" }}
-            />
-          </button>
+            <button
+              onClick={() => setShowNotifications(!showNotifications)}
+              className="mr-4"
+            >
+              <img
+                className="size-4"
+                src={bellIcon}
+                alt="Notifications"
+                style={{ width: "24px", height: "24px" }}
+              />
+            </button>
+          </Tooltip>
           {/* Notification Panel */}
           {showNotifications && <Notification />}
           {/* Profile dropdown */}
