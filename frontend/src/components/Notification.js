@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import bellIcon from "./bell_icon.svg";
 
 const Notification = ({ tasks }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage the visibility of the modal window
@@ -11,14 +12,11 @@ const Notification = ({ tasks }) => {
     <div className="relative">
       <div
         id="notification-icon"
+        alt=""
         onClick={toggleModal}
         className="cursor-pointer"
       >
-        <img
-          src="bell_icon.png"
-          alt="Notification Bell"
-          style={{ width: "32px", height: "32px" }}
-        />
+        <img src={bellIcon} alt="" style={{ width: "32px", height: "32px" }} />
       </div>
       {
         <div className="absolute right-0 z-10 mt-2 h-64 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
