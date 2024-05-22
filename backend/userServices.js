@@ -32,6 +32,18 @@ async function findUserByUsername(username) {
   return await userModel.find({ username });
 }
 
+async function findUserByEmail(email) {
+  try {
+    const userModel = getDbConnection().model("User", userSchema);
+    return await userModel.find({ email });
+  }
+  catch (error) {
+    console.log("Failed to find user by email.");
+    return false;
+  }
+};
+
+
 // edit tasks
 async function editUser(userId, userEdits) {
   const taskModel = getDbConnection().model("User", userSchema);
@@ -156,6 +168,7 @@ module.exports = {
   getUsers,
   findUserByName,
   findUserById,
+  findUserByEmail,
   findAndDelete,
   editUser,
   findUserByUsername,

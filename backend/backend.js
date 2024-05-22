@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const userServices = require("./userServices");
 const taskServices = require("./taskServices");
+const authService = require("./authService")
 const userSchema = require("./userSchema");
 
 const app = express();
@@ -14,6 +15,26 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+// Login user
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  console.log(email);
+  console.log(password);
+  try {
+    const user = await authService.loginUser(email, password);
+    console.log(user);
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(401).send("Invalid email or password");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("An error occurred during login");
+  }
+});
+
 
 // get users
 app.get("/users", async (req, res) => {
@@ -37,6 +58,7 @@ app.get("/users/:id", async (req, res) => {
     res.send({ users: result });
   }
 });
+
 
 // add users
 app.post("/users", async (req, res) => {
