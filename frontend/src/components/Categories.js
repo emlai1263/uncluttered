@@ -11,9 +11,9 @@ const Categories = ({ isOpen, onClose }) => {
   const [categories, setCategories] = useState(initialCategories);
   const [newCategory, setNewCategory] = useState("");
 
-  // useEffect(() => {
-  //     fetchCategories();
-  // }, []);
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   const fetchCategories = async () => {
     try {
