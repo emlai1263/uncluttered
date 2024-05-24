@@ -63,7 +63,6 @@ const Dashboard = () => {
     fetchAll().then((result) => {
       if (result) {
         setTasks(result.data.users);
-        //console.log("tasks: " + tasks);
       } else {
       }
     });
@@ -75,7 +74,6 @@ const Dashboard = () => {
         // CHANGE USER HERE
         "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
       );
-      //console.log("TASKS HERE: " + response);
       return response;
     } catch (error) {
       //We're not handling errors. Just logging into the console.

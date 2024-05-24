@@ -13,11 +13,8 @@ function Card({ setActiveCard, taskId, title, dueDate, category, timeEst, body, 
   useEffect(() => {
     fetchAll().then((result) => {
       if (result) {
-        // console.log("TESTINGgg: " + JSON.stringify(result));
         setTasks(result.data.users);
-        // console.log("single task: " + JSON.stringify(tasks));
       } else {
-        // console.log("ERROR: " + JSON.stringify(result));
       }
     });
   }, []);
