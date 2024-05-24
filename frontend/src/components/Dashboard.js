@@ -23,17 +23,7 @@ const Dashboard = () => {
     console.log("Add Task button clicked");
     setIsAddTaskOpen(true);
   };
-
-  // const handleDeleteTask = async (taskId) => {
-  //   // Implement delete task functionality
-  //   try {
-  //     await axios.delete(`http://localhost:8000/tasks/${taskId}`);
-  //     const updatedTasks = tasks.filter((task) => task.id !== taskId);
-  //     setTasks(updatedTasks);
-  //   } catch (error) {
-  //     console.error("Error deleting task:", error);
-  //   }
-  // };
+  
   const handleDeleteTask = async (taskId) => {
     try {
       // Change from DELETE to PATCH and update the endpoint
