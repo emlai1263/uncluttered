@@ -1,3 +1,8 @@
+/* Main Author: Angela Kim
+User Context Provider - manages user authentication state using React Context API.
+Defines a UserContext with initial value of null.
+Provides 'login' and 'logout' functions to update user state.
+*/
 import React, { createContext, useState } from "react";
 
 const UserContext = createContext();

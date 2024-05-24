@@ -39,12 +39,16 @@ function App() {
   //   });
   // }, []);
 
+  /* Main Author: Angela Kim
+  State and Authentication Functions - manages user authentication state.
+  Defines a state variable 'user' initialized to null.
+  The 'login' function sets the 'user' state to the provided 'userData'.
+  The 'logout' function resets the 'user' state to null.
+*/
   const [user, setUser] = useState(null);
-
   const login = (userData) => {
     setUser(userData);
   };
-
   const logout = () => {
     setUser(null);
   };

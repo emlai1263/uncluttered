@@ -16,7 +16,11 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// Login user
+/* Main Author: Angela Kim
+Login API Endpoint - allows users to log in with email and password.
+On success, returns user data with status 200.
+On failure, returns status 401 or 500 with an error message.
+*/
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   console.log(email);
@@ -58,7 +62,6 @@ app.get("/users/:id", async (req, res) => {
     res.send({ users: result });
   }
 });
-
 
 // add users
 app.post("/users", async (req, res) => {

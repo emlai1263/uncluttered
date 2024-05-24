@@ -23,6 +23,13 @@ export const LoginPage = (props) => {
     setErrMsg("");
   }, [email, password]);
 
+  /* Main Author: Angela Kim
+  Handles form submission for user login.
+  Attempts to log in using provided email and password via an API call.
+  On success, updates user context, sets success state, clears form fields, and navigates to dashboard.
+  On failure, sets error message.
+*/
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

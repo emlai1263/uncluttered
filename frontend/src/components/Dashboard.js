@@ -1,6 +1,8 @@
 import React from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
+/* Main Author: Angela Kim
+Import UserContext */
 import UserContext from "../UserContext";
 import Card from "./Card";
 import AddTask from "./AddTask";
@@ -16,10 +18,11 @@ const progress_states = ["To Do", "In Progress", "Complete"];
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
-  const location = useLocation();
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
+  /* Main Author: Angela Kim
+  Assign user context to variable 'user' */
   const { user } = useContext(UserContext);
 
   const handleAddTaskClick = () => {
@@ -110,12 +113,13 @@ const Dashboard = () => {
       return false;
     }
   }
-  console.log(user[0]);
 
   //const name
   return (
     <div className="container ml-64 mt-36 h-screen w-screen">
       <h1 className="mb-6 ml-6 text-4xl text-blue font-semibold font-outfit">
+        {/* Main Author: Angela Kim
+        Fetch user's name from context, display with greeting */}
         Good morning, {user[0].name}!
       </h1>
 
