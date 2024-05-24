@@ -1,33 +1,36 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose;
+const mongoose = require("mongoose");
 
-const taskSchema = new Schema({
-  type: Object,
-  properties: {
-    task_id: { type: Schema.Types.ObjectId },
-    title: { type: String },
-    dueDate: { type: String },
-    category: { type: String },
-    timeEst: { type: Number }, // Assuming timeEst is supposed to be a floating-point number
-    body: { type: String }
-  }
-})
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    categories: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+  },
+  { collection: "users" }
+);
 
-const userSchema = mongoose.Schema({
-  type: Object,
-  properties: {
-    name: { type: String },
-    username: { type: String },
-    email: { type: String },
-    password: { type: String },
-    tasks: {
-      type: Array,
-      properties: {
-        task: [taskSchema]
-      }
-    }
-  }
-})
-
+// const userCollection = mongoose.model("userCollection", userSchema)
+// module.exports = userCollection;
 module.exports = userSchema;
-module.exports = taskSchema;
