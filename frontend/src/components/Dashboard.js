@@ -53,9 +53,7 @@ const Dashboard = () => {
       console.error("Error deleting task:", error);
     }
   };
-
   const [deletedTasks, setDeletedTasks] = useState([]);
-
   const fetchDeletedTasks = async () => {
     try {
       const response = await axios.get("http://localhost:8000/tasks/deleted");
@@ -66,7 +64,6 @@ const Dashboard = () => {
       console.error("Error fetching deleted tasks:", error);
     }
   };
-
   useEffect(() => {
     fetchDeletedTasks();
   }, []);
@@ -84,14 +81,11 @@ const Dashboard = () => {
       setTasks([]); // Set to empty array on error
     }
   };
-
   const [isTrashBinOpen, setIsTrashBinOpen] = useState(false);
-
   const handleEditTask = (taskId) => {
     setEditTaskId(taskId);
     setIsEditTaskOpen(true);
   };
-
   // functions to pull tasks from database
   useEffect(() => {
     fetchAll().then((result) => {
@@ -102,7 +96,6 @@ const Dashboard = () => {
       }
     });
   });
-
   async function fetchAll() {
     try {
       const response = await axios.get(
@@ -120,7 +113,6 @@ const Dashboard = () => {
   console.log(user[0]);
 
   //const name
-
   return (
     <div className="container ml-64 mt-36 h-screen w-screen">
       <h1 className="mb-6 ml-6 text-4xl text-blue font-semibold font-outfit">
