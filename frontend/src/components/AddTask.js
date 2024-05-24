@@ -31,19 +31,19 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
 
   //   fetchCategories();
   // }, []);
-  
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await axios.get("http://localhost:8000/categories");
-        setCategories(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
 
-    fetchCategories();
-  }, []);
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:8000/categories");
+  //       setCategories(res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
+  //   fetchCategories();
+  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,7 +79,6 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
       console.error("Error submitting task:", error);
     }
   };
-
 
   return (
     <div
@@ -135,7 +134,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
               className="p-2 border border-gray-300 rounded-md flex-1 mr-1 h-11"
             >
               <option value="">Select Category</option>
-              
+
               {categories.map((category) => (
                 <option key={category.id} value={category.name}>
                   {category.name}

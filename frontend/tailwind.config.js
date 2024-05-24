@@ -14,6 +14,7 @@ module.exports = {
       moss: "#879276",
       "moss-dark": "#7D876D",
       white: "#fff",
+      black: "#000",
       gray: {
         50: "#f9fafb",
         100: "#f3f4f6",
@@ -34,4 +35,9 @@ module.exports = {
     },
   },
   plugins: [],
+  variants: {
+    extend: {
+      opacity: ['responsive', 'hover', 'focus', 'group-hover'],
+    },
+  },
 };
