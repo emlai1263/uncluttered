@@ -37,8 +37,10 @@ function Card({ setActiveCard, taskId, title, dueDate, category, timeEst, body, 
       <motion.div
         transition={{ layout: { duration: 1, type: "spring" } }}
         layout
-        draggable
+        // prevent user from highlighting text
         style={{ userSelect: 'none' }}
+        // draggability
+        draggable
         onDragStart={() => setActiveCard(taskId)}
         onDragEnd={() => setActiveCard(null)}
         className="card flex text-gray-600 flex-col p-4 pt-2 rounded-2xl drop-shadow-lg bg-white  font-inter w-80 text-left"
