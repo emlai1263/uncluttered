@@ -3,55 +3,24 @@
 
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react";
-import Categories from "./Categories";
-import { useState } from "react";
-import categoryIcon from "./categoryIcon.png";
-import bellIcon from "./bell_icon.svg";
-import Notification from "./Notification";
-import Tooltip from './Tooltip';
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+
+const navigation = [
+  { name: "Dashboard", href: "/", current: true },
+  { name: "Calendar", href: "/", current: false },
+];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default function Navbar() {
-  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
-
   return (
-    <header class="fixed bg-white shadow-md z-50 h-20 w-full px-16 py-4 flex justify-between items-center">
+    <header class="fixed bg-white shadow-md z-50 w-full px-16 py-4 flex justify-between items-center">
       <Link to="/" class="text-2xl font-outfit font-semibold text-blue">
         U
       </Link>
       <div>
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          <Tooltip message="View Categories" position="below">
-            {/* Category Icon Button */}
-            <button onClick={() => setIsCategoriesOpen(true)} className="mr-4">
-              <img
-                src={categoryIcon}
-                alt="Categories"
-                style={{ width: "32px", height: "32px" }}
-              />
-            </button>
-          </Tooltip>
-
-          <Tooltip message="View Notifications" position="below">
-          {/* Notifications Icon */}
-            <button
-              onClick={() => setShowNotifications(!showNotifications)}
-              className="mr-4"
-            >
-              <img
-                className="size-4"
-                src={bellIcon}
-                alt="Notifications"
-                style={{ width: "24px", height: "24px" }}
-              />
-            </button>
-          </Tooltip>
-          {/* Notification Panel */}
-          {showNotifications && <Notification />}
           {/* Profile dropdown */}
           {/* Search Bar */}
           <input
@@ -59,7 +28,7 @@ export default function Navbar() {
             type="text"
             placeholder="Search.."
             name="search"
-          />
+          ></input>
 
           <Menu as="div" className="relative ml-3">
             <div>
@@ -98,7 +67,7 @@ export default function Navbar() {
                       href="#"
                       className={classNames(
                         active ? "bg-gray-100" : "",
-                        "block px-4 py-2 text-sm text-gray-700",
+                        "block px-4 py-2 text-sm text-gray-700"
                       )}
                     >
                       Settings
@@ -111,7 +80,7 @@ export default function Navbar() {
                       href="#"
                       className={classNames(
                         active ? "bg-gray-100" : "",
-                        "block px-4 py-2 text-sm text-gray-700",
+                        "block px-4 py-2 text-sm text-gray-700"
                       )}
                     >
                       Sign out
@@ -123,10 +92,6 @@ export default function Navbar() {
           </Menu>
         </div>
       </div>
-      <Categories
-        isOpen={isCategoriesOpen}
-        onClose={() => setIsCategoriesOpen(false)}
-      />
     </header>
   );
 }
