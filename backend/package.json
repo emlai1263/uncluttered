@@ -18,7 +18,7 @@
   },
   "scripts": {
     "test": "jest --forceExit",
-    "coverage": "jest --collectCoverage --forceExit",
+    "coverage": "jest --collectCoverage --forceExit", 
     "start": "node backend.js"
   }
 }

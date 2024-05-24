@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthProvider";
 
 const Sidebar = () => {
   const [categories, setCategories] = useState([]);
-
+/*
   useEffect(() => {
     // Fetch user's categories from backend API
     fetchCategories();
@@ -25,6 +25,7 @@ const Sidebar = () => {
       console.error("Error fetching categories:", error);
     }
   };
+  */
 
   return (
     <div className="fixed drop-shadow-md left-0 top-20 w-1/7 h-full bg-white">
@@ -45,13 +46,13 @@ const Sidebar = () => {
         </Link>
       </div>
       {/* Render categories */}
-      {categories.map((category, index) => (
+      {/* {categories.map((category, index) => (
         <div className="flex flex-col" key={index}>
           <button className="py-5 px-14 border-b text-black hover:bg-gray-100 font-outfit">
             {category}
           </button>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };
