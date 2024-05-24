@@ -160,8 +160,6 @@ app.delete('/tasks/:taskID/permanent-delete', async (req, res) => {
   }
 });
 
-
-
 // delete a user via its id + all tasks associated with that user
 app.delete('/users/:id', async (req, res) => {
   const id = req.params.id
