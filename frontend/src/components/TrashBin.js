@@ -7,10 +7,6 @@ const TrashBin = ({ isOpen, onClose }) => {
     const [deletedTasks, setDeletedTasks] = useState([]);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-    // useEffect(() => {
-    //     fetchDeletedTasks();
-    // }, []);
-
     useEffect(() => {
         if (isOpen) {
             fetchDeletedTasks();
@@ -18,14 +14,6 @@ const TrashBin = ({ isOpen, onClose }) => {
     }, [isOpen]);
 
 
-    // const fetchDeletedTasks = async () => {
-    //     try {
-    //         const response = await axios.get('http://localhost:8000/deletedTasks');
-    //         setDeletedTasks(response.data);
-    //     } catch (error) {
-    //         console.error('Error fetching deleted tasks:', error);
-    //     }
-    // };
     const fetchDeletedTasks = async () => {
         const userId = "66105e818b0d26a8a1670626"; // Hardcoded user ID
         try {

@@ -44,7 +44,8 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
           }
           
         };
-    
+
+          // I'll keep this section first because I'm creating a new schema for categories and will update the API endpoints after that. 
           // const fetchCategories = async () => {
           //     try {
           //         const response = await axios.get(`http://localhost:8000/users/66105e818b0d26a8a1670626/categories`);
