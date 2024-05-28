@@ -18,6 +18,10 @@ const Dashboard = () => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
+  // holds the TaskId for the card being dragged
+  const [activeCard, setActiveCard] = useState(null);
+  // each boolean in the array reps the highlight status of its respective column
+  const [showDrop, setShowDrop] = useState(new Array(progress_states.length).fill(false));
 
   const handleAddTaskClick = () => {
     console.log("Add Task button clicked");
@@ -93,7 +97,6 @@ const Dashboard = () => {
     fetchAll().then((result) => {
       if (result) {
         setTasks(result.data.users);
-        //console.log("tasks: " + tasks);
       } else {
       }
     });
@@ -105,7 +108,6 @@ const Dashboard = () => {
         // CHANGE USER HERE
         "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
       );
-      //console.log("TASKS HERE: " + response);
       return response;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
@@ -114,23 +116,57 @@ const Dashboard = () => {
     }
   }
 
-  //const name
+  // update task status
+  const updateTaskStatus = async (taskId, state) => {
+    try {
+      await axios.patch(`http://localhost:8000/tasks/${taskId}`, { status: state });
+    } catch (error) {
+      console.error("Error changing task status:", error);
+    }
+  };
 
   return (
     <div className="container ml-64 mt-36 h-screen w-screen">
       <h1 className="mb-6 ml-6 text-4xl text-blue font-semibold font-outfit">
         Good morning, {/* location.state.name */}
       </h1>
-
       <div className="col-container flex flex-wrap">
         {progress_states.map((state, index) => (
           <div
             key={index}
             className="bg-white rounded-[12px] min-h-screen pb-20 mb-20 w-1/4 h-5/6 mx-5"
+            // highlight border when a card is dragged over column
+            onDragOver={(event) => {
+              event.preventDefault();
+              const newShowDrop = [...showDrop];
+              newShowDrop[index] = true;
+              setShowDrop(newShowDrop);
+            }}
+            // remove highlights when cursor leaves
+            onDragLeave={() => {
+              const newShowDrop = [...showDrop];
+              newShowDrop[index] = false;
+              setShowDrop(newShowDrop);
+            }}
+            // when a card is dropped into the column
+            onDrop={() => {
+              // update status
+              updateTaskStatus(activeCard, state);
+
+              // stop the border highlight
+              const newShowDrop = showDrop.map(() => false);
+              setShowDrop(newShowDrop);
+            }}
+            // styling for border highlights
+            style={{
+              pointerEvents: 'auto',
+              border: showDrop[index] ? '5px solid #697f87' : 'none'
+            }}
           >
             <div className="flex flex-col">
               <div className="flex items-center justify-between py-4 px-10 mb-2 border-b text-black font-outfit">
                 <p>{state}</p>
+
                 {/* Conditional rendering of SVG */}
                 
                 {state === "To Do" && (
@@ -157,6 +193,7 @@ const Dashboard = () => {
                 {tasks.map((task) => (
                   (task.status === state) &&
                   <Card
+                    setActiveCard={setActiveCard}
                     taskId={task._id}
                     title={task.title}
                     dueDate={moment(task.dueDate).format("MM/DD/YY")}
