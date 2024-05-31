@@ -26,6 +26,7 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
         const fetchTaskById = async (taskId) => {
           try {
             const response = await axios.get(`http://localhost:8000/task/${taskId}`);
+            
             const taskData = response.data.result;
             setTask(taskData);
 
@@ -33,17 +34,18 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
             console.error("Error fetching task by ID:", error);
           }
         };
+
         
     
-        const fetchCategories = async () => {
-          try {
-            const response = await axios.get("http://localhost:8000/categories");
-            setCategories(response.data);
-          } catch (error) {
-            console.error("Error fetching categories:", error);
-          }
+        // const fetchCategories = async () => {
+        //   try {
+        //     const response = await axios.get("http://localhost:8000/categories");
+        //     setCategories(response.data);
+        //   } catch (error) {
+        //     console.error("Error fetching categories:", error);
+        //   }
           
-        };
+        // };
 
           // I'll keep this section first because I'm creating a new schema for categories and will update the API endpoints after that. 
           // const fetchCategories = async () => {
@@ -58,8 +60,10 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
           //     }
           // };
 
-        fetchTaskById(taskId);
-        fetchCategories();
+          if (isOpen && taskId) {
+            fetchTaskById(taskId);
+          }
+        //fetchCategories();
     }, [taskId]);
   
     const handleSave = async () => {

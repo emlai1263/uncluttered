@@ -184,25 +184,23 @@ app.patch('/tasks/:taskID', async (req, res) => {
   else res.status(500).end()
 })
 
-app.listen(process.env.PORT || port, () => {
-  console.log('REST API is listening.')
-})
-
+// Add a category for a user
 app.post('/users/:userId/categories', async (req, res) => {
-  const { category } = req.body;
+  const { name, parentId, visible } = req.body;
   const { userId } = req.params;
   try {
-      const updatedUser = await userServices.addCategory(userId, category);
-      if (updatedUser) {
-          res.status(200).json(updatedUser.categories);
-      } else {
-          res.status(404).send('User not found');
-      }
+    const updatedUser = await userServices.addCategory(userId, name, parentId, visible);
+    if (updatedUser) {
+      res.status(200).json(updatedUser.categories);
+    } else {
+      res.status(404).send('User not found');
+    }
   } catch (error) {
-      console.error('Error adding category:', error);
-      res.status(500).send('Internal Server Error');
+    console.error('Error adding category:', error);
+    res.status(500).send('Internal Server Error');
   }
 });
+
 
 // backend.js
 app.delete('/users/:userId/categories/:categoryName', async (req, res) => {
@@ -243,6 +241,34 @@ app.delete('/users/:userId/categories/:categoryName', async (req, res) => {
 // });
 
 
+// Delete a category for a specific user
+app.delete('/users/:userId/categories/:categoryId', async (req, res) => {
+  const { userId, categoryId } = req.params;
+  try {
+    const result = await userServices.deleteCategory(userId, categoryId);
+    if (result) {
+      res.status(200).send(result.categories);
+    } else {
+      res.status(404).send('Category not found or could not be deleted');
+    }
+  } catch (error) {
+    console.error('Error deleting category:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// // Get all categories (for debugging)
+// app.get('/categories', async (req, res) => {
+//   try {
+//     const categories = await categoryService.getAllCategories(); // Implement this service
+//     res.status(200).json(categories);
+//   } catch (error) {
+//     console.error('Error fetching categories:', error);
+//     res.status(500).send('Server error');
+//   }
+// });
+
+
 // Main Author: Angela Kim
 // Get a user's categories by user id
 app.get("/users/:id/categories", async (req, res) => {
@@ -260,3 +286,7 @@ app.get("/users/:id/categories", async (req, res) => {
   }
 });
 
+
+app.listen(process.env.PORT || port, () => {
+  console.log('REST API is listening.')
+})
