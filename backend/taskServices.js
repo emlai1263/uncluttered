@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const userSchema = require('./userSchema')
 const taskSchema = require('./Task')
+const categorySchema = require('./Category');
 dotenv.config()
 
 let dbConnection
@@ -177,4 +178,3 @@ module.exports = {
   recoverTask,
   deleteAllTasks
 }
-
