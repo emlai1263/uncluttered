@@ -1,28 +1,28 @@
-// /* eslint-disable no-unused-vars */
-// /* eslint-disable no-undef */
-// import userServices from '../userServices.js'
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+import userServices from '../userServices.js'
 
-// // beforeEach(() => {
-// //   jest.resetModules();
-// // });
+beforeEach(() => {
+  jest.resetModules();
+});
 
-// // tests the  getUsers(name) function, passing in one name.
-// test('test getUsers by name  Emily', async () => {
-//   const result = await userServices.getUsers('Emily')
+// tests the  getUsers(name) function, passing in one name.
+test('test getUsers by name  Emily', async () => {
+  const result = await userServices.getUsers('Emily')
 
-//   // expected = {
-//   //   _id: ObjectId("65dab7ff2d0a3ecfa31ccc21"),
-//   //   username: "test",
-//   //   password: "password",
-//   //   email: "emlai1263@gmail.com",
-//   //   name: "Emily",
-//   // };
+  // expected = {
+  //   _id: ObjectId("65dab7ff2d0a3ecfa31ccc21"),
+  //   username: "test",
+  //   password: "password",
+  //   email: "emlai1263@gmail.com",
+  //   name: "Emily",
+  // };
 
-//   expect(result[0].name).toBe('Emily')
-//   expect(result[0].username).toBe('test')
-//   expect(result[0].email).toBe('emlai1263@gmail.com')
-//   expect(result[0].password).toBe('password')
-// })
+  expect(result[0].name).toBe('Emily')
+  expect(result[0].username).toBe('test')
+  expect(result[0].email).toBe('emlai1263@gmail.com')
+  expect(result[0].password).toBe('password')
+})
 
 // // tests the getUsers() function, when the name is undefined.
 // test('test getUsers', async () => {

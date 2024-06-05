@@ -1,14 +1,14 @@
-// import taskServices from "../taskServices.js";
+import taskServices from "../taskServices.js";
 
-// jest.setTimeout(10000); // Increase timeout to 10 seconds
+jest.setTimeout(10000); // Increase timeout to 10 seconds
 
-// test("test getTasks", async () => {
-//   const userId = "65e6328a68059ab797224e0f"; 
-//   const result = await taskServices.getTasks(userId);
-//   expect(result.length).toBeGreaterThan(0);
+test("test getTasks", async () => {
+  const userId = "66105e818b0d26a8a1670626"; 
+  const result = await taskServices.getTasks(userId);
+  expect(result.length).toBeGreaterThan(0);
 
-//   // Add your other assertions here
-// });
+  // Add your other assertions here
+});
 
 // test("test deleteTask - task not found", async () => {
 //     const taskId = "invalid_task_id"; // An invalid task ID that does not exist
