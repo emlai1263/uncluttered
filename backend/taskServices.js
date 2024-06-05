@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const userSchema = require('./userSchema')
-const taskSchema = require('./Task')
+const taskSchema = require('./task')
 dotenv.config()
 
 let dbConnection
