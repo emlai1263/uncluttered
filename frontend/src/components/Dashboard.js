@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
+  const { user } = useContext(UserContext);
   // holds the TaskId for the card being dragged
   const [activeCard, setActiveCard] = useState(null);
   // each boolean in the array reps the highlight status of its respective column
