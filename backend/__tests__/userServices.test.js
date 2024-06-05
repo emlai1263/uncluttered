@@ -19,7 +19,7 @@ test('test getUsers by name  Emily', async () => {
   // };
 
   expect(result[0].name).toBe('Emily')
-  expect(result[0].username).toBe('test')
+  expect(result[0].username).toBe('emlai1263')
   expect(result[0].email).toBe('emlai1263@gmail.com')
   expect(result[0].password).toBe('password')
 })
