@@ -102,11 +102,12 @@ const Dashboard = () => {
       }
     });
   });
+
   async function fetchAll() {
     try {
+      const userId = user[0]._id; // Get the user ID from user[0]
       const response = await axios.get(
-        // CHANGE USER HERE
-        "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
+        `http://localhost:8000/tasks/${userId}` // Use template literal to insert the user ID
       );
       return response;
     } catch (error) {
