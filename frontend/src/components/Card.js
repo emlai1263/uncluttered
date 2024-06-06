@@ -6,7 +6,17 @@ import triangle from "../assets/triangle.png";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function Card({ setActiveCard, taskId, title, dueDate, category, timeEst, body, onDelete, onEdit }) {
+function Card({
+  setActiveCard,
+  taskId,
+  title,
+  dueDate,
+  category,
+  timeEst,
+  body,
+  onDelete,
+  onEdit,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
 
@@ -22,7 +32,7 @@ function Card({ setActiveCard, taskId, title, dueDate, category, timeEst, body, 
   async function fetchAll() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
+        "http://localhost:8000/tasks/66105e818b0d26a8a1670626",
       );
       return response;
     } catch (error) {
@@ -38,7 +48,7 @@ function Card({ setActiveCard, taskId, title, dueDate, category, timeEst, body, 
         transition={{ layout: { duration: 1, type: "spring" } }}
         layout
         // prevent user from highlighting text
-        style={{ userSelect: 'none' }}
+        style={{ userSelect: "none" }}
         // draggability
         draggable
         onDragStart={() => setActiveCard(taskId)}
@@ -57,7 +67,7 @@ function Card({ setActiveCard, taskId, title, dueDate, category, timeEst, body, 
           ></motion.img>
           <motion.h2
             layout="position"
-            className="title text-left font-semibold w-1/2 flex items-start text-ellipsis overflow-hidden"
+            className="title text-left font-semibold font-outfit w-1/2 flex items-start text-ellipsis overflow-hidden"
           >
             {title}
           </motion.h2>
@@ -108,4 +118,3 @@ function Card({ setActiveCard, taskId, title, dueDate, category, timeEst, body, 
 }
 
 export default Card;
-
