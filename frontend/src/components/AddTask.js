@@ -12,18 +12,35 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
     body: "",
   });
 
-  const initialCategories = [
-    { id: 1, name: "School" },
-    { id: 2, name: "Work" },
-    { id: 3, name: "Personal" },
-  ];
+  // const initialCategories = [
+  //   { id: 1, name: "School" },
+  //   { id: 2, name: "Work" },
+  //   { id: 3, name: "Personal" },
+  // ];
 
-  const [categories, setCategories] = useState(initialCategories);
+  //const [categories, setCategories] = useState(initialCategories);
 
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    if(isOpen){
+      const fetchCategories = async () => {
+        try {
+          const res = await axios.get("http://localhost:8000/users/66105e818b0d26a8a1670626/categories");
+          setCategories(res.data.categories);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+  
+      fetchCategories();
+    }
+  }, [isOpen]);
+  
   // useEffect(() => {
   //   const fetchCategories = async () => {
   //     try {
-  //       const res = await axios.get("http://localhost:8000/users/66105e818b0d26a8a1670626/categories");
+  //       const res = await axios.get("http://localhost:8000/categories");
   //       setCategories(res.data);
   //     } catch (err) {
   //       console.log(err);
@@ -32,19 +49,6 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
 
   //   fetchCategories();
   // }, []);
-  
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await axios.get("http://localhost:8000/categories");
-        setCategories(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchCategories();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,6 +79,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
       await axios.post("http://localhost:8000/tasks", taskData);
       console.log("Task submitted successfully:", taskData);
       onClose(); // Close the modal after submission
+      updateDashboard();
     } catch (error) {
       console.error("Error submitting task:", error);
     }
@@ -83,9 +88,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center ${
-        isOpen ? "block" : "hidden"
-      }`}
+      className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center ${isOpen ? "block" : "hidden"}`}
     >
       <div className="bg-white p-4 rounded-lg drop-shadow-md">
         <h2 className="text-lg font-semibold mb-4 bg-white">Add New Task</h2>
@@ -137,7 +140,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
               <option value="">Select Category</option>
               
               {categories.map((category) => (
-                <option key={category.id} value={category.name}>
+                <option key={category._id} value={category._id}>
                   {category.name}
                 </option>
               ))}

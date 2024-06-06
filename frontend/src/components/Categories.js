@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Category from "./Category";
+import CategoryCard from "./CategoryCard";
+
 
 const Categories = ({ isOpen, onClose }) => {
-  const initialCategories = [
-    { id: 1, name: "School" },
-    { id: 2, name: "Work" },
-    { id: 3, name: "Personal" },
-  ];
-  const [categories, setCategories] = useState(initialCategories);
+  const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState("");
 
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    if (isOpen) {
+      fetchCategories();
+    }
+  }, [isOpen]);
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8000/users/66105e818b0d26a8a1670626/categories",
-      );
-      setCategories(response.data);
+      const response = await axios.get("http://localhost:8000/users/66105e818b0d26a8a1670626/categories");
+      setCategories(response.data.categories);
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -29,22 +25,20 @@ const Categories = ({ isOpen, onClose }) => {
   const handleAddCategory = async () => {
     if (!newCategory) return;
     try {
-      await axios.post("http://localhost:8000/categories", {
+      const response = await axios.post("http://localhost:8000/users/66105e818b0d26a8a1670626/categories", {
         name: newCategory,
       });
-      setCategories([...categories, { name: newCategory }]);
+      setCategories([...categories, response.data]);
       setNewCategory("");
     } catch (error) {
       console.error("Error adding category:", error);
     }
   };
 
-  const handleDeleteCategory = async (categoryName) => {
+  const handleDeleteCategory = async (categoryId) => {
     try {
-      await axios.delete(`http://localhost:8000/categories/${categoryName}`);
-      setCategories(
-        categories.filter((category) => category.name !== categoryName),
-      );
+      await axios.delete(`http://localhost:8000/users/66105e818b0d26a8a1670626/categories/${categoryId}`);
+      setCategories(categories.filter((category) => category._id !== categoryId));
     } catch (error) {
       console.error("Error deleting category:", error);
     }
@@ -98,11 +92,11 @@ const Categories = ({ isOpen, onClose }) => {
             </button>
           </div>
         </div>
-        {/* <ul className="max-h-96 overflow-y-auto">
-                    {categories.map((category, index) => (
-                        <Category key={index} categoryName={category.name} onDelete={handleDeleteCategory} />
-                    ))}
-                </ul> */}
+        <ul className="max-h-96 overflow-y-auto">
+          {categories.map((category) => (
+            <CategoryCard key={category._id} category={category} onDelete={handleDeleteCategory} />
+          ))}
+        </ul>
       </div>
     </div>
   );

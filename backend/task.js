@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const taskSchema = new mongoose.Schema(
   {
     userId: {
-      type: Object,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       trim: true
     },
     title: {
@@ -19,10 +19,9 @@ const taskSchema = new mongoose.Schema(
       trim: true
     },
     category: {
-      type: String,
-      required: true,
-      default: 'category',
-      trim: true
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Category', 
+      required: true 
     },
     status: {
       type: String,
@@ -48,4 +47,4 @@ const taskSchema = new mongoose.Schema(
   { collection: 'tasks' }
 )
 
-module.exports = taskSchema
+module.exports = taskSchema;

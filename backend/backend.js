@@ -1,73 +1,98 @@
-const express = require('express')
-const cors = require('cors')
+console.log("MongoDB URI:", process.env.MONGODB_URI); 
+const express = require('express');
+const cors = require('cors');
 
 
-const userServices = require('./userServices')
-const taskServices = require('./taskServices')
-const userSchema = require('./userSchema')
+const userServices = require('./userServices');
+const taskServices = require('./taskServices');
+const categoryServices = require('./categoryServices');
 
-const app = express()
-const port = 8000
 
-app.use(cors())
-app.use(express.json())
+const app = express();
+const port = 8000;
+
+app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+/* Main Author: Angela Kim
+Login API Endpoint - allows users to log in with email and password.
+On success, returns user data with status 200.
+On failure, returns status 401 or 500 with an error message.
+*/
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  console.log(email);
+  console.log(password);
+  try {
+    const user = await authService.loginUser(email, password);
+    console.log(user);
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(401).send("Invalid email or password");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("An error occurred during login");
+  }
+});
+
 // get users
 app.get('/users', async (req, res) => {
-  const name = req.query.name
+  const name = req.query.name;
   try {
-    const result = await userServices.getUsers(name)
-    res.send({ users: result })
+    const result = await userServices.getUsers(name);
+    res.send({ users: result });
   } catch (error) {
-    console.log(error)
-    res.status(500).send('An error ocurred in the server.')
+    console.log(error);
+    res.status(500).send('An error occurred in the server.');
   }
 })
 
 // get users by id
 app.get('/users/:id', async (req, res) => {
-  const id = req.params.id
-  const result = await userServices.findUserById(id)
+  const id = req.params.id;
+  const result = await userServices.findUserById(id);
   if (result === undefined || result === null) {
-    res.status(404).send('Resource not found.')
+    res.status(404).send('Resource not found.');
   } else {
-    res.send({ users: result })
+    res.send({ users: result });
   }
 })
 
 // add users
 app.post('/users', async (req, res) => {
-  const user = req.body
-  const savedUser = await userServices.addUser(user)
-  if (savedUser) res.status(201).send(savedUser)
-  else res.status(500).end()
-})
+  const user = req.body;
+  const savedUser = await userServices.addUser(user);
+  if (savedUser) res.status(201).send(savedUser);
+  else res.status(500).end();
+});
 
 // get tasks from a user's id
 app.get('/tasks/:id', async (req, res) => {
-  const userId = req.params.id
-  const result = await taskServices.getTasks(userId)
+  const userId = req.params.id;
+  const result = await taskServices.getTasks(userId);
   if (result === undefined || result === null) {
-    res.status(404).send('Resource not found :(')
+    res.status(404).send('Resource not found :(');
   } else {
-    res.send({ users: result })
+    res.send({ users: result });
   }
-})
+});
 
 // get a single task w/ taskId
 app.get('/task/:taskID', async (req, res) => {
-  const taskId = req.params.taskID
-  const result = await taskServices.getSingleTask(taskId)
+  const taskId = req.params.taskID;
+  const result = await taskServices.getSingleTask(taskId);
   if (result === undefined || result === null) {
-    res.status(404).send('Resource not found :(')
+    res.status(404).send('Resource not found :(');
   } else {
-    res.send({ result })
+    res.send({ result });
   }
-})
+});
 
 
 // // delete a task via its id
@@ -161,19 +186,19 @@ app.delete('/tasks/:taskID/permanent-delete', async (req, res) => {
 });
 
 // delete a user via its id + all tasks associated with that user
-app.delete('/users/:id', async (req, res) => {
-  const id = req.params.id
-  if (userServices.deleteUser(id)) res.status(204).end()
-  else res.status(404).send('Resource not found')
-})
+// app.delete('/users/:id', async (req, res) => {
+//   const id = req.params.id;
+//   if (userServices.deleteUser(id)) res.status(204).end()
+//   else res.status(404).send('Resource not found')
+// })
 
 // add a task
 app.post('/tasks', async (req, res) => {
-  const task = req.body
-  const savedTask = await taskServices.addTask(task)
-  if (savedTask) res.status(201).send(savedTask)
-  else res.status(500).end()
-})
+  const task = req.body;
+  const savedTask = await taskServices.addTask(task);
+  if (savedTask) res.status(201).send(savedTask);
+  else res.status(500).end();
+});
 
 // edit a task via its id, add edits to body of request
 app.patch('/tasks/:taskID', async (req, res) => {
@@ -202,22 +227,19 @@ app.post('/users/:userId/categories', async (req, res) => {
 });
 
 
-// backend.js
-app.delete('/users/:userId/categories/:categoryName', async (req, res) => {
-  const { userId, categoryName } = req.params;
+// Delete a category for a specific user
+app.delete('/users/:userId/categories/:categoryId', async (req, res) => {
+  const { userId, categoryId } = req.params;
   try {
-      const user = await userServices.findUserById(userId);
-      if (!user) {
-          res.status(404).send('User not found');
-          return;
-      }
-      // Remove the category from the array
-      user.categories = user.categories.filter(category => category !== categoryName);
-      await user.save();
-      res.status(200).send(user.categories);
+    const result = await categoryServices.deleteCategory(categoryId);
+    if (result) {
+      res.status(200).send(result);
+    } else {
+      res.status(404).send('Category not found or could not be deleted');
+    }
   } catch (error) {
-      console.error('Error deleting category:', error);
-      res.status(500).send('Internal Server Error');
+    console.error('Error deleting category:', error);
+    res.status(500).send('Internal Server Error');
   }
 });
 
@@ -274,12 +296,8 @@ app.delete('/users/:userId/categories/:categoryId', async (req, res) => {
 app.get("/users/:id/categories", async (req, res) => {
   const userId = req.params.id;
   try {
-    const user = await userServices.findUserById(userId);
-    if (!user) {
-      res.status(404).send("Get categories: user not found.");
-      return;
-    }
-    res.send({ categories: user.categories });
+    const categories = await categoryServices.getVisibleCategories(userId);
+    res.send({ categories });
   } catch (error) {
     console.log(error);
     res.status(404).send("Get categories: resource not found.");

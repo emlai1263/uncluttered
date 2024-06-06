@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const categorySchema = new mongoose.Schema(
   {
     userId: {
-      type: Object,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       trim: true
     },
     name: {
@@ -14,8 +14,9 @@ const categorySchema = new mongoose.Schema(
       trim: true
     },
     parentId: {
-      type: Number,
-      trim: true
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Category', 
+        default: null
     },
     icon: {
       type: String,
@@ -30,7 +31,7 @@ const categorySchema = new mongoose.Schema(
         default: false
     },
   },
-  { collection: 'tasks' }
+  { collection: 'categories' }
 )
 
-module.exports = categorySchema
+module.exports = categorySchema;

@@ -1,4 +1,3 @@
-/* eslint-disable space-before-function-paren */
 const mongoose = require("mongoose");
 const userSchema = require("./userSchema");
 const dotenv = require("dotenv");
@@ -12,9 +11,15 @@ function getDbConnection() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+
+    // Initialize models
+    //dbConnection.model('User', userSchema);
   }
   return dbConnection;
 }
+
+// Use getDbConnection to get the model
+const User = getDbConnection().model("User");
 
 async function getUsers(name) {
   const userModel = getDbConnection().model("User", userSchema);
@@ -32,29 +37,25 @@ async function findUserByUsername(username) {
   return await userModel.find({ username });
 }
 
-// edit tasks
 async function editUser(userId, userEdits) {
-  const taskModel = getDbConnection().model("User", userSchema);
+  const userModel = getDbConnection().model("User", userSchema);
   try {
-    const editedUser = await taskModel.findOneAndUpdate(
+    const editedUser = await userModel.findOneAndUpdate(
       { _id: userId },
       userEdits,
       { returnOriginal: false }
     );
     return editedUser;
   } catch (error) {
-    console.log("Failed to edit task");
+    console.log("Failed to edit user");
     return false;
   }
 }
 
 async function addUser(user) {
-  // userModel is a Model, a subclass of mongoose.Model
-  const UserModel = getDbConnection().model("User", userSchema);
+  const userModel = getDbConnection().model("User", userSchema);
   try {
-    // You can use a Model to create new documents using 'new' and
-    // passing the JSON content of the Document:
-    const userToAdd = new UserModel(user);
+    const userToAdd = new userModel(user);
     const savedUser = await userToAdd.save();
     return savedUser;
   } catch (error) {
@@ -86,71 +87,6 @@ async function findUserByName(name) {
   return await userModel.find({ name });
 }
 
-// Categories
-
-async function addCategory(userId, category) {
-  const userModel = getDbConnection().model("User", userSchema);
-  try {
-    const user = await userModel.findById(userId);
-    if (!user) {
-      return null;
-    }
-
-    // Check if the category already exists
-    if (user.categories.includes(category)) {
-      return user; // Category already exists, no need to add
-    }
-
-    user.categories.push(category);
-    const savedUser = await user.save();
-    return savedUser;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-}
-
-async function editCategory(userId, oldCategory, newCategory) {
-  const userModel = getDbConnection().model("User", userSchema);
-  try {
-    const user = userModel.findById(userId);
-    if (!user) {
-      return null;
-    }
-
-    const index = user.categories.indexOf(oldCategory);
-    if (index === -1) {
-      return null; // Old category not found
-    }
-
-    user.categories[index] = newCategory;
-    const savedUser = user.save();
-    return savedUser;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-}
-
-async function deleteCategory(userId, categoryToDelete) {
-  const userModel = getDbConnection().model("User", userSchema);
-  try {
-    const user = await userModel.findById(userId);
-    if (!user) {
-      return null;
-    }
-
-    user.categories = user.categories.filter(
-      (category) => category !== categoryToDelete
-    );
-    const savedUser = await user.save();
-    return savedUser;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-}
-
 module.exports = {
   addUser,
   getUsers,
@@ -158,8 +94,5 @@ module.exports = {
   findUserById,
   findAndDelete,
   editUser,
-  findUserByUsername,
-  addCategory,
-  editCategory,
-  deleteCategory
+  findUserByUsername
 };

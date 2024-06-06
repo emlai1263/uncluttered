@@ -1,11 +1,11 @@
 import React from "react";
 
-const Category = ({ categoryName, onDelete }) => {
+const CategoryCard = ({ category, onDelete }) => {
   return (
     <div className="flex items-center justify-between bg-white px-4 py-2 rounded shadow border">
-      <p className="text-gray-800">{categoryName}</p>
-      <button
-        onClick={() => onDelete(categoryName)}
+      <p className="text-gray-800">{category.name}</p>
+      <button 
+        onClick={() => onDelete(category._id)}
         className="text-red-500 hover:text-red-700"
       >
         <svg
@@ -27,4 +27,4 @@ const Category = ({ categoryName, onDelete }) => {
   );
 };
 
-export default Category;
+export default CategoryCard;
