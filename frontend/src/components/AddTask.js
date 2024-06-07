@@ -36,8 +36,8 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/categories");
-        setCategories(res.data);
+        //const res = await axios.get("http://localhost:8000/categories");
+        //setCategories(res.data);
       } catch (err) {
         console.log(err);
       }

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const cors = require('cors')
 
@@ -68,26 +69,6 @@ app.get('/task/:taskID', async (req, res) => {
     res.send({ result })
   }
 })
-
-
-// // delete a task via its id
-// app.delete('/tasks/:taskID', async (req, res) => {
-//   const id = req.params.taskID
-//   if (taskServices.deleteTask(taskID)) res.status(204).end()
-//   else res.status(404).send('Resource not found.')
-// })
-
-// app.delete('/tasks/:taskID', async (req, res) => {
-//   const taskID = req.params.taskID;
-//   try {
-//     const deletionResult = await taskServices.deleteTask(taskID);
-//     if (deletionResult) res.status(204).end();
-//     else res.status(404).send('Resource not found.');
-//   } catch (error) {
-//     console.error("Error in deleting task:", error);
-//     res.status(500).send('Server error.');
-//   }
-// });
 
 // Mark a task as deleted instead of removing it
 app.patch('/tasks/:taskID/mark-deleted', async (req, res) => {
@@ -184,25 +165,8 @@ app.patch('/tasks/:taskID', async (req, res) => {
   else res.status(500).end()
 })
 
-// Add a category for a user
-app.post('/users/:userId/categories', async (req, res) => {
-  const { name, parentId, visible } = req.body;
-  const { userId } = req.params;
-  try {
-    const updatedUser = await userServices.addCategory(userId, name, parentId, visible);
-    if (updatedUser) {
-      res.status(200).json(updatedUser.categories);
-    } else {
-      res.status(404).send('User not found');
-    }
-  } catch (error) {
-    console.error('Error adding category:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
 
-
-// backend.js
+// delete a category
 app.delete('/users/:userId/categories/:categoryName', async (req, res) => {
   const { userId, categoryName } = req.params;
   try {
@@ -221,41 +185,6 @@ app.delete('/users/:userId/categories/:categoryName', async (req, res) => {
   }
 });
 
-
-// Delete a category for a specific user
-// app.delete('/users/:userId/categories/:categoryId', async (req, res) => {
-//   const { userId, categoryId } = req.params;
-//   try {
-//       const user = await userServices.findUserById(userId);
-//       if (!user) {
-//           res.status(404).send("User not found.");
-//           return;
-//       }
-//       user.categories = user.categories.filter(category => category.id !== categoryId); // Assuming each category has a unique 'id'
-//       await user.save();
-//       res.status(200).send({ categories: user.categories });
-//   } catch (error) {
-//       console.error('Error deleting category:', error);
-//       res.status(500).send('Internal Server Error');
-//   }
-// });
-
-
-// Delete a category for a specific user
-app.delete('/users/:userId/categories/:categoryId', async (req, res) => {
-  const { userId, categoryId } = req.params;
-  try {
-    const result = await userServices.deleteCategory(userId, categoryId);
-    if (result) {
-      res.status(200).send(result.categories);
-    } else {
-      res.status(404).send('Category not found or could not be deleted');
-    }
-  } catch (error) {
-    console.error('Error deleting category:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
 
 // // Get all categories (for debugging)
 // app.get('/categories', async (req, res) => {
@@ -286,7 +215,29 @@ app.get("/users/:id/categories", async (req, res) => {
   }
 });
 
-
 app.listen(process.env.PORT || port, () => {
   console.log('REST API is listening.')
 })
+
+/* Main Author: Angela Kim
+Login API Endpoint - allows users to log in with email and password.
+On success, returns user data with status 200.
+On failure, returns status 401 or 500 with an error message.
+*/
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  console.log(email);
+  console.log(password);
+  try {
+    const user = await authService.loginUser(email, password);
+    console.log(user);
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(401).send("Invalid email or password");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("An error occurred during login");
+  }
+});

@@ -6,18 +6,26 @@ import triangle from "../assets/triangle.png";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function Card({ taskId, title, dueDate, category, timeEst, body, onDelete, onEdit }) {
+function Card({
+  setActiveCard,
+  taskId,
+  title,
+  dueDate,
+  category,
+  timeEst,
+  body,
+  onDelete,
+  onEdit,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     fetchAll().then((result) => {
       if (result) {
-        // console.log("TESTINGgg: " + JSON.stringify(result));
         setTasks(result.data.users);
         console.log("single task: " + JSON.stringify(tasks));
       } else {
-        // console.log("ERROR: " + JSON.stringify(result));
       }
     });
   }, []);
@@ -25,7 +33,7 @@ function Card({ taskId, title, dueDate, category, timeEst, body, onDelete, onEdi
   async function fetchAll() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
+        "http://localhost:8000/tasks/66105e818b0d26a8a1670626",
       );
       return response;
     } catch (error) {
@@ -41,7 +49,12 @@ function Card({ taskId, title, dueDate, category, timeEst, body, onDelete, onEdi
       <motion.div
         transition={{ layout: { duration: 1, type: "spring" } }}
         layout
-        onClick={() => setIsOpen(!isOpen)}
+        // prevent user from highlighting text
+        style={{ userSelect: "none" }}
+        // draggability
+        draggable
+        onDragStart={() => setActiveCard(taskId)}
+        onDragEnd={() => setActiveCard(null)}
         className="card flex text-gray-600 flex-col p-4 pt-2 rounded-2xl drop-shadow-lg bg-white  font-inter w-80 text-left"
       >
         <div className="card-header flex justify-between items-center mb-2">
@@ -55,7 +68,7 @@ function Card({ taskId, title, dueDate, category, timeEst, body, onDelete, onEdi
           ></motion.img>
           <motion.h2
             layout="position"
-            className="title text-left font-semibold w-1/2 flex items-start text-ellipsis overflow-hidden"
+            className="title text-left font-semibold font-outfit w-1/2 flex items-start text-ellipsis overflow-hidden"
           >
             {title}
           </motion.h2>

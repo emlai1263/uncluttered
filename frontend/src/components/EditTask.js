@@ -34,9 +34,7 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
             console.error("Error fetching task by ID:", error);
           }
         };
-
-        
-    
+      
         // const fetchCategories = async () => {
         //   try {
         //     const response = await axios.get("http://localhost:8000/categories");
@@ -62,9 +60,9 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
 
           if (isOpen && taskId) {
             fetchTaskById(taskId);
+            //fetchCategories();
           }
-        //fetchCategories();
-    }, [taskId]);
+    }, [isOpen, taskId]);
   
     const handleSave = async () => {
       try {
