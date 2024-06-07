@@ -4,6 +4,7 @@ import axios from "./axios"; // Ensure this is configured correctly
 
 const NAME_REGEX = /^[A-z][A-z0-9- ]{3,23}$/;
 const EMAIL_REGEX = /^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,}$/;
+const USERNAME_REGEX = /^[A-z0-9-_]{3,15}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export const RegisterPage = () => {
@@ -15,6 +16,11 @@ export const RegisterPage = () => {
   const [validName, setValidName] = useState(false);
   const [nameFocus, setNameFocus] = useState(false);
   const [nameBlurred, setNameBlurred] = useState(false);
+
+  const [username, setUsername] = useState("");
+  const [validUsername, setValidUsername] = useState(false);
+  const [usernameFocus, setUsernameFocus] = useState(false);
+  const [usernameBlurred, setUsernameBlurred] = useState(false);
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
@@ -45,6 +51,10 @@ export const RegisterPage = () => {
   }, [name]);
 
   useEffect(() => {
+    setValidUsername(USERNAME_REGEX.test(username));
+  }, [username]);
+
+  useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
   }, [email]);
 
@@ -55,14 +65,15 @@ export const RegisterPage = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [name, email, password, confirmPass]);
+  }, [name, username, email, password, confirmPass]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const v1 = NAME_REGEX.test(name);
-    const v2 = EMAIL_REGEX.test(email);
-    const v3 = PWD_REGEX.test(password);
-    if (!v1 || !v2 || !v3) {
+    const v2 = USERNAME_REGEX.test(username);
+    const v3 = EMAIL_REGEX.test(email);
+    const v4 = PWD_REGEX.test(password);
+    if (!v1 || !v2 || !v3 || !v4) {
       setErrMsg("Invalid Entry");
       return;
     }
@@ -77,7 +88,7 @@ export const RegisterPage = () => {
 
       const response = await axios.post(
         "http://localhost:8000/users",
-        JSON.stringify({ name, email, password }),
+        JSON.stringify({ name, username, email, password }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -87,6 +98,7 @@ export const RegisterPage = () => {
       setSuccess(true);
       // Clear input fields
       setName("");
+      setUsername("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
@@ -157,6 +169,36 @@ export const RegisterPage = () => {
                   Must begin with a letter.
                   <br />
                   Letters, numbers, spaces, hyphens allowed.
+                </p>
+                <input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                  placeholder="Username"
+                  id="username"
+                  autoComplete="off"
+                  required
+                  aria-invalid={validUsername ? "false" : "true"}
+                  aria-describedby="unamenote"
+                  onFocus={() => setUsernameFocus(true)}
+                  onBlur={() => {
+                    setUsernameFocus(false);
+                    setUsernameBlurred(true);
+                  }}
+                  name="username"
+                  className="justify-center border p-2 w-full max-w-md"
+                />
+                <p
+                  id="unamenote"
+                  className={
+                    !validUsername && usernameBlurred
+                      ? "instructions mb-4"
+                      : "offscreen"
+                  }
+                >
+                  3 to 15 characters.
+                  <br />
+                  Letters, numbers, underscores, hyphens allowed.
                 </p>
                 <input
                   value={email}
@@ -254,6 +296,7 @@ export const RegisterPage = () => {
                   className="button w-full max-w-md bg-blue hover:bg-blue-dark  mb-24 px-6 py-2 text-white rounded-md font-inter font-regular"
                   disabled={
                     !validName ||
+                    !validUsername ||
                     !validEmail ||
                     !validPassword ||
                     !validConfirmPass
