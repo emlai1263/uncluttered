@@ -4,17 +4,22 @@ import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import axios from "./axios";
 
 const NAME_REGEX = /^[A-z][A-z0-9- ]{3,23}$/;
-const EMAIL_REGEX = /^[A-z][A-z0-9-_][@]{3,23}$/;
+const EMAIL_REGEX = /^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,}$/;
+const USERNAME_REGEX = /^[A-z0-9-_]{3,15}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-export const RegisterPage = (props) => {
+export const RegisterPage = () => {
   const navigate = useNavigate();
-  const userRef = useRef();
-  const errRef = useRef();
+  const userRef = useRef(null);
+  const errRef = useRef(null);
 
   const [name, setName] = useState("");
   const [validName, setValidName] = useState(false);
   const [nameFocus, setNameFocus] = useState(false);
+
+  const [username, setUsername] = useState("");
+  const [validUsername, setValidUsername] = useState(false);
+  const [usernameFocus, setUsernameFocus] = useState(false);
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
@@ -34,12 +39,18 @@ export const RegisterPage = (props) => {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    userRef.current.focus();
+    if (userRef.current) {
+      userRef.current.focus();
+    }
   }, []);
 
   useEffect(() => {
     setValidName(NAME_REGEX.test(name));
   }, [name]);
+
+  useEffect(() => {
+    setValidUsername(USERNAME_REGEX.test(username));
+  }, [username]);
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
@@ -52,45 +63,54 @@ export const RegisterPage = (props) => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [name, email, password, confirmPass]);
+  }, [name, username, email, password, confirmPass]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const v1 = NAME_REGEX.test(name);
-    const v2 = PWD_REGEX.text(password);
-    if (!v1 || !v2) {
+    const v2 = USERNAME_REGEX.test(username);
+    const v3 = EMAIL_REGEX.test(email);
+    const v4 = PWD_REGEX.test(password);
+    if (!v1 || !v2 || !v3 || !v4) {
       setErrMsg("Invalid Entry");
       return;
     }
-    // try {
-    //   const response = await axios.post("http://localhost:8000/register",
-    //     JSON.stringify({ name, email, password }),
-    //     {
-    //       headers: { 'Content-Type': 'application/json'},
-    //       withCredentials: true
-    //     }
-    //   )
-    //     console.log(response?.data);
-    //     console.log(response?.accessToken);
-    //     console.log(JSON.stringify(response))
-    //     setSuccess(true);
+    try {
+      const userExistsResponse = await axios.get(
+        `http://localhost:8000/users?email=${email}`
+      );
+      if (userExistsResponse.data.length > 0) {
+        setErrMsg("Account with this email already exists");
+        return;
+      }
 
-    //     //clear input fields
-    //     setName('');
-    //     setEmail('');
-    //     setPassword('');
-    //     setConfirmPassword('');
-    // } catch (err) {
-    //   if (!err?.response) {
-    //     setErrMsg('No Server response');
-    //   } else if (err.response?.status == 409) {
-    //     setErrMsg('Username taken')
-    //   } else {
-    //     setErrMsg('Registration failed')
-    //   }
-    //   errRef.current.focus();
-    // }
-    setSuccess(true);
+      const response = await axios.post(
+        "http://localhost:8000/users",
+        JSON.stringify({ name, username, email, password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(response?.data);
+      setSuccess(true);
+      // Clear input fields
+      setName("");
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 409) {
+        setErrMsg("Username Taken");
+      } else if (err.response?.status === 500) {
+        setErrMsg("Could not create user.");
+      } else {
+        setErrMsg("An account with this email already exists.");
+      }
+    }
   };
 
   const toggle = () => {
@@ -118,6 +138,11 @@ export const RegisterPage = (props) => {
                 <h2 className="font-inter font-semibold text-center m-5 bg-white text-blue text-xl">
                   Create A New Account
                 </h2>
+                {errMsg && (
+                  <p ref={errRef} className="text-red-500 mb-4">
+                    {errMsg}
+                  </p>
+                )}
                 <input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -130,15 +155,17 @@ export const RegisterPage = (props) => {
                   aria-invalid={validName ? "false" : "true"}
                   aria-describedby="uidnote"
                   onFocus={() => setNameFocus(true)}
-                  onBlur={() => setNameFocus(false)}
+                  onBlur={() => {
+                    setNameFocus(false);
+                  }}
                   name="name"
                   className="justify-center rounded-t-md border mt-5 p-2 w-full max-w-md"
                 />
                 <p
                   id="uidnote"
                   className={
-                    nameFocus && name && !validName
-                      ? "instructions"
+                    !validName && nameFocus
+                      ? "instructions mb-4"
                       : "offscreen"
                   }
                 >
@@ -149,6 +176,35 @@ export const RegisterPage = (props) => {
                   Letters, numbers, spaces, hyphens allowed.
                 </p>
                 <input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                  placeholder="Username"
+                  id="username"
+                  autoComplete="off"
+                  required
+                  aria-invalid={validUsername ? "false" : "true"}
+                  aria-describedby="unamenote"
+                  onFocus={() => setUsernameFocus(true)}
+                  onBlur={() => {
+                    setUsernameFocus(false);
+                  }}
+                  name="username"
+                  className="justify-center border p-2 w-full max-w-md"
+                />
+                <p
+                  id="unamenote"
+                  className={
+                    !validUsername && usernameFocus
+                      ? "instructions mb-4"
+                      : "offscreen"
+                  }
+                >
+                  3 to 15 characters.
+                  <br />
+                  Letters, numbers, underscores, hyphens allowed.
+                </p>
+                <input
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   type="email"
@@ -157,11 +213,24 @@ export const RegisterPage = (props) => {
                   autoComplete="off"
                   required
                   aria-invalid={validEmail ? "false" : "true"}
+                  aria-describedby="emailnote"
                   onFocus={() => setEmailFocus(true)}
-                  onBlur={() => setEmailFocus(false)}
+                  onBlur={() => {
+                    setEmailFocus(false);
+                  }}
                   name="email"
                   className="justify-center border p-2 w-full max-w-md"
                 />
+                <p
+                  id="emailnote"
+                  className={
+                    !validEmail && emailFocus
+                      ? "instructions mb-4"
+                      : "offscreen"
+                  }
+                >
+                  Must be a valid email address.
+                </p>
                 <div className="w-full relative">
                   <input
                     value={password}
@@ -182,10 +251,10 @@ export const RegisterPage = (props) => {
                   </div>
                 </div>
                 <p
-                  name="pwdnote"
+                  id="pwdnote"
                   className={
-                    passwordFocus && !validPassword
-                      ? "instructions"
+                    !validPassword && passwordFocus
+                      ? "instructions mb-4"
                       : "offscreen"
                   }
                 >
@@ -194,7 +263,7 @@ export const RegisterPage = (props) => {
                   Must include uppercase and lowercase letters, a number and a
                   special character.
                   <br />
-                  Allowed special characters:{" "}
+                  Allowed special characters:
                   <span aria-label="exclamation mark">!</span>{" "}
                   <span aria-label="at symbol">@</span>{" "}
                   <span aria-label="hashtag">#</span>{" "}
@@ -223,23 +292,26 @@ export const RegisterPage = (props) => {
                 <p
                   id="confirmnote"
                   className={
-                    confirmPassFocus && !validConfirmPass
-                      ? "instructions"
+                    !validConfirmPass && !confirmPassFocus
+                      ? "instructions mb-4"
                       : "offscreen"
                   }
                 >
                   Must match the first password input field.
                 </p>
-                <Link to="/success">
-                  <button
-                    className="button w-full max-w-md bg-blue hover:bg-blue-dark  mb-24 px-6 py-2 text-white rounded-md font-inter font-regular"
-                    //disabled={email === "" || password === "" ? true : false}
-                    disabled={!validName || !validPassword ? true : false}
-                    type="submit"
-                  >
-                    Create Account
-                  </button>
-                </Link>
+                <button
+                  className="button w-full max-w-md bg-blue hover:bg-blue-dark  mb-24 px-6 py-2 text-white rounded-md font-inter font-regular"
+                  disabled={
+                    !validName ||
+                    !validUsername ||
+                    !validEmail ||
+                    !validPassword ||
+                    !validConfirmPass
+                  }
+                  type="submit"
+                >
+                  Create Account
+                </button>
               </form>
               <p>
                 Already registered?

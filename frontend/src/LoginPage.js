@@ -12,7 +12,6 @@ export const LoginPage = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordFocus, setPasswordFocus] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
@@ -73,7 +72,7 @@ export const LoginPage = (props) => {
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  type="password"
+                  type={passwordVisible ? "text" : "password"}
                   placeholder="Password"
                   id="password"
                   required
@@ -81,9 +80,11 @@ export const LoginPage = (props) => {
                   className="rounded-b-md border p-2 mb-5 w-full max-w-md"
                 />
                 <div className="text-2xl absolute top-2 right-2">
-                  { passwordVisible ? <IoEyeOutline onClick={toggle}/> : <IoEyeOffOutline onClick={toggle}/>}
+                  { passwordVisible ? <IoEyeOffOutline onClick={toggle}/> : <IoEyeOutline onClick={toggle}/>}
                 </div>
               </div>
+              {/*<p className="justify-right text-blue mb-5">Forgot your password?</p>*/}
+              {/* <Link to="/dashboard"> */}
                 <button
                   className="button w-full max-w-md bg-blue hover:bg-blue-dark mb-2 px-6 py-2 text-white rounded-md font-inter font-regular"
                   disabled={email === "" || password === "" ? true : false}
@@ -92,6 +93,7 @@ export const LoginPage = (props) => {
                 >
                   Login
                 </button>
+              {/* </Link> */}
             </form>
             <Link to="/register">
               <button className="button w-full max-w-md bg-blue hover:bg-blue-dark mb-24 px-6 py-2 text-white rounded-md font-inter font-regular">

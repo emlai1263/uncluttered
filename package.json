@@ -1,11 +1,18 @@
 {
   "devDependencies": {
     "@shelf/jest-mongodb": "^4.2.0",
+    "@types/cypress": "^1.1.3",
+    "@types/node": "^20.14.2",
     "cypress": "^13.11.0",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
-    "antd": "^5.18.0",
+    "@testing-library/cypress": "^10.0.2",
     "mongodb-memory-server": "^9.1.7"
+  },
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   }
 }
