@@ -15,6 +15,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
   const initialCategories = [
     { id: 1, name: "School" },
     { id: 2, name: "Work" },
+    { id: 3, name: "Personal" },
   ];
 
   const [categories, setCategories] = useState(initialCategories);
