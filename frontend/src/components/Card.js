@@ -24,7 +24,6 @@ function Card({
     fetchAll().then((result) => {
       if (result) {
         setTasks(result.data.users);
-        console.log("single task: " + JSON.stringify(tasks));
       } else {
       }
     });
@@ -42,7 +41,6 @@ function Card({
       return false;
     }
   }
-  
 
   return (
     <div className="App">
@@ -62,6 +60,7 @@ function Card({
             src={triangle}
             alt="triangle"
             layout="position"
+            onClick={() => setIsOpen(!isOpen)}
             animate={{ rotate: isOpen ? 180 : 0 }}
             className="triangle"
             transition={{ layout: { duration: 2, type: "spring" } }}
@@ -119,4 +118,3 @@ function Card({
 }
 
 export default Card;
-

@@ -6,16 +6,65 @@ const cors = require('cors')
 const userServices = require('./userServices')
 const taskServices = require('./taskServices')
 const userSchema = require('./userSchema')
+const authService = require('./authService')
 
 const app = express()
 const port = 8000
 
-app.use(cors())
-app.use(express.json())
+const corsOptions = {
+  origin: 'http://localhost:3000', // your frontend origin
+  credentials: true, // allow credentials
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+
+/* Main Author: Angela Kim
+Login API Endpoint - allows users to log in with email and password.
+On success, returns user data with status 200.
+On failure, returns status 401 or 500 with an error message.
+*/
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  console.log(email);
+  console.log(password);
+  try {
+    const user = await authService.loginUser(email, password);
+    console.log(user);
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(401).send("Invalid email or password");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("An error occurred during login");
+  }
+});
+
+// Check if a user exists by email
+app.get('/users/email', async (req, res) => {
+  const email = req.query.email;
+  if (!email) {
+    return res.status(400).send({ message: 'Email query parameter is required' });
+  }
+  try {
+    const user = await userServices.findUserByEmail(email);
+    if (user && user.length > 0) {
+      res.status(200).send(user);
+    } else {
+      res.status(404).send({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching user by email:', error);
+    res.status(500).send({ message: 'An error occurred in the server.' });
+  }
+});
 
 // get users
 app.get('/users', async (req, res) => {

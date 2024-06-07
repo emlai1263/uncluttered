@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 // Navbar Component - using Tailwind CSS
 
 import { Fragment } from "react";
@@ -8,7 +9,7 @@ import { useState } from "react";
 import categoryIcon from "./categoryIcon.png";
 import bellIcon from "./bell_icon.svg";
 import Notification from "./Notification";
-import Tooltip from './Tooltip';
+import Tooltip from "./Tooltip";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -36,7 +37,7 @@ export default function Navbar() {
           </Tooltip>
 
           <Tooltip message="View Notifications" position="below">
-          {/* Notifications Icon */}
+            {/* Notifications Icon */}
             <button
               onClick={() => setShowNotifications(!showNotifications)}
               className="mr-4"

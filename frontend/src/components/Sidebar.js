@@ -45,8 +45,8 @@ const Sidebar = () => {
           <button>Calendar</button>
         </Link>
       </div>
-      {/* Render categories */}
-      {/* {categories.map((category, index) => (
+      {/* Render categories
+      {categories.map((category, index) => (
         <div className="flex flex-col" key={index}>
           <button className="py-5 px-14 border-b text-black hover:bg-gray-100 font-outfit">
             {category}

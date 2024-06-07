@@ -10,14 +10,14 @@ const Categories = ({ isOpen, onClose }) => {
   const [categories, setCategories] = useState(initialCategories);
   const [newCategory, setNewCategory] = useState("");
 
-  // useEffect(() => {
-  //   fetchCategories();
-  // }, []);
+//   useEffect(() => {
+//     fetchCategories();
+//   }, []);
 
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/users/66105e818b0d26a8a1670626/categories",
+        "http://localhost:8000/users/66105e818b0d26a8a1670626/categories"
       );
       setCategories(response.data);
     } catch (error) {
@@ -42,7 +42,7 @@ const Categories = ({ isOpen, onClose }) => {
     try {
       await axios.delete(`http://localhost:8000/categories/${categoryName}`);
       setCategories(
-        categories.filter((category) => category.name !== categoryName),
+        categories.filter((category) => category.name !== categoryName)
       );
     } catch (error) {
       console.error("Error deleting category:", error);
@@ -51,7 +51,9 @@ const Categories = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center ${isOpen ? "block" : "hidden"}`}
+      className={`fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center ${
+        isOpen ? "block" : "hidden"
+      }`}
     >
       <div className="relative w-1/3 bg-white p-5 rounded-lg shadow-lg">
         <div className="flex justify-between items-center mb-4 w-full">
