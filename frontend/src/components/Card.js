@@ -32,7 +32,7 @@ function Card({
   async function fetchAll() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
+        "http://localhost:8000/tasks/66105e818b0d26a8a1670626",
       );
       return response;
     } catch (error) {
@@ -67,7 +67,7 @@ function Card({
           ></motion.img>
           <motion.h2
             layout="position"
-            className="title text-left font-semibold w-1/2 flex items-start text-ellipsis overflow-hidden"
+            className="title text-left font-semibold font-outfit w-1/2 flex items-start text-ellipsis overflow-hidden"
           >
             {title}
           </motion.h2>

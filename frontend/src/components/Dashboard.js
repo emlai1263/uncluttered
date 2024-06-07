@@ -1,6 +1,11 @@
 import React from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
+<<<<<<< HEAD
+=======
+/* Main Author: Angela Kim
+Import UserContext */
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
 import UserContext from "../UserContext";
 import Card from "./Card";
 import AddTask from "./AddTask";
@@ -16,11 +21,14 @@ const progress_states = ["To Do", "In Progress", "Complete"];
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
-  const location = useLocation();
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
+<<<<<<< HEAD
     const { user } = useContext(UserContext);
+=======
+  const { user } = useContext(UserContext);
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
   // holds the TaskId for the card being dragged
   const [activeCard, setActiveCard] = useState(null);
   // each boolean in the array reps the highlight status of its respective column
@@ -59,9 +67,11 @@ const Dashboard = () => {
       console.error("Error deleting task:", error);
     }
   };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
   const [deletedTasks, setDeletedTasks] = useState([]);
-
   const fetchDeletedTasks = async () => {
     try {
       const response = await axios.get("http://localhost:8000/tasks/deleted");
@@ -72,7 +82,6 @@ const Dashboard = () => {
       console.error("Error fetching deleted tasks:", error);
     }
   };
-
   useEffect(() => {
     fetchDeletedTasks();
   }, []);
@@ -90,14 +99,17 @@ const Dashboard = () => {
       setTasks([]); // Set to empty array on error
     }
   };
+<<<<<<< HEAD
 
   const [isTrashBinOpen, setIsTrashBinOpen] = useState(false);
 
+=======
+  const [isTrashBinOpen, setIsTrashBinOpen] = useState(false);
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
   const handleEditTask = (taskId) => {
     setEditTaskId(taskId);
     setIsEditTaskOpen(true);
   };
-
   // functions to pull tasks from database
   useEffect(() => {
     fetchAll().then((result) => {
@@ -110,11 +122,10 @@ const Dashboard = () => {
 
   async function fetchAll() {
     try {
+      const userId = user[0]._id; // Get the user ID from user[0]
       const response = await axios.get(
-        // CHANGE USER HERE
-        "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
+        `http://localhost:8000/tasks/${userId}` // Use template literal to insert the user ID
       );
-      //console.log("TASKS HERE: " + response);
       return response;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
@@ -138,15 +149,23 @@ const Dashboard = () => {
   return (
     <div className="container ml-64 mt-36 h-screen w-screen">
       <h1 className="mb-6 ml-6 text-4xl text-blue font-semibold font-outfit">
+<<<<<<< HEAD
+=======
+        {/* Main Author: Angela Kim
+        Fetch user's name from context, display with greeting */}
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
         Good morning, {user[0].name}!
       </h1>
-
       <div className="col-container flex flex-wrap">
         {progress_states.map((state, index) => (
           <div
             key={index}
             className="bg-white rounded-[12px] min-h-screen pb-20 mb-20 w-1/4 h-5/6 mx-5"
+<<<<<<< HEAD
                         // highlight border when a card is dragged over column
+=======
+            // highlight border when a card is dragged over column
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
             onDragOver={(event) => {
               event.preventDefault();
               const newShowDrop = [...showDrop];
@@ -177,6 +196,7 @@ const Dashboard = () => {
             <div className="flex flex-col">
               <div className="flex items-center justify-between py-4 px-10 mb-2 border-b text-black font-outfit">
                 <p>{state}</p>
+
                 {/* Conditional rendering of SVG */}
 
                 {state === "To Do" && (

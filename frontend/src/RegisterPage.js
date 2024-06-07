@@ -1,7 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import axios from "./axios"; // Ensure this is configured correctly
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+=======
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+import axios from "./axios";
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
 
 const NAME_REGEX = /^[A-z][A-z0-9- ]{3,23}$/;
 const EMAIL_REGEX = /^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,}$/;
@@ -23,6 +28,10 @@ export const RegisterPage = () => {
   const [usernameFocus, setUsernameFocus] = useState(false);
   const [usernameBlurred, setUsernameBlurred] = useState(false);
 
+  const [username, setUsername] = useState("");
+  const [validUsername, setValidUsername] = useState(false);
+  const [usernameFocus, setUsernameFocus] = useState(false);
+
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
@@ -31,13 +40,19 @@ export const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
+<<<<<<< HEAD
   const [passwordBlurred, setPasswordBlurred] = useState(false);
+=======
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [confirmPass, setConfirmPassword] = useState("");
   const [validConfirmPass, setValidConfirmPass] = useState(false);
   const [confirmPassFocus, setConfirmPassFocus] = useState(false);
+<<<<<<< HEAD
   const [confirmPassBlurred, setConfirmPassBlurred] = useState(false);
+=======
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
   const [confirmPassVisible, setConfirmPassVisible] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
@@ -116,6 +131,7 @@ export const RegisterPage = () => {
         setErrMsg("An account with this email already exists.");
       }
     }
+<<<<<<< HEAD
   };
 
   const toggle = () => {
@@ -125,6 +141,18 @@ export const RegisterPage = () => {
   const toggle2 = () => {
     setConfirmPassVisible(!confirmPassVisible);
   };
+=======
+  };
+
+  const toggle = () => {
+    setPasswordVisible(!passwordVisible)
+  }
+
+  const toggle2 = () => {
+    setConfirmPassVisible(!confirmPassVisible)
+  }
+
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
   return (
     <>
       {success ? (
@@ -161,7 +189,10 @@ export const RegisterPage = () => {
                   onFocus={() => setNameFocus(true)}
                   onBlur={() => {
                     setNameFocus(false);
+<<<<<<< HEAD
                     setNameBlurred(true);
+=======
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
                   }}
                   name="name"
                   className="justify-center rounded-t-md border mt-5 p-2 w-full max-w-md"
@@ -169,7 +200,11 @@ export const RegisterPage = () => {
                 <p
                   id="uidnote"
                   className={
+<<<<<<< HEAD
                     !validName && nameBlurred
+=======
+                    !validName && nameFocus
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
                       ? "instructions mb-4"
                       : "offscreen"
                   }
@@ -193,7 +228,10 @@ export const RegisterPage = () => {
                   onFocus={() => setUsernameFocus(true)}
                   onBlur={() => {
                     setUsernameFocus(false);
+<<<<<<< HEAD
                     setUsernameBlurred(true);
+=======
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
                   }}
                   name="username"
                   className="justify-center border p-2 w-full max-w-md"
@@ -201,7 +239,11 @@ export const RegisterPage = () => {
                 <p
                   id="unamenote"
                   className={
+<<<<<<< HEAD
                     !validUsername && usernameBlurred
+=======
+                    !validUsername && usernameFocus
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
                       ? "instructions mb-4"
                       : "offscreen"
                   }
@@ -223,7 +265,10 @@ export const RegisterPage = () => {
                   onFocus={() => setEmailFocus(true)}
                   onBlur={() => {
                     setEmailFocus(false);
+<<<<<<< HEAD
                     setEmailBlurred(true);
+=======
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
                   }}
                   name="email"
                   className="justify-center border p-2 w-full max-w-md"
@@ -231,7 +276,11 @@ export const RegisterPage = () => {
                 <p
                   id="emailnote"
                   className={
+<<<<<<< HEAD
                     !validEmail && emailBlurred
+=======
+                    !validEmail && emailFocus
+>>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
                       ? "instructions mb-4"
                       : "offscreen"
                   }

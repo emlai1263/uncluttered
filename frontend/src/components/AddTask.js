@@ -32,19 +32,19 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
 
   //   fetchCategories();
   // }, []);
+  
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        //const res = await axios.get("http://localhost:8000/categories");
+        //setCategories(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     try {
-  //       const res = await axios.get("http://localhost:8000/categories");
-  //       setCategories(res.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   fetchCategories();
-  // }, []);
+    fetchCategories();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,7 +64,6 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
   const handleSubmit = async () => {
     try {
       // Hardcoded user ID for testing add task funtion
-      // const userId = "UserId1234";
       const userId = "66105e818b0d26a8a1670626";
       // Include the userId with rest of the task data
       const taskData = {
@@ -80,6 +79,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
       console.error("Error submitting task:", error);
     }
   };
+
 
   return (
     <div
@@ -135,7 +135,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
               className="p-2 border border-gray-300 rounded-md flex-1 mr-1 h-11"
             >
               <option value="">Select Category</option>
-
+              
               {categories.map((category) => (
                 <option key={category.id} value={category.name}>
                   {category.name}

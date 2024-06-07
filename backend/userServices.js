@@ -42,6 +42,21 @@ async function findUserByUsername(username) {
   const userModel = getDbConnection().model("User", userSchema);
   return await userModel.find({ username });
 }
+/* Main Author: Angela Kim
+Find User by Email - retrieves a user from the database by their email.
+Returns the user object if found, or false if an error occurs.
+*/ 
+
+async function findUserByEmail(email) {
+  try {
+    const userModel = getDbConnection().model("User", userSchema);
+    return await userModel.find({ email });
+  }
+  catch (error) {
+    console.log("Failed to find user by email.");
+    return false;
+  }
+};
 
 // edit tasks
 async function editUser(userId, userEdits) {
@@ -167,6 +182,7 @@ module.exports = {
   getUsers,
   findUserByName,
   findUserById,
+  findUserByEmail,
   findAndDelete,
   findUserByEmail,
   editUser,
