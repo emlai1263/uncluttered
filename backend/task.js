@@ -5,7 +5,7 @@ const taskSchema = new mongoose.Schema(
     userId: {
       type: Object,
       required: true,
-      trim: true
+      trim: true,
     },
     title: {
       type: String,
@@ -26,8 +26,8 @@ const taskSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "To Do",
-      enum: ["To Do", "In Progress", "Complete"],
+      default: 'To Do',
+      enum: ['To Do', 'In Progress', 'Complete'],
       required: true,
       trim: true
     },
@@ -39,13 +39,12 @@ const taskSchema = new mongoose.Schema(
       type: String,
       default: 'body',
       trim: true
-    },
-    deleted: {
-      type: Boolean,
-      default: false
     }
   },
   { collection: 'tasks' }
 )
+
+//const Task = mongoose.model("Task", taskSchema);
+//module.exports = Task;
 
 module.exports = taskSchema

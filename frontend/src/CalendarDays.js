@@ -1,13 +1,10 @@
+//Main Author: Arya Ramchander
+
 import React, { useState } from "react";
 
 function CalendarDays(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedTasks, setSelectedTasks] = useState([]);
-  const [mousePosition, setMousePosition] = useState(0);
-
-  const mouseClick = (e) => {
-    setMousePosition(e.clientX);
-  };
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
