@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import UserContext from "./UserContext";
 // import "./App.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RegisterPage } from "./RegisterPage";
@@ -17,7 +18,7 @@ function App() {
     console.log("in fetchall");
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/65e6328a68059ab797224e0f",
+        "http://localhost:8000/tasks/65e6328a68059ab797224e0f"
       );
       return response;
     } catch (error) {
@@ -38,17 +39,33 @@ function App() {
   //   });
   // }, []);
 
+  /* Main Author: Angela Kim
+  State and Authentication Functions - manages user authentication state.
+  Defines a state variable 'user' initialized to null.
+  The 'login' function sets the 'user' state to the provided 'userData'.
+  The 'logout' function resets the 'user' state to null.
+*/
+  const [user, setUser] = useState(null);
+  const login = (userData) => {
+    setUser(userData);
+  };
+  const logout = () => {
+    setUser(null);
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Welcome />} />
-        <Route exact path="/dashboard" element={<Home />} />
-        <Route exact path="/login" element={<LoginPage />} />
-        <Route exact path="/register" element={<RegisterPage />} />
-        <Route exact path="/success" element={<LoginSuccess />} />
-        <Route exact path="/calendar" element={<Calendar />} />
-      </Routes>
-    </Router>
+    <UserContext.Provider value={{ user, login, logout }}>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Welcome />} />
+          <Route exact path="/dashboard" element={<Home />} />
+          <Route exact path="/login" element={<LoginPage />} />
+          <Route exact path="/register" element={<RegisterPage />} />
+          <Route exact path="/success" element={<LoginSuccess />} />
+          <Route exact path="/calendar" element={<Calendar />} />
+        </Routes>
+      </Router>
+    </UserContext.Provider>
   );
 }
 

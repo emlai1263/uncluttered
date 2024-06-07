@@ -6,6 +6,8 @@ import "./Calendar.css";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import axios from "axios";
+import { useContext } from "react";
+import UserContext from "./UserContext";
 
 export default function Calendar() {
   const weekdays = [
@@ -35,6 +37,7 @@ export default function Calendar() {
   const [currentDay, setCurrentDay] = useState(new Date());
   const [tasks, setTasks] = useState([]);
   const [currentDays, setCurrentDays] = useState([]);
+  const [user] = useContext(UserContext);
 
   function changeCurrentDay(day) {
     console.log(day);
@@ -45,7 +48,7 @@ export default function Calendar() {
     const nextMonth = new Date(
       currentDay.getFullYear(),
       currentDay.getMonth() + 1,
-      1,
+      1
     );
     setCurrentDay(nextMonth);
   }
@@ -54,7 +57,7 @@ export default function Calendar() {
     const prevMonth = new Date(
       currentDay.getFullYear(),
       currentDay.getMonth() - 1,
-      1,
+      1
     );
     setCurrentDay(prevMonth);
   }
@@ -73,8 +76,9 @@ export default function Calendar() {
   async function fetchAll() {
     console.log("in fetchall");
     try {
+      const userId = user[0]._id; // Get the user ID from user[0]
       const response = await axios.get(
-        "http://localhost:8000/tasks/65e6328a68059ab797224e0f",
+        `http://localhost:8000/tasks/${userId}` // Use template literal to insert the user ID
       );
       return response.data.users;
     } catch (error) {
@@ -87,12 +91,12 @@ export default function Calendar() {
     const firstDayOfMonth = new Date(
       currentDay.getFullYear(),
       currentDay.getMonth(),
-      1,
+      1
     );
     const lastDayOfMonth = new Date(
       currentDay.getFullYear(),
       currentDay.getMonth() + 1,
-      0,
+      0
     );
 
     const daysInMonth = lastDayOfMonth.getDate();
@@ -104,7 +108,7 @@ export default function Calendar() {
       const currentDate = new Date(
         currentDay.getFullYear(),
         currentDay.getMonth(),
-        day + 1,
+        day + 1
       );
       currentDaysArray.push({
         date: currentDate,
@@ -121,7 +125,7 @@ export default function Calendar() {
       const prevDate = new Date(
         firstDayOfMonth.getFullYear(),
         firstDayOfMonth.getMonth(),
-        -weekdayOfFirstDay + i + 1,
+        -weekdayOfFirstDay + i + 1
       );
       currentDaysArray.unshift({
         date: prevDate,
