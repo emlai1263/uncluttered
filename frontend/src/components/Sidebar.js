@@ -4,27 +4,28 @@ import { useAuth } from "../context/AuthProvider";
 
 const Sidebar = () => {
   const [categories, setCategories] = useState([]);
+/*
+  useEffect(() => {
+    // Fetch user's categories from backend API
+    fetchCategories();
+  }, []);
 
-  // useEffect(() => {
-  //   // Fetch user's categories from backend API
-  //   fetchCategories();
-  // }, []);
-
-  // const fetchCategories = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8000/users/66105e818b0d26a8a1670626/categories"
-  //     );
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setCategories(data.categories);
-  //     } else {
-  //       console.error("Failed to fetch categories");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching categories:", error);
-  //   }
-  // };
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/users/66105e818b0d26a8a1670626/categories"
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setCategories(data.categories);
+      } else {
+        console.error("Failed to fetch categories");
+      }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+  */
 
   return (
     <div className="fixed drop-shadow-md left-0 top-20 w-1/7 h-full bg-white">

@@ -12,50 +12,56 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
     body: "",
   });
 
-  const initialCategories = [
-    { id: 1, name: "School" },
-    { id: 2, name: "Work" },
-  ];
+  
+    const initialCategories = [
+        { id: 1, name: "School" },
+        { id: 2, name: "Work" },
+        { id: 3, name: "Personal" },
+      ];
+    
+    const [categories, setCategories] = useState(initialCategories);
 
-  const [categories, setCategories] = useState(initialCategories);
+    useEffect(() => {
+        const fetchTaskById = async (taskId) => {
+          try {
+            const response = await axios.get(`http://localhost:8000/task/${taskId}`);
+            
+            const taskData = response.data.result;
+            setTask(taskData);
 
-  useEffect(() => {
-    const fetchTaskById = async (taskId) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8000/task/${taskId}`
-        );
-        const taskData = response.data.result;
-        setTask(taskData);
-      } catch (error) {
-        console.error("Error fetching task by ID:", error);
-      }
-    };
+          } catch (error) {
+            console.error("Error fetching task by ID:", error);
+          }
+        };
+      
+        // const fetchCategories = async () => {
+        //   try {
+        //     const response = await axios.get("http://localhost:8000/categories");
+        //     setCategories(response.data);
+        //   } catch (error) {
+        //     console.error("Error fetching categories:", error);
+        //   }
+          
+        // };
 
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/categories");
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
+          // I'll keep this section first because I'm creating a new schema for categories and will update the API endpoints after that. 
+          // const fetchCategories = async () => {
+          //     try {
+          //         const response = await axios.get(`http://localhost:8000/users/66105e818b0d26a8a1670626/categories`);
+          //         if (response.data) {
+          //             setCategories(response.data.categories); // assuming the API returns an array
+          //         }
+          //     } catch (error) {
+          //         console.error("Error fetching categories:", error);
+          //         setCategories([]); // Fallback to empty array on error
+          //     }
+          // };
 
-    // const fetchCategories = async () => {
-    //     try {
-    //         const response = await axios.get(`http://localhost:8000/users/66105e818b0d26a8a1670626/categories`);
-    //         if (response.data) {
-    //             setCategories(response.data.categories); // assuming the API returns an array
-    //         }
-    //     } catch (error) {
-    //         console.error("Error fetching categories:", error);
-    //         setCategories([]); // Fallback to empty array on error
-    //     }
-    // };
-
-    fetchTaskById(taskId);
-    // fetchCategories();
-  }, [taskId]);
+          if (isOpen && taskId) {
+            fetchTaskById(taskId);
+            //fetchCategories();
+          }
+    }, [isOpen, taskId]);
 
   const handleSave = async () => {
     try {

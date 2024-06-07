@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // Navbar Component - using Tailwind CSS
-// Main author: Angela Kim
 
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
