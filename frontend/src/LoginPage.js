@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "./context/AuthProvider";
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import axios from "./axios";
 
 export const LoginPage = (props) => {
@@ -11,6 +12,8 @@ export const LoginPage = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordFocus, setPasswordFocus] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -32,6 +35,10 @@ export const LoginPage = (props) => {
     setSuccess(true);
     navigate("/dashboard", {state:{email: email}})
   };
+
+  const toggle = () => {
+    setPasswordVisible(!passwordVisible)
+  }
 
   return (
     <>
@@ -62,18 +69,21 @@ export const LoginPage = (props) => {
                 name="email"
                 className="rounded-t-md border mt-5 p-2 w-full max-w-md"
               />
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="Password"
-                id="password"
-                required
-                name="password"
-                className="rounded-b-md border p-2 mb-5 w-full max-w-md"
-              />
-              {/*<p className="justify-right text-blue mb-5">Forgot your password?</p>*/}
-              {/* <Link to="/dashboard"> */}
+              <div className="w-full relative">
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  placeholder="Password"
+                  id="password"
+                  required
+                  name="password"
+                  className="rounded-b-md border p-2 mb-5 w-full max-w-md"
+                />
+                <div className="text-2xl absolute top-2 right-2">
+                  { passwordVisible ? <IoEyeOutline onClick={toggle}/> : <IoEyeOffOutline onClick={toggle}/>}
+                </div>
+              </div>
                 <button
                   className="button w-full max-w-md bg-blue hover:bg-blue-dark mb-2 px-6 py-2 text-white rounded-md font-inter font-regular"
                   disabled={email === "" || password === "" ? true : false}
@@ -82,7 +92,6 @@ export const LoginPage = (props) => {
                 >
                   Login
                 </button>
-              {/* </Link> */}
             </form>
             <Link to="/register">
               <button className="button w-full max-w-md bg-blue hover:bg-blue-dark mb-24 px-6 py-2 text-white rounded-md font-inter font-regular">

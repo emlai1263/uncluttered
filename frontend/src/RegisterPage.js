@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import axios from "./axios";
 
 const NAME_REGEX = /^[A-z][A-z0-9- ]{3,23}$/;
@@ -22,10 +23,12 @@ export const RegisterPage = (props) => {
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [confirmPass, setConfirmPassword] = useState("");
   const [validConfirmPass, setValidConfirmPass] = useState(false);
   const [confirmPassFocus, setConfirmPassFocus] = useState(false);
+  const [confirmPassVisible, setConfirmPassVisible] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -90,6 +93,14 @@ export const RegisterPage = (props) => {
     setSuccess(true);
   };
 
+  const toggle = () => {
+    setPasswordVisible(!passwordVisible)
+  }
+
+  const toggle2 = () => {
+    setConfirmPassVisible(!confirmPassVisible)
+  }
+
   return (
     <>
       {success ? (
@@ -151,20 +162,25 @@ export const RegisterPage = (props) => {
                   name="email"
                   className="justify-center border p-2 w-full max-w-md"
                 />
-                <input
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                  placeholder="Password"
-                  id="password"
-                  required
-                  aria-invalid={validPassword ? "false" : "true"}
-                  aria-describedby="pwdnote"
-                  onFocus={() => setPasswordFocus(true)}
-                  onBlur={() => setPasswordFocus(false)}
-                  name="password"
-                  className="justify-center border p-2  w-full max-w-md"
-                />
+                <div className="w-full relative">
+                  <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type={passwordVisible ? "text" : "password"}
+                    placeholder="Password"
+                    id="password"
+                    required
+                    aria-invalid={validPassword ? "false" : "true"}
+                    aria-describedby="pwdnote"
+                    onFocus={() => setPasswordFocus(true)}
+                    onBlur={() => setPasswordFocus(false)}
+                    name="password"
+                    className="justify-center border p-2  w-full max-w-md"
+                  />
+                  <div className="text-2xl absolute top-2 right-2">
+                    { passwordVisible ? <IoEyeOffOutline onClick={toggle}/> : <IoEyeOutline onClick={toggle}/>}
+                  </div>
+                </div>
                 <p
                   name="pwdnote"
                   className={
@@ -185,20 +201,25 @@ export const RegisterPage = (props) => {
                   <span aria-label="dollar sign">$</span>{" "}
                   <span aria-label="percent">%</span>
                 </p>
-                <input
-                  value={confirmPass}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  type="password"
-                  placeholder="Confirm Password"
-                  id="confirmpass"
-                  required
-                  aria-invalid={validConfirmPass ? "false" : "true"}
-                  aria-describedby="confirmnote"
-                  onFocus={() => setConfirmPassFocus(true)}
-                  onBlur={() => setConfirmPassFocus(false)}
-                  name="confirmpass"
-                  className="rounded-b-md border mb-5 p-2 w-full max-w-md"
-                />
+                <div className="w-full relative">
+                  <input
+                    value={confirmPass}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm Password"
+                    id="confirmpass"
+                    required
+                    aria-invalid={validConfirmPass ? "false" : "true"}
+                    aria-describedby="confirmnote"
+                    type={confirmPassVisible ? "text" : "password"}
+                    onFocus={() => setConfirmPassFocus(true)}
+                    onBlur={() => setConfirmPassFocus(false)}
+                    name="confirmpass"
+                    className="rounded-b-md border mb-5 p-2 w-full max-w-md"
+                  />
+                  <div className="text-2xl absolute top-2 right-2">
+                    { confirmPassVisible ? <IoEyeOffOutline onClick={toggle2}/> : <IoEyeOutline onClick={toggle2}/>}
+                  </div>
+                </div>
                 <p
                   id="confirmnote"
                   className={
@@ -212,7 +233,8 @@ export const RegisterPage = (props) => {
                 <Link to="/success">
                   <button
                     className="button w-full max-w-md bg-blue hover:bg-blue-dark  mb-24 px-6 py-2 text-white rounded-md font-inter font-regular"
-                    //disabled={!validName || !validPassword ? true : false}
+                    //disabled={email === "" || password === "" ? true : false}
+                    disabled={!validName || !validPassword ? true : false}
                     type="submit"
                   >
                     Create Account

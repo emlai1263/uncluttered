@@ -9,7 +9,7 @@ const Welcome = () => {
         <Navbar />
       </div>
       <div className="ml-36 h-64 mt-64 container">
-        <h1 className="text-blue font-semibold text-5xl font-outfit">
+        <h1 data-testid="welcome-title" className="text-blue font-semibold text-5xl font-outfit">
           Uncluttered
         </h1>
         <h2 className="pb-20 my-5 text-blue bg-white font-semibold text-3xl font-outfit">
