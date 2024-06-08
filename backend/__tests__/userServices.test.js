@@ -12,7 +12,7 @@ test('test getUsers by name  Emily', async () => {
 
   // expected = {
   //   _id: ObjectId("65dab7ff2d0a3ecfa31ccc21"),
-  //   username: "test",
+  //   username: "emlai1263",
   //   password: "password",
   //   email: "emlai1263@gmail.com",
   //   name: "Emily",
@@ -159,15 +159,15 @@ test('test findAndDelete notfound', async () => {
 })
 
 // tests the findUserByName(name) function.
-test('test findUserByName(name) Mr. Test', async () => {
+test('test findUserByName(name) Jane Doe', async () => {
   const result = await userServices.getUsers('Jane Doe')
 
   // expected = {
   //   _id: ObjectId("65dab7ff2d0a3ecfa31ccc21"),
-  //   username: "test",
-  //   password: "password",
-  //   email: "emlai1263@gmail.com",
-  //   name: "Emily",
+  //   username: "janedoe123",
+  //   password: "Happycar123!",
+  //   email: "janedoe@gmail.com",
+  //   name: "Jane Doe",
   // };
 
   expect(result[0].name).toBe('Jane Doe')
