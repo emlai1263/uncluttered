@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // Navbar Component - using Tailwind CSS
-// Main author: Angela Kim
 
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
@@ -99,7 +98,7 @@ export default function Navbar() {
                       href="#"
                       className={classNames(
                         active ? "bg-gray-100" : "",
-                        "block px-4 py-2 text-sm text-gray-700",
+                        "block px-4 py-2 text-sm text-gray-700"
                       )}
                     >
                       Settings
@@ -112,7 +111,7 @@ export default function Navbar() {
                       href="#"
                       className={classNames(
                         active ? "bg-gray-100" : "",
-                        "block px-4 py-2 text-sm text-gray-700",
+                        "block px-4 py-2 text-sm text-gray-700"
                       )}
                     >
                       Sign out

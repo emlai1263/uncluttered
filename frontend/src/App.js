@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import UserContext from "./UserContext";
 // import "./App.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RegisterPage } from "./RegisterPage";
@@ -17,7 +18,7 @@ function App() {
     console.log("in fetchall");
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/65e6328a68059ab797224e0f",
+        "http://localhost:8000/tasks/65e6328a68059ab797224e0f"
       );
       return response;
     } catch (error) {
@@ -26,30 +27,29 @@ function App() {
       return false;
     }
   }
-  // useEffect(() => {
-  //   console.log("in useEffect");
-  //   fetchAll().then((result) => {
-  //     if (result) {
-  //       setTasks(result);
-  //       console.log(JSON.stringify(tasks.data.users));
-  //     } else {
-  //       console.log("ERROR: " + JSON.stringify(result));
-  //     }
-  //   });
-  // }, []);
+  const [user, setUser] = useState(null);
+
+  const login = (userData) => {
+    setUser(userData);
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
 
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Welcome />} />
-        <Route exact path="/dashboard" element={<Home />} />
-        <Route exact path="/login" element={<LoginPage />} />
-        <Route exact path="/register" element={<RegisterPage />} />
-        <Route exact path="/success" element={<LoginSuccess />} />
-        <Route exact path="/calendar" element={<Calendar />} />
-      </Routes>
-    </Router>
+    <UserContext.Provider value={{ user, login, logout }}>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Welcome />} />
+          <Route exact path="/dashboard" element={<Home />} />
+          <Route exact path="/login" element={<LoginPage />} />
+          <Route exact path="/register" element={<RegisterPage />} />
+          <Route exact path="/success" element={<LoginSuccess />} />
+          <Route exact path="/calendar" element={<Calendar />} />
+        </Routes>
+      </Router>
+    </UserContext.Provider>
   );
 }
-
 export default App;

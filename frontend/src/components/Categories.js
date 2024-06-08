@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Category from "./Category";
 
 const Categories = ({ isOpen, onClose }) => {
   const initialCategories = [
@@ -11,9 +10,9 @@ const Categories = ({ isOpen, onClose }) => {
   const [categories, setCategories] = useState(initialCategories);
   const [newCategory, setNewCategory] = useState("");
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+//   useEffect(() => {
+//     fetchCategories();
+//   }, []);
 
   const fetchCategories = async () => {
     try {
