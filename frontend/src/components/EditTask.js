@@ -66,14 +66,12 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
       ...prevTask,
       [name]: value,
     }));
-    updateDashboard();
   };
   const handleDateChange = (date) => {
     setTask((prevTask) => ({
       ...prevTask,
       dueDate: date,
     }));
-    updateDashboard();
   };
   return (
     <div
