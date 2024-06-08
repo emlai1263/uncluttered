@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "./axios"; // Ensure this is configured correctly
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
-import axios from "./axios";
 
 const NAME_REGEX = /^[A-z][A-z0-9- ]{3,23}$/;
 const EMAIL_REGEX = /^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,}$/;
@@ -16,23 +16,28 @@ export const RegisterPage = () => {
   const [name, setName] = useState("");
   const [validName, setValidName] = useState(false);
   const [nameFocus, setNameFocus] = useState(false);
+  const [nameBlurred, setNameBlurred] = useState(false);
 
   const [username, setUsername] = useState("");
   const [validUsername, setValidUsername] = useState(false);
   const [usernameFocus, setUsernameFocus] = useState(false);
+  const [usernameBlurred, setUsernameBlurred] = useState(false);
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
+  const [emailBlurred, setEmailBlurred] = useState(false);
 
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
+  const [passwordBlurred, setPasswordBlurred] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [confirmPass, setConfirmPassword] = useState("");
   const [validConfirmPass, setValidConfirmPass] = useState(false);
   const [confirmPassFocus, setConfirmPassFocus] = useState(false);
+  const [confirmPassBlurred, setConfirmPassBlurred] = useState(false);
   const [confirmPassVisible, setConfirmPassVisible] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
@@ -114,13 +119,12 @@ export const RegisterPage = () => {
   };
 
   const toggle = () => {
-    setPasswordVisible(!passwordVisible)
-  }
+    setPasswordVisible(!passwordVisible);
+  };
 
   const toggle2 = () => {
-    setConfirmPassVisible(!confirmPassVisible)
-  }
-
+    setConfirmPassVisible(!confirmPassVisible);
+  };
   return (
     <>
       {success ? (
@@ -157,6 +161,7 @@ export const RegisterPage = () => {
                   onFocus={() => setNameFocus(true)}
                   onBlur={() => {
                     setNameFocus(false);
+                    setNameBlurred(true);
                   }}
                   name="name"
                   className="justify-center rounded-t-md border mt-5 p-2 w-full max-w-md"
@@ -164,7 +169,7 @@ export const RegisterPage = () => {
                 <p
                   id="uidnote"
                   className={
-                    !validName && nameFocus
+                    !validName && nameBlurred
                       ? "instructions mb-4"
                       : "offscreen"
                   }
@@ -188,6 +193,7 @@ export const RegisterPage = () => {
                   onFocus={() => setUsernameFocus(true)}
                   onBlur={() => {
                     setUsernameFocus(false);
+                    setUsernameBlurred(true);
                   }}
                   name="username"
                   className="justify-center border p-2 w-full max-w-md"
@@ -195,7 +201,7 @@ export const RegisterPage = () => {
                 <p
                   id="unamenote"
                   className={
-                    !validUsername && usernameFocus
+                    !validUsername && usernameBlurred
                       ? "instructions mb-4"
                       : "offscreen"
                   }
@@ -217,6 +223,7 @@ export const RegisterPage = () => {
                   onFocus={() => setEmailFocus(true)}
                   onBlur={() => {
                     setEmailFocus(false);
+                    setEmailBlurred(true);
                   }}
                   name="email"
                   className="justify-center border p-2 w-full max-w-md"
@@ -224,7 +231,7 @@ export const RegisterPage = () => {
                 <p
                   id="emailnote"
                   className={
-                    !validEmail && emailFocus
+                    !validEmail && emailBlurred
                       ? "instructions mb-4"
                       : "offscreen"
                   }
@@ -242,18 +249,25 @@ export const RegisterPage = () => {
                     aria-invalid={validPassword ? "false" : "true"}
                     aria-describedby="pwdnote"
                     onFocus={() => setPasswordFocus(true)}
-                    onBlur={() => setPasswordFocus(false)}
+                    onBlur={() => {
+                      setPasswordFocus(false);
+                      setPasswordBlurred(true);
+                    }}
                     name="password"
                     className="justify-center border p-2  w-full max-w-md"
                   />
                   <div className="text-2xl absolute top-2 right-2">
-                    { passwordVisible ? <IoEyeOffOutline onClick={toggle}/> : <IoEyeOutline onClick={toggle}/>}
+                    {passwordVisible ? 
+                      <IoEyeOffOutline onClick={toggle} />
+                     :
+                      <IoEyeOutline onClick={toggle} />
+                    }
                   </div>
                 </div>
                 <p
                   id="pwdnote"
                   className={
-                    !validPassword && passwordFocus
+                    !validPassword && !passwordFocus
                       ? "instructions mb-4"
                       : "offscreen"
                   }
@@ -274,25 +288,32 @@ export const RegisterPage = () => {
                   <input
                     value={confirmPass}
                     onChange={(e) => setConfirmPassword(e.target.value)}
+                    type={confirmPassVisible ? "text" : "password"}
                     placeholder="Confirm Password"
                     id="confirmpass"
                     required
                     aria-invalid={validConfirmPass ? "false" : "true"}
                     aria-describedby="confirmnote"
-                    type={confirmPassVisible ? "text" : "password"}
                     onFocus={() => setConfirmPassFocus(true)}
-                    onBlur={() => setConfirmPassFocus(false)}
+                    onBlur={() => {
+                      setConfirmPassFocus(false);
+                      setConfirmPassBlurred(true);
+                    }}
                     name="confirmpass"
                     className="rounded-b-md border mb-5 p-2 w-full max-w-md"
                   />
                   <div className="text-2xl absolute top-2 right-2">
-                    { confirmPassVisible ? <IoEyeOffOutline onClick={toggle2}/> : <IoEyeOutline onClick={toggle2}/>}
+                    {confirmPassVisible ? 
+                      <IoEyeOffOutline onClick={toggle2} />
+                    : 
+                      <IoEyeOutline onClick={toggle2} />
+                    }
                   </div>
                 </div>
                 <p
                   id="confirmnote"
                   className={
-                    !validConfirmPass && !confirmPassFocus
+                    !validConfirmPass && confirmPassBlurred
                       ? "instructions mb-4"
                       : "offscreen"
                   }

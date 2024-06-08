@@ -27,28 +27,12 @@ function App() {
       return false;
     }
   }
-  // useEffect(() => {
-  //   console.log("in useEffect");
-  //   fetchAll().then((result) => {
-  //     if (result) {
-  //       setTasks(result);
-  //       console.log(JSON.stringify(tasks.data.users));
-  //     } else {
-  //       console.log("ERROR: " + JSON.stringify(result));
-  //     }
-  //   });
-  // }, []);
-
-  /* Main Author: Angela Kim
-  State and Authentication Functions - manages user authentication state.
-  Defines a state variable 'user' initialized to null.
-  The 'login' function sets the 'user' state to the provided 'userData'.
-  The 'logout' function resets the 'user' state to null.
-*/
   const [user, setUser] = useState(null);
+
   const login = (userData) => {
     setUser(userData);
   };
+
   const logout = () => {
     setUser(null);
   };
@@ -68,5 +52,4 @@ function App() {
     </UserContext.Provider>
   );
 }
-
 export default App;
