@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import axios from "./axios";
 
 export const LoginPage = (props) => {
@@ -11,6 +12,7 @@ export const LoginPage = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -22,13 +24,6 @@ export const LoginPage = (props) => {
   useEffect(() => {
     setErrMsg("");
   }, [email, password]);
-
-  /* Main Author: Angela Kim
-  Handles form submission for user login.
-  Attempts to log in using provided email and password via an API call.
-  On success, updates user context, sets success state, clears form fields, and navigates to dashboard.
-  On failure, sets error message.
-*/
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,6 +44,10 @@ export const LoginPage = (props) => {
     } catch (err) {
       setErrMsg("Login Failed");
     }
+  };
+
+  const toggle = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -80,7 +79,26 @@ export const LoginPage = (props) => {
                   name="email"
                   className="rounded-t-md border mt-5 p-2 w-full max-w-md"
                 />
-                <input
+                <div className="w-full relative">
+                  <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type={passwordVisible ? "text" : "password"}
+                    placeholder="Password"
+                    id="password"
+                    required
+                    name="password"
+                    className="rounded-b-md border p-2 mb-5 w-full max-w-md"
+                  />
+                  <div className="text-2xl absolute top-2 right-2">
+                    {passwordVisible ? (
+                      <IoEyeOffOutline onClick={toggle} />
+                    ) : (
+                      <IoEyeOutline onClick={toggle} />
+                    )}
+                  </div>
+                </div>
+                {/* <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
@@ -89,7 +107,7 @@ export const LoginPage = (props) => {
                   required
                   name="password"
                   className="rounded-b-md border p-2 mb-5 w-full max-w-md"
-                />
+                /> */}
                 {/*<p className="justify-right text-blue mb-5">Forgot your password?</p>*/}
                 {/* <Link to="/dashboard"> */}
                 <button

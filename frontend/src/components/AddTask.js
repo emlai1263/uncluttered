@@ -15,6 +15,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
   const initialCategories = [
     { id: 1, name: "School" },
     { id: 2, name: "Work" },
+    { id: 3, name: "Personal" },
   ];
 
   const [categories, setCategories] = useState(initialCategories);
@@ -35,8 +36,8 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/categories");
-        setCategories(res.data);
+        //const res = await axios.get("http://localhost:8000/categories");
+        //setCategories(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -63,7 +64,6 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
   const handleSubmit = async () => {
     try {
       // Hardcoded user ID for testing add task funtion
-      // const userId = "UserId1234";
       const userId = "66105e818b0d26a8a1670626";
       // Include the userId with rest of the task data
       const taskData = {

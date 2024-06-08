@@ -45,21 +45,22 @@ const Dashboard = () => {
   //   }
   // };
   const handleDeleteTask = async (taskId) => {
-    try {
-      // Change from DELETE to PATCH and update the endpoint
-      const response = await axios.patch(
-        `http://localhost:8000/tasks/${taskId}/mark-deleted`
-      );
-      if (response.status === 200) {
-        const updatedTasks = tasks.filter((task) => task.id !== taskId);
-        setTasks(updatedTasks);
-      } else {
-        console.error("Failed to mark task as deleted");
-      }
-    } catch (error) {
-      console.error("Error deleting task:", error);
+  try {
+    // Change from DELETE to PATCH and update the endpoint
+    const response = await axios.patch(
+      `http://localhost:8000/tasks/${taskId}/mark-deleted`
+    );
+    if (response.status === 200) {
+      // Update the tasks state to exclude the deleted task
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+    } else {
+      console.error("Failed to mark task as deleted");
     }
-  };
+  } catch (error) {
+    console.error("Error deleting task:", error);
+  }
+};
+
   const [deletedTasks, setDeletedTasks] = useState([]);
   const fetchDeletedTasks = async () => {
     try {

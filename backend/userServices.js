@@ -6,6 +6,17 @@ dotenv.config();
 
 let dbConnection;
 
+async function findUserByEmail(email) {
+  try {
+    const userModel = getDbConnection().model("User", userSchema);
+    return await userModel.find({ email });
+  }
+  catch (error) {
+    console.log("Failed to find user by email.");
+    return false;
+  }
+};
+
 function getDbConnection() {
   if (!dbConnection) {
     dbConnection = mongoose.createConnection(process.env.MONGODB_URI, {
@@ -173,6 +184,7 @@ module.exports = {
   findUserById,
   findUserByEmail,
   findAndDelete,
+  findUserByEmail,
   editUser,
   findUserByUsername,
   addCategory,

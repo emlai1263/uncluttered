@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
 const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
   const [task, setTask] = useState({
     title: "",
@@ -11,52 +10,47 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
     timeEst: "",
     body: "",
   });
-
   const initialCategories = [
-    { id: 1, name: "School" },
-    { id: 2, name: "Work" },
-  ];
-
+      { id: 1, name: "School" },
+      { id: 2, name: "Work" },
+      { id: 3, name: "Personal" },
+    ];
   const [categories, setCategories] = useState(initialCategories);
-
   useEffect(() => {
-    const fetchTaskById = async (taskId) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8000/task/${taskId}`
-        );
-        const taskData = response.data.result;
-        setTask(taskData);
-      } catch (error) {
-        console.error("Error fetching task by ID:", error);
-      }
-    };
-
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/categories");
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    // const fetchCategories = async () => {
-    //     try {
-    //         const response = await axios.get(`http://localhost:8000/users/66105e818b0d26a8a1670626/categories`);
-    //         if (response.data) {
-    //             setCategories(response.data.categories); // assuming the API returns an array
-    //         }
-    //     } catch (error) {
-    //         console.error("Error fetching categories:", error);
-    //         setCategories([]); // Fallback to empty array on error
-    //     }
-    // };
-
-    fetchTaskById(taskId);
-    // fetchCategories();
+      const fetchTaskById = async (taskId) => {
+        try {
+          const response = await axios.get(`http://localhost:8000/task/${taskId}`);
+          const taskData = response.data.result;
+          setTask(taskData);
+        } catch (error) {
+          console.error("Error fetching task by ID:", error);
+        }
+      };
+      // const fetchCategories = async () => {
+      //   try {
+      //     const response = await axios.get("http://localhost:8000/categories");
+      //     setCategories(response.data);
+      //   } catch (error) {
+      //     console.error("Error fetching categories:", error);
+      //   }
+      // };
+        // I'll keep this section first because I'm creating a new schema for categories and will update the API endpoints after that.
+        // const fetchCategories = async () => {
+        //     try {
+        //         const response = await axios.get(`http://localhost:8000/users/66105e818b0d26a8a1670626/categories`);
+        //         if (response.data) {
+        //             setCategories(response.data.categories); // assuming the API returns an array
+        //         }
+        //     } catch (error) {
+        //         console.error("Error fetching categories:", error);
+        //         setCategories([]); // Fallback to empty array on error
+        //     }
+        // };
+        if (isOpen && taskId) {
+          fetchTaskById(taskId);
+        }
+      //fetchCategories();
   }, [taskId]);
-
   const handleSave = async () => {
     try {
       await axios.patch(`http://localhost:8000/tasks/${taskId}`, task);
@@ -66,7 +60,6 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
       console.error("Error saving task:", error);
     }
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTask((prevTask) => ({
@@ -74,14 +67,12 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
       [name]: value,
     }));
   };
-
   const handleDateChange = (date) => {
     setTask((prevTask) => ({
       ...prevTask,
       dueDate: date,
     }));
   };
-
   return (
     <div
       className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center ${
@@ -125,7 +116,6 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
             className="p-2 border border-gray-300 rounded-md w-full"
           />
         </div>
-
         <div className="mb-4">
           <label className="text-sm block">Category: </label>
           <div className="flex">
@@ -207,5 +197,4 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
     </div>
   );
 };
-
 export default EditTask;
