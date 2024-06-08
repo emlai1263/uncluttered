@@ -78,11 +78,7 @@ export default function Calendar() {
     try {
       const userId = user[0]._id; // Get the user ID from user[0]
       const response = await axios.get(
-<<<<<<< HEAD
-        "http://localhost:8000/tasks/66105e818b0d26a8a1670626",
-=======
         `http://localhost:8000/tasks/${userId}` // Use template literal to insert the user ID
->>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
       );
       return response.data.users;
     } catch (error) {

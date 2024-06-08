@@ -10,15 +10,9 @@ const Categories = ({ isOpen, onClose }) => {
   const [categories, setCategories] = useState(initialCategories);
   const [newCategory, setNewCategory] = useState("");
 
-<<<<<<< HEAD
-  //   useEffect(() => {
-  //     fetchCategories();
-  //   }, []);
-=======
 //   useEffect(() => {
 //     fetchCategories();
 //   }, []);
->>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
 
   const fetchCategories = async () => {
     try {

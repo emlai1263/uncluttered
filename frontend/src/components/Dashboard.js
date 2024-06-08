@@ -1,11 +1,8 @@
 import React from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
-<<<<<<< HEAD
-=======
 /* Main Author: Angela Kim
 Import UserContext */
->>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
 import UserContext from "../UserContext";
 import Card from "./Card";
 import AddTask from "./AddTask";
@@ -24,11 +21,7 @@ const Dashboard = () => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
-<<<<<<< HEAD
-    const { user } = useContext(UserContext);
-=======
   const { user } = useContext(UserContext);
->>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
   // holds the TaskId for the card being dragged
   const [activeCard, setActiveCard] = useState(null);
   // each boolean in the array reps the highlight status of its respective column
@@ -52,25 +45,22 @@ const Dashboard = () => {
   //   }
   // };
   const handleDeleteTask = async (taskId) => {
-    try {
-      // Change from DELETE to PATCH and update the endpoint
-      const response = await axios.patch(
-        `http://localhost:8000/tasks/${taskId}/mark-deleted`
-      );
-      if (response.status === 200) {
-        const updatedTasks = tasks.filter((task) => task.id !== taskId);
-        setTasks(updatedTasks);
-      } else {
-        console.error("Failed to mark task as deleted");
-      }
-    } catch (error) {
-      console.error("Error deleting task:", error);
+  try {
+    // Change from DELETE to PATCH and update the endpoint
+    const response = await axios.patch(
+      `http://localhost:8000/tasks/${taskId}/mark-deleted`
+    );
+    if (response.status === 200) {
+      // Update the tasks state to exclude the deleted task
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+    } else {
+      console.error("Failed to mark task as deleted");
     }
-  };
-<<<<<<< HEAD
+  } catch (error) {
+    console.error("Error deleting task:", error);
+  }
+};
 
-=======
->>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
   const [deletedTasks, setDeletedTasks] = useState([]);
   const fetchDeletedTasks = async () => {
     try {
@@ -99,13 +89,7 @@ const Dashboard = () => {
       setTasks([]); // Set to empty array on error
     }
   };
-<<<<<<< HEAD
-
   const [isTrashBinOpen, setIsTrashBinOpen] = useState(false);
-
-=======
-  const [isTrashBinOpen, setIsTrashBinOpen] = useState(false);
->>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
   const handleEditTask = (taskId) => {
     setEditTaskId(taskId);
     setIsEditTaskOpen(true);
@@ -133,7 +117,6 @@ const Dashboard = () => {
       return false;
     }
   }
-  console.log(user[0]);
 
   // update task status
   const updateTaskStatus = async (taskId, state) => {
@@ -149,11 +132,8 @@ const Dashboard = () => {
   return (
     <div className="container ml-64 mt-36 h-screen w-screen">
       <h1 className="mb-6 ml-6 text-4xl text-blue font-semibold font-outfit">
-<<<<<<< HEAD
-=======
         {/* Main Author: Angela Kim
         Fetch user's name from context, display with greeting */}
->>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
         Good morning, {user[0].name}!
       </h1>
       <div className="col-container flex flex-wrap">
@@ -161,11 +141,7 @@ const Dashboard = () => {
           <div
             key={index}
             className="bg-white rounded-[12px] min-h-screen pb-20 mb-20 w-1/4 h-5/6 mx-5"
-<<<<<<< HEAD
-                        // highlight border when a card is dragged over column
-=======
             // highlight border when a card is dragged over column
->>>>>>> 39fd6c4e60e9cf7860655055d81a598d20d967ab
             onDragOver={(event) => {
               event.preventDefault();
               const newShowDrop = [...showDrop];
