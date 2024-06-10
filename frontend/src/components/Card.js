@@ -32,7 +32,7 @@ function Card({
   async function fetchAll() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/66105e818b0d26a8a1670626"
+        "https://uncluttered.azurewebsites.net/tasks/66105e818b0d26a8a1670626"
       );
       return response;
     } catch (error) {

@@ -17,7 +17,7 @@ const Categories = ({ isOpen, onClose }) => {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/users/66105e818b0d26a8a1670626/categories"
+        "https://uncluttered.azurewebsites.net/users/66105e818b0d26a8a1670626/categories"
       );
       setCategories(response.data);
     } catch (error) {
@@ -28,7 +28,7 @@ const Categories = ({ isOpen, onClose }) => {
   const handleAddCategory = async () => {
     if (!newCategory) return;
     try {
-      await axios.post("http://localhost:8000/categories", {
+      await axios.post("https://uncluttered.azurewebsites.net/categories", {
         name: newCategory,
       });
       setCategories([...categories, { name: newCategory }]);
@@ -40,7 +40,7 @@ const Categories = ({ isOpen, onClose }) => {
 
   const handleDeleteCategory = async (categoryName) => {
     try {
-      await axios.delete(`http://localhost:8000/categories/${categoryName}`);
+      await axios.delete(`https://uncluttered.azurewebsites.net/categories/${categoryName}`);
       setCategories(
         categories.filter((category) => category.name !== categoryName)
       );

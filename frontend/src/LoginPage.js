@@ -29,7 +29,7 @@ export const LoginPage = (props) => {
     e.preventDefault();
     try {
       // Assume login API returns user info and token
-      const response = await axios.post("http://localhost:8000/login", {
+      const response = await axios.post("https://uncluttered.azurewebsites.net/login", {
         email,
         password,
       });

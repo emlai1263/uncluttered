@@ -11,8 +11,8 @@ import axios from "axios";
  */
 
 describe("E2E Testing: User Registration and API", () => {
-  const baseUrl = "http://localhost:8000";
-  const frontendUrl = "http://localhost:3000";
+  const baseUrl = "https://uncluttered.azurewebsites.net/";
+  const frontendUrl = "https://uncluttered.azurewebsites.net/";
 
   // Section 1: UI Test - Register a New User
   describe("UI Test: Register new user", () => {
@@ -81,7 +81,7 @@ describe("E2E Testing: User Registration and API", () => {
 
   // Section 3: API Test - Add a New User (POST)
   describe("API Test: Add a new user with existence check", () => {
-    const baseUrl = "http://localhost:8000";
+    const baseUrl = "https://uncluttered.azurewebsites.net/";
     const userEmail = "testuser2@example.com";
 
     it("GIVEN I have user details", async () => {

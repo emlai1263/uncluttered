@@ -11,7 +11,7 @@ const app = express()
 const port = 8000
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // your frontend origin
+  origin: 'https://uncluttered.azurewebsites.net/', // your frontend origin
   credentials: true, // allow credentials
   optionsSuccessStatus: 200,
 };

@@ -19,7 +19,7 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
   useEffect(() => {
       const fetchTaskById = async (taskId) => {
         try {
-          const response = await axios.get(`http://localhost:8000/task/${taskId}`);
+          const response = await axios.get(`https://uncluttered.azurewebsites.net/task/${taskId}`);
           const taskData = response.data.result;
           setTask(taskData);
         } catch (error) {
@@ -53,7 +53,7 @@ const EditTask = ({ isOpen, onClose, taskId, updateDashboard }) => {
   }, [taskId]);
   const handleSave = async () => {
     try {
-      await axios.patch(`http://localhost:8000/tasks/${taskId}`, task);
+      await axios.patch(`https://uncluttered.azurewebsites.net/tasks/${taskId}`, task);
       onClose();
       updateDashboard();
     } catch (error) {

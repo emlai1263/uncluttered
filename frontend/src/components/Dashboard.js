@@ -48,7 +48,7 @@ const Dashboard = () => {
   try {
     // Change from DELETE to PATCH and update the endpoint
     const response = await axios.patch(
-      `http://localhost:8000/tasks/${taskId}/mark-deleted`
+      `https://uncluttered.azurewebsites.net/tasks/${taskId}/mark-deleted`
     );
     if (response.status === 200) {
       // Update the tasks state to exclude the deleted task
@@ -64,7 +64,7 @@ const Dashboard = () => {
   const [deletedTasks, setDeletedTasks] = useState([]);
   const fetchDeletedTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/tasks/deleted");
+      const response = await axios.get("https://uncluttered.azurewebsites.net/tasks/deleted");
       if (response.data) {
         setDeletedTasks(response.data);
       }
@@ -78,7 +78,7 @@ const Dashboard = () => {
 
   const updateDashboard = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/tasks");
+      const response = await axios.get("https://uncluttered.azurewebsites.net/tasks");
       if (response.data && Array.isArray(response.data.tasks)) {
         setTasks(response.data.tasks); // Ensure that tasks is an array
       } else {
@@ -108,7 +108,7 @@ const Dashboard = () => {
     try {
       const userId = user[0]._id; // Get the user ID from user[0]
       const response = await axios.get(
-        `http://localhost:8000/tasks/${userId}` // Use template literal to insert the user ID
+        `https://uncluttered.azurewebsites.net/tasks/${userId}` // Use template literal to insert the user ID
       );
       return response;
     } catch (error) {
@@ -121,7 +121,7 @@ const Dashboard = () => {
   // update task status
   const updateTaskStatus = async (taskId, state) => {
     try {
-      await axios.patch(`http://localhost:8000/tasks/${taskId}`, {
+      await axios.patch(`https://uncluttered.azurewebsites.net/tasks/${taskId}`, {
         status: state,
       });
     } catch (error) {

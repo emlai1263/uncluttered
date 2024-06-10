@@ -30,7 +30,7 @@ const TrashBin = ({ isOpen, onClose }) => {
     const userId = "66105e818b0d26a8a1670626"; // Hardcoded user ID
     try {
       const response = await axios.get(
-        `http://localhost:8000/users/${userId}/tasks/deleted`
+        `https://uncluttered.azurewebsites.net/users/${userId}/tasks/deleted`
       );
       if (Array.isArray(response.data)) {
         setDeletedTasks(response.data);
@@ -47,7 +47,7 @@ const TrashBin = ({ isOpen, onClose }) => {
     try {
       const userId = "66105e818b0d26a8a1670626"; // temp hardcoded userID
       const response = await axios.delete(
-        `http://localhost:8000/users/${userId}/tasks/delete-all`
+        `https://uncluttered.azurewebsites.net/users/${userId}/tasks/delete-all`
       );
       if (response.status === 204) {
         setDeletedTasks([]); // Clear the local state to reflect the empty trash
@@ -70,7 +70,7 @@ const TrashBin = ({ isOpen, onClose }) => {
   const handlePermanentlyDeleteTask = async (taskId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8000/tasks/${taskId}/permanent-delete`
+        `https://uncluttered.azurewebsites.net/tasks/${taskId}/permanent-delete`
       );
       if (response.status === 204) {
         const updatedDeletedTasks = deletedTasks.filter(
@@ -90,7 +90,7 @@ const TrashBin = ({ isOpen, onClose }) => {
   const handleRecoverTask = async (taskId) => {
     try {
       const response = await axios.patch(
-        `http://localhost:8000/tasks/${taskId}/recover`
+        `https://uncluttered.azurewebsites.net/tasks/${taskId}/recover`
       );
       if (response.status === 200) {
         const updatedDeletedTasks = deletedTasks.filter(

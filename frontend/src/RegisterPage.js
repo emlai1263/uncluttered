@@ -82,7 +82,7 @@ export const RegisterPage = () => {
     }
     try {
       const userExistsResponse = await axios.get(
-        `http://localhost:8000/users?email=${email}`
+        `https://uncluttered.azurewebsites.net/users?email=${email}`
       );
       if (userExistsResponse.data.length > 0) {
         setErrMsg("Account with this email already exists");
@@ -90,7 +90,7 @@ export const RegisterPage = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:8000/users",
+        "https://uncluttered.azurewebsites.net/users",
         JSON.stringify({ name, username, email, password }),
         {
           headers: { "Content-Type": "application/json" },

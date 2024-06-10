@@ -72,7 +72,7 @@ const AddTask = ({ isOpen, onClose, updateDashboard }) => {
       };
 
       // Make a POST request to submit the task data
-      await axios.post("http://localhost:8000/tasks", taskData);
+      await axios.post("https://uncluttered.azurewebsites.net/tasks", taskData);
       console.log("Task submitted successfully:", taskData);
       onClose(); // Close the modal after submission
     } catch (error) {

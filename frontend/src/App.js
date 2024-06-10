@@ -18,7 +18,7 @@ function App() {
     console.log("in fetchall");
     try {
       const response = await axios.get(
-        "http://localhost:8000/tasks/65e6328a68059ab797224e0f"
+        "https://uncluttered.azurewebsites.net/tasks/65e6328a68059ab797224e0f"
       );
       return response;
     } catch (error) {
