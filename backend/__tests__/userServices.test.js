@@ -143,7 +143,8 @@ test('test addUser null object', async () => {
 test('test findAndDelete(id)  testuser', async () => {
   const result = await userServices.getUsers('Test User')
   console.log('deleteUser result:' + result)
-  const del = await userServices.findAndDelete(result[0]._id)
+  const del = await userServices.findAndDelete(result[0]) //.id
+  console.log("to be deleted: " + del);
 
   // expected = {[]};
   const afterResult = await userServices.getUsers('Test User')
