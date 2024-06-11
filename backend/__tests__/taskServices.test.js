@@ -10,26 +10,26 @@ test("test getTasks", async () => {
   // Add your other assertions here
 });
 
-// test("test deleteTask - task not found", async () => {
-//     const taskId = "invalid_task_id"; // An invalid task ID that does not exist
-//     const result = await taskServices.deleteTask(taskId);
-//     expect(result).toBeUndefined(); // Expect the function to return undefined
-// });
+test("test deleteTask - task not found", async () => {
+    const taskId = "invalid_task_id"; // An invalid task ID that does not exist
+    const result = await taskServices.deleteTask(taskId);
+    expect(result).toBeUndefined(); // Expect the function to return undefined
+});
   
-// test("test addTask - invalid data", async () => {
-//     const task = {
-//       // Invalid task data, missing required fields, violating schema constraints, etc.
-//       // Example: userId is missing
-//       title: "unittest addtask_1",
-//       dueDate: new Date(),
-//       category: "Test",
-//       timeEst: 60,
-//       body: "Testing!"
-//     };
+test("test addTask - invalid data", async () => {
+    const task = {
+      // Invalid task data, missing required fields, violating schema constraints, etc.
+      // Example: userId is missing
+      title: "unittest addtask_1",
+      dueDate: new Date(),
+      category: "Test",
+      timeEst: 60,
+      body: "Testing!"
+    };
   
-//     const result = await taskServices.addTask(task);
-//     expect(result).toBe(false); // Expect the function to return false
-// });
+    const result = await taskServices.addTask(task);
+    expect(result).toBe(false); // Expect the function to return false
+});
 
 
 
